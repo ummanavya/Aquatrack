@@ -1,0 +1,552 @@
+/* ===============================
+   GOOGLE FONT
+================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+    background:#F8FAFC;
+}
+
+/* ===============================
+   PAGE
+================================= */
+
+.welcomePage{
+
+    width:100%;
+    min-height:100vh;
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+}
+
+/* ===============================
+   HERO
+================================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:70px;
+
+    padding:150px 8% 90px;
+
+}
+
+.heroLeft{
+
+    flex:1;
+
+    animation:fadeUp 1s ease;
+
+}
+
+.heroRight{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ===============================
+   MATERIAL BUTTON OVERRIDE
+================================= */
+
+.hero .MuiButton-contained{
+
+    text-transform:none !important;
+
+    font-weight:700 !important;
+
+    font-size:16px !important;
+
+}
+
+.hero .MuiButton-outlined{
+
+    text-transform:none !important;
+
+    font-weight:700 !important;
+
+    font-size:16px !important;
+
+}
+
+/* ===============================
+   DASHBOARD CARD
+================================= */
+
+.heroRight .MuiCard-root{
+
+    animation:floatCard 4s ease-in-out infinite;
+
+    border-radius:28px !important;
+
+    transition:.4s;
+
+}
+
+.heroRight .MuiCard-root:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+
+}
+
+/* ===============================
+   STATS
+================================= */
+
+.statsSection{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:30px;
+
+    padding:70px 8%;
+
+    background:white;
+
+}
+
+.statCard{
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:22px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.statCard:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 50px rgba(13,94,215,.15);
+
+}
+
+.statCard h2{
+
+    color:#0B5ED7;
+
+    font-size:46px;
+
+    margin-bottom:10px;
+
+    font-weight:800;
+
+}
+
+.statCard p{
+
+    color:#64748B;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+/* ===============================
+   ANIMATION
+================================= */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(60px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes floatCard{
+
+    0%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-18px);
+
+    }
+
+    100%{
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ==================================
+   FEATURES SECTION
+================================== */
+
+.features{
+    padding:100px 8%;
+    background:#F8FAFC;
+}
+
+.features h2{
+    text-align:center;
+    font-size:42px;
+    color:#0B5ED7;
+    font-weight:800;
+    margin-bottom:60px;
+}
+
+.cardContainer{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.featureCard{
+
+    background:white;
+
+    padding:35px 30px;
+
+    border-radius:24px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+    cursor:pointer;
+
+}
+
+.featureCard:hover{
+
+    transform:translateY(-12px);
+
+    box-shadow:0 25px 60px rgba(11,94,215,.18);
+
+}
+
+.featureCard h3{
+
+    margin-top:20px;
+
+    margin-bottom:15px;
+
+    color:#0B5ED7;
+
+    font-size:24px;
+
+    font-weight:700;
+
+}
+
+.featureCard p{
+
+    color:#64748B;
+
+    line-height:1.8;
+
+    font-size:16px;
+
+}
+
+/* ==================================
+   ABOUT
+================================== */
+
+.about{
+
+    padding:100px 12%;
+
+    background:white;
+
+    text-align:center;
+
+}
+
+.about h2{
+
+    color:#0B5ED7;
+
+    font-size:42px;
+
+    font-weight:800;
+
+    margin-bottom:25px;
+
+}
+
+.about p{
+
+    max-width:900px;
+
+    margin:auto;
+
+    font-size:18px;
+
+    color:#64748B;
+
+    line-height:1.9;
+
+}
+
+/* ==================================
+   CONTACT
+================================== */
+
+.contact{
+
+    padding:100px 12%;
+
+    text-align:center;
+
+    background:linear-gradient(135deg,#0B5ED7,#14B8A6);
+
+    color:white;
+
+}
+
+.contact h2{
+
+    font-size:42px;
+
+    margin-bottom:30px;
+
+    font-weight:800;
+
+}
+
+.contact p{
+
+    font-size:18px;
+
+    margin:15px 0;
+
+}
+
+/* ==================================
+   FOOTER
+================================== */
+
+footer{
+
+    background:#062B63;
+
+    color:white;
+
+    text-align:center;
+
+    padding:25px;
+
+    font-size:16px;
+
+    letter-spacing:.5px;
+
+}
+
+/* ==================================
+   SCROLLBAR
+================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#EEF6FC;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#0B5ED7;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#0848A6;
+
+}
+
+/* ==================================
+   RESPONSIVE
+================================== */
+
+@media (max-width:1100px){
+
+.hero{
+
+flex-direction:column;
+
+text-align:center;
+
+padding-top:150px;
+
+}
+
+.heroLeft{
+
+width:100%;
+
+}
+
+.heroRight{
+
+width:100%;
+
+margin-top:50px;
+
+}
+
+.heroRight .MuiCard-root{
+
+width:100% !important;
+
+max-width:430px;
+
+}
+
+}
+
+@media (max-width:768px){
+
+.hero{
+
+padding:140px 25px 80px;
+
+}
+
+.features{
+
+padding:80px 25px;
+
+}
+
+.about{
+
+padding:80px 25px;
+
+}
+
+.contact{
+
+padding:80px 25px;
+
+}
+
+.statsSection{
+
+padding:60px 25px;
+
+}
+
+.features h2,
+.about h2,
+.contact h2{
+
+font-size:34px;
+
+}
+
+.statCard h2{
+
+font-size:38px;
+
+}
+
+.cardContainer{
+
+grid-template-columns:1fr;
+
+}
+
+.hero .MuiTypography-h2{
+
+font-size:3rem !important;
+
+}
+
+.hero .MuiStack-root{
+
+justify-content:center;
+
+}
+
+}
+
+@media (max-width:500px){
+
+.hero .MuiStack-root{
+
+flex-direction:column !important;
+
+align-items:center;
+
+}
+
+.hero .MuiButton-root{
+
+width:100%;
+
+max-width:260px;
+
+}
+
+}

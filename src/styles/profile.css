@@ -1,0 +1,325 @@
+/* ================= Layout ================= */
+
+.profileBanner{
+    display:flex;
+    align-items:center;
+    gap:25px;
+    background:linear-gradient(135deg,#0d6efd,#4f9cff);
+    color:white;
+    padding:35px;
+    border-radius:20px;
+    margin-bottom:30px;
+    box-shadow:0 10px 30px rgba(13,110,253,.25);
+}
+
+.profileAvatar{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:white;
+    color:#0d6efd;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:60px;
+    flex-shrink:0;
+}
+
+.profileDetails h2{
+    margin:0;
+    font-size:32px;
+}
+
+.profileDetails h4{
+    margin:8px 0;
+    font-weight:500;
+    opacity:.9;
+}
+
+.onlineBadge{
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 18px;
+    border-radius:30px;
+    background:#198754;
+    font-weight:600;
+}
+
+/* ================= Grid ================= */
+
+.profileGrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+    margin-top:30px;
+}
+
+/* ================= Cards ================= */
+
+.infoCard,
+.activityCard,
+.settingsCard,
+.supportCard{
+
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.infoCard:hover,
+.activityCard:hover,
+.settingsCard:hover,
+.supportCard:hover{
+
+    transform:translateY(-4px);
+}
+
+/* ================= Headings ================= */
+
+.infoCard h2,
+.activityCard h2,
+.settingsCard h2,
+.supportCard h2{
+
+    margin-top:0;
+    margin-bottom:25px;
+    color:#0d6efd;
+}
+
+/* ================= Personal Info ================= */
+
+.infoRow{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid #edf1f5;
+}
+
+.infoRow:last-child{
+
+    border-bottom:none;
+}
+
+.infoRow span{
+
+    color:#666;
+}
+
+.infoRow strong{
+
+    color:#222;
+}
+
+/* ================= Activity ================= */
+
+.activityList{
+
+    list-style:none;
+    margin:0;
+    padding:0;
+}
+
+.activityList li{
+
+    padding:12px 0;
+    border-bottom:1px solid #edf1f5;
+}
+
+.activityList li:last-child{
+
+    border-bottom:none;
+}
+
+/* ================= Buttons ================= */
+
+.primaryBtn,
+.successBtn,
+.dangerBtn{
+
+    width:100%;
+    border:none;
+    border-radius:10px;
+    padding:14px;
+    margin-top:15px;
+    color:white;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primaryBtn{
+
+    background:#0d6efd;
+}
+
+.successBtn{
+
+    background:#198754;
+}
+
+.dangerBtn{
+
+    background:#dc3545;
+}
+
+.primaryBtn:hover,
+.successBtn:hover,
+.dangerBtn:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+/* ================= Footer ================= */
+
+.profileFooter{
+
+    margin-top:40px;
+    text-align:center;
+    background:linear-gradient(135deg,#0d6efd,#4f9cff);
+    color:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
+
+.profileFooter hr{
+
+    margin:20px auto;
+    width:60%;
+    border:none;
+    border-top:1px solid rgba(255,255,255,.35);
+}
+
+/* ================= Modal ================= */
+
+.modalOverlay{
+
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.modalCard{
+
+    width:420px;
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 20px 45px rgba(0,0,0,.2);
+    animation:fadeIn .25s ease;
+}
+
+.modalCard h2{
+
+    margin-top:0;
+    color:#0d6efd;
+    margin-bottom:20px;
+}
+
+.modalBody{
+
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.modalBody label{
+
+    font-weight:600;
+    color:#555;
+}
+
+.modalBody input{
+
+    padding:12px;
+    border:1px solid #d9dfe6;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+}
+
+.modalBody input:focus{
+
+    border-color:#0d6efd;
+}
+
+.modalButtons{
+
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+}
+
+.modalButtons button{
+
+    width:100%;
+    margin-top:0;
+}
+
+/* ================= Animation ================= */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+        transform:translateY(-20px);
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:992px){
+
+    .profileGrid{
+
+        grid-template-columns:1fr;
+    }
+
+    .profileBanner{
+
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+@media(max-width:768px){
+
+    .profileAvatar{
+
+        width:100px;
+        height:100px;
+        font-size:48px;
+    }
+
+    .profileDetails h2{
+
+        font-size:26px;
+    }
+
+    .modalCard{
+
+        width:90%;
+    }
+
+    .modalButtons{
+
+        flex-direction:column;
+    }
+}

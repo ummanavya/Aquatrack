@@ -1,0 +1,480 @@
+/* ===========================
+   Google Font
+=========================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Inter",sans-serif;
+}
+
+html,
+body,
+#root{
+    width:100%;
+    height:100%;
+}
+
+/* ===========================
+   Main Page
+=========================== */
+
+.login-page{
+
+    width:100%;
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            rgba(6,20,45,.90),
+            rgba(6,20,45,.92)
+        ),
+        url("../assets/bgimage.jpg");
+
+    background-size:cover;
+    background-position:center;
+}
+
+/* ===========================
+   Floating Bubbles
+=========================== */
+
+.bubble{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(70px);
+
+}
+
+.bubble1{
+
+    width:260px;
+    height:260px;
+
+    top:70px;
+    right:100px;
+
+    background:rgba(33,150,243,.18);
+
+}
+
+.bubble2{
+
+    width:340px;
+    height:340px;
+
+    left:-120px;
+    bottom:-120px;
+
+    background:rgba(0,188,212,.12);
+
+}
+
+/* ===========================
+   Main Container
+=========================== */
+
+.login-container{
+
+    width:94% !important;
+    max-width:1450px;
+
+    height:90vh;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    backdrop-filter:blur(25px);
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:0 30px 80px rgba(0,0,0,.45);
+
+}
+
+/* ===========================
+   Left Panel
+=========================== */
+
+.left-panel{
+
+    position:relative;
+
+    display:flex !important;
+    flex-direction:column;
+    justify-content:center;
+
+    padding:70px;
+
+}
+
+.left-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(6,20,45,.78),
+            rgba(6,20,45,.30)
+        );
+
+}
+
+.left-content{
+
+    position:relative;
+    z-index:2;
+
+}
+
+.logo-avatar{
+
+    width:78px !important;
+    height:78px !important;
+
+    background:#fff;
+
+}
+
+.brand-title{
+
+    color:white;
+
+    font-size:42px !important;
+
+    font-weight:800 !important;
+
+}
+
+.brand-subtitle{
+
+    color:#9DD7FF;
+
+    font-size:18px !important;
+
+}
+
+.hero-title{
+
+    margin-top:70px !important;
+
+    color:white;
+
+    font-size:68px !important;
+
+    font-weight:900 !important;
+
+    line-height:1.05 !important;
+
+}
+
+.highlight{
+
+    color:#39B6FF;
+
+}
+
+.hero-description{
+
+    margin-top:35px !important;
+
+    max-width:520px;
+
+    color:#D8E6F6;
+
+    line-height:1.9 !important;
+
+    font-size:20px !important;
+
+}
+
+.stats-row{
+
+    margin-top:60px !important;
+
+}
+
+.stat-number{
+
+    color:white;
+
+    font-size:34px !important;
+
+    font-weight:800 !important;
+
+}
+
+.stat-text{
+
+    color:#AFC8DD;
+
+}
+
+/* ===========================
+   Right Panel
+=========================== */
+
+.right-panel{
+
+    display:flex !important;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:40px;
+
+}
+
+.login-card{
+
+    border-radius:28px !important;
+
+    backdrop-filter:blur(30px);
+
+    background:rgba(255,255,255,.08) !important;
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+
+}
+
+/* ===========================
+   Text
+=========================== */
+
+.welcome-text{
+
+    color:#64B5F6;
+
+    letter-spacing:2px;
+
+    font-size:13px !important;
+
+    font-weight:700 !important;
+
+}
+
+.signin-title{
+
+    margin-top:8px !important;
+
+    color:white;
+
+    font-size:38px !important;
+
+    font-weight:800 !important;
+
+}
+
+.signin-subtitle{
+
+    margin-top:10px !important;
+    margin-bottom:28px !important;
+
+    color:#C7D7E6;
+
+    line-height:1.7 !important;
+
+}
+
+/* ===========================
+   TextFields
+=========================== */
+
+.input-field .MuiOutlinedInput-root{
+
+    border-radius:16px !important;
+
+    color:white;
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.input-field .MuiOutlinedInput-notchedOutline{
+
+    border-color:rgba(255,255,255,.15);
+
+}
+
+.input-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline{
+
+    border-color:#42A5F5;
+
+}
+
+.input-field .Mui-focused .MuiOutlinedInput-notchedOutline{
+
+    border-color:#42A5F5 !important;
+
+}
+
+.input-field .MuiInputLabel-root{
+
+    color:#B0BEC5;
+
+}
+
+/* ===========================
+   Remember Row
+=========================== */
+
+.remember-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin:18px 0 26px;
+
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.signin-button{
+
+    border-radius:16px !important;
+
+    padding:14px !important;
+
+    text-transform:none !important;
+
+    font-size:17px !important;
+
+    font-weight:700 !important;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1976D2,
+            #42A5F5
+        ) !important;
+
+}
+
+.signin-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.back-home-btn{
+
+    margin-top:20px !important;
+
+    border-radius:16px !important;
+
+    text-transform:none !important;
+
+    padding:13px !important;
+
+    color:white !important;
+
+    border-color:rgba(255,255,255,.20) !important;
+
+}
+
+.back-home-btn:hover{
+
+    background:rgba(66,165,245,.08) !important;
+
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+.footer-divider{
+
+    margin:28px 0 !important;
+
+}
+
+.login-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.footer-brand{
+
+    color:white;
+
+    font-weight:700 !important;
+
+}
+
+.footer-version{
+
+    color:#9FB3C8;
+
+    font-size:13px !important;
+
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+.left-panel{
+
+    display:none !important;
+
+}
+
+.right-panel{
+
+    width:100%;
+
+    padding:20px;
+
+}
+
+.login-container{
+
+    width:95% !important;
+
+    height:auto;
+
+    min-height:95vh;
+
+}
+
+.login-card{
+
+    width:100%;
+
+}
+
+}

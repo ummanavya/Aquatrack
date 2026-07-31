@@ -1,0 +1,580 @@
+/* ===========================
+   Page Layout
+=========================== */
+
+.pageContainer{
+    display:flex;
+    background:#eef5fb;
+    min-height:100vh;
+}
+
+.mainContent{
+    flex:1;
+    padding:35px;
+}
+
+/* ===========================
+   Header
+=========================== */
+
+.pageHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.pageHeader h1{
+    font-size:34px;
+    color:#1f2937;
+    margin-bottom:8px;
+}
+
+.pageHeader p{
+    color:#6b7280;
+    font-size:15px;
+}
+
+/* ===========================
+   Statistics Cards
+=========================== */
+
+.statsGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+    margin-bottom:30px;
+}
+
+.statCard{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+    border-left:6px solid #0d6efd;
+}
+
+.statCard:hover{
+    transform:translateY(-5px);
+}
+
+.statCard h3{
+    color:#6b7280;
+    font-size:15px;
+    margin-bottom:10px;
+}
+
+.statCard h1{
+    color:#0d6efd;
+    font-size:34px;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.cardTitle{
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:20px;
+    color:#1f2937;
+}
+
+/* ===========================
+   Form
+=========================== */
+
+.formRow{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+}
+
+.formRow input{
+    flex:1;
+    min-width:220px;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:12px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.formRow input:focus{
+    outline:none;
+    border-color:#0d6efd;
+    box-shadow:0 0 0 3px rgba(13,110,253,.15);
+}
+
+.addBtn{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    padding:14px 28px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.addBtn:hover{
+    background:#0b5ed7;
+}
+/* ===========================
+   Search
+=========================== */
+
+.searchBar input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #d1d5db;
+    font-size:15px;
+}
+
+.searchBar input:focus{
+    outline:none;
+    border-color:#0d6efd;
+}
+
+/* ===========================
+   Table
+=========================== */
+
+.tableHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.tableHeader span{
+    background:#e7f1ff;
+    color:#0d6efd;
+    padding:8px 15px;
+    border-radius:20px;
+    font-weight:600;
+}
+
+.apartmentTable{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.apartmentTable th{
+    background:#0d6efd;
+    color:white;
+    padding:16px;
+}
+
+.apartmentTable td{
+    padding:16px;
+    border-bottom:1px solid #edf2f7;
+    text-align:center;
+}
+
+.apartmentTable tbody tr:hover{
+    background:#f8fbff;
+}
+
+/* ===========================
+   Status
+=========================== */
+
+.statusBadge{
+    background:#d1fae5;
+    color:#047857;
+    padding:7px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* ===========================
+   Buttons
+=========================== */
+
+.editBtn{
+    background:#198754;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-right:8px;
+    transition:.3s;
+}
+
+.editBtn:hover{
+    background:#157347;
+}
+
+.deleteBtn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.deleteBtn:hover{
+    background:#bb2d3b;
+}
+
+/* ===========================
+   Loading
+=========================== */
+
+.loading{
+    text-align:center;
+    padding:40px;
+    color:#6b7280;
+    font-size:16px;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:768px){
+
+    .pageHeader{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:15px;
+    }
+
+    .formRow{
+        flex-direction:column;
+    }
+
+    .formRow input,
+    .addBtn{
+        width:100%;
+    }
+
+    .tableHeader{
+        flex-direction:column;
+        gap:12px;
+        align-items:flex-start;
+    }
+
+    .apartmentTable{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+}
+.reportButtons{
+    display:flex;
+    gap:20px;
+    margin-top:30px;
+    flex-wrap:wrap;
+}
+
+.pdfBtn,
+.excelBtn,
+.printBtn{
+    border:none;
+    padding:12px 22px;
+    border-radius:10px;
+    cursor:pointer;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.pdfBtn{
+    background:#dc3545;
+}
+
+.excelBtn{
+    background:#198754;
+}
+
+.printBtn{
+    background:#0d6efd;
+}
+
+.pdfBtn:hover,
+.excelBtn:hover,
+.printBtn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,0.15);
+}
+/* ===================================================
+                 INVOICE BUTTON
+=================================================== */
+
+.invoiceBtn{
+
+background:linear-gradient(135deg,#0d6efd,#0099ff);
+
+color:#fff;
+
+border:none;
+
+padding:10px 18px;
+
+border-radius:8px;
+
+font-size:14px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:0.3s;
+
+box-shadow:0 4px 10px rgba(13,110,253,0.25);
+
+}
+
+.invoiceBtn:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 8px 18px rgba(13,110,253,.35);
+
+background:linear-gradient(135deg,#0b5ed7,#0d6efd);
+
+}
+
+.invoiceBtn:active{
+
+transform:scale(.97);
+
+}
+
+/* ===================================================
+                 STATUS BADGES
+=================================================== */
+
+.statusPaid{
+
+display:inline-block;
+
+padding:6px 12px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+background:#d1fae5;
+
+color:#047857;
+
+}
+
+.statusPending{
+
+display:inline-block;
+
+padding:6px 12px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+background:#fef3c7;
+
+color:#b45309;
+
+}
+
+.statusArchived{
+
+display:inline-block;
+
+padding:6px 12px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:600;
+
+background:#fee2e2;
+
+color:#b91c1c;
+
+}
+
+/* ===================================================
+                 TABLE HOVER
+=================================================== */
+
+.apartmentTable tbody tr{
+
+transition:.25s;
+
+}
+
+.apartmentTable tbody tr:hover{
+
+background:#f5f9ff;
+
+transform:scale(1.003);
+
+}
+
+/* ===================================================
+                 REPORT BUTTONS
+=================================================== */
+
+.reportButtons{
+
+display:flex;
+
+gap:18px;
+
+justify-content:flex-end;
+
+margin-top:25px;
+
+flex-wrap:wrap;
+
+}
+
+.pdfBtn,
+.excelBtn,
+.printBtn{
+
+padding:12px 22px;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
+color:#fff;
+
+}
+
+.pdfBtn{
+
+background:#dc3545;
+
+}
+
+.pdfBtn:hover{
+
+background:#bb2d3b;
+
+transform:translateY(-2px);
+
+}
+
+.excelBtn{
+
+background:#198754;
+
+}
+
+.excelBtn:hover{
+
+background:#157347;
+
+transform:translateY(-2px);
+
+}
+
+.printBtn{
+
+background:#6c757d;
+
+}
+
+.printBtn:hover{
+
+background:#5c636a;
+
+transform:translateY(-2px);
+
+}
+
+.invoiceBtn{
+    background:#2563eb;
+    color:#fff;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:500;
+}
+
+.invoiceBtn:hover{
+    background:#1d4ed8;
+}
+
+.statusPaid{
+    background:#dcfce7;
+    color:#166534;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.statusPending{
+    background:#fef3c7;
+    color:#92400e;
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.download-btn{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.download-btn:hover{
+    background:#084dbb;
+}
+.download-btn {
+    background: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.download-btn:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+}

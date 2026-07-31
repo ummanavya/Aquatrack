@@ -1,0 +1,242 @@
+/* ================= Settings Card ================= */
+
+.settingsCard{
+    background:#fff;
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:25px;
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.settingsCard:hover{
+    transform:translateY(-3px);
+}
+
+.settingsCard h2{
+    margin-top:0;
+    margin-bottom:25px;
+    color:#0d6efd;
+    font-size:24px;
+}
+
+/* ================= Form Layout ================= */
+
+.formGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.formGroup{
+    display:flex;
+    flex-direction:column;
+}
+
+.formGroup label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#555;
+}
+
+.formGroup input,
+.formGroup select{
+
+    width:100%;
+    padding:12px 15px;
+    border:1px solid #d8dee8;
+    border-radius:10px;
+    font-size:15px;
+    outline:none;
+    transition:.25s;
+    background:#fff;
+}
+
+.formGroup input:focus,
+.formGroup select:focus{
+
+    border-color:#0d6efd;
+    box-shadow:0 0 0 3px rgba(13,110,253,.15);
+
+}
+
+/* ================= Checkbox ================= */
+
+.toggleGroup{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:18px;
+}
+
+.toggleGroup label,
+.checkboxLabel{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:16px;
+    cursor:pointer;
+    padding:12px;
+    border-radius:10px;
+    transition:.25s;
+}
+
+.toggleGroup label:hover,
+.checkboxLabel:hover{
+
+    background:#f5f9ff;
+}
+
+.toggleGroup input,
+.checkboxLabel input{
+
+    width:18px;
+    height:18px;
+    accent-color:#0d6efd;
+}
+
+/* ================= System Information ================= */
+
+.systemGrid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+}
+
+.systemItem{
+
+    background:#f8fbff;
+    border-left:5px solid #0d6efd;
+    padding:18px;
+    border-radius:12px;
+}
+
+.systemItem span{
+
+    display:block;
+    color:#666;
+    font-size:14px;
+}
+
+.systemItem strong{
+
+    display:block;
+    margin-top:6px;
+    font-size:18px;
+    color:#222;
+}
+
+/* ================= Buttons ================= */
+
+.settingsActions{
+
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-top:35px;
+}
+
+.primaryBtn,
+.successBtn,
+.warningBtn{
+
+    border:none;
+    color:#fff;
+    padding:14px 24px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.primaryBtn{
+
+    background:#0d6efd;
+}
+
+.successBtn{
+
+    background:#198754;
+}
+
+.warningBtn{
+
+    background:#fd7e14;
+}
+
+.primaryBtn:hover,
+.successBtn:hover,
+.warningBtn:hover{
+
+    transform:translateY(-2px);
+    box-shadow:0 8px 18px rgba(0,0,0,.15);
+}
+
+/* ================= Footer ================= */
+
+.settingsFooter{
+
+    margin-top:45px;
+    text-align:center;
+    background:linear-gradient(135deg,#0d6efd,#4f9cff);
+    color:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.settingsFooter h2{
+
+    margin-top:0;
+}
+
+.settingsFooter hr{
+
+    width:60%;
+    margin:20px auto;
+    border:none;
+    border-top:1px solid rgba(255,255,255,.35);
+}
+
+/* ================= Responsive ================= */
+
+@media(max-width:992px){
+
+    .settingsActions{
+
+        flex-direction:column;
+    }
+
+    .settingsActions button{
+
+        width:100%;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .settingsCard{
+
+        padding:22px;
+    }
+
+    .settingsCard h2{
+
+        font-size:21px;
+    }
+
+    .toggleGroup{
+
+        grid-template-columns:1fr;
+    }
+
+    .systemGrid{
+
+        grid-template-columns:1fr;
+    }
+
+}
