@@ -2,238 +2,345 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
-import "../styles/login.css";
+import "../styles/CreateAccount.css";
 
 import {
-    FaUser,
-    FaEnvelope,
-    FaLock
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaUserShield,
+  FaTint,
+  FaChartLine,
+  FaBell,
+  FaFileInvoiceDollar,
+  FaShieldAlt,
 } from "react-icons/fa";
 
-import background from "../images/welcome-bg.jpg";
+import background from "../assets/bgimage.jpg";
 import logo from "../images/logo.png";
 
-function CreateAccount() {
+export default function CreateAccount() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [formData, setFormData] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        role: "RESIDENT"
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "RESIDENT",
+  });
+
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
 
-    const handleChange = (e) => {
+  };
 
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value
-        });
+  const handleRegister = async (e) => {
 
-    };
+    e.preventDefault();
 
-    const handleRegister = async (e) => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
 
-        e.preventDefault();
+    try {
 
-        if (formData.password !== formData.confirmPassword) {
+      setLoading(true);
 
-            alert("Passwords do not match");
-            return;
+      await api.post("/auth/register", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+      });
 
-        }
+      alert("Account Created Successfully");
 
-        try {
+      navigate("/login");
 
-            await api.post("/auth/register", {
-                username: formData.username,
-                email: formData.email,
-                password: formData.password,
-                role: formData.role
-            });
+    } catch (err) {
 
-            alert("Registration Successful");
+      console.log(err);
 
-            navigate("/login");
+      alert("Registration Failed");
 
-        } catch (error) {
+    } finally {
 
-            console.log(error);
+      setLoading(false);
 
-            alert("Registration Failed");
+    }
 
-        }
+  };
 
-    };
+  return (
 
-    return (
+    <div
+      className="createAccountPage"
+      style={{
+        backgroundImage: `
+          linear-gradient(
+            rgba(8,20,45,.78),
+            rgba(8,20,45,.60)
+          ),
+          url(${background})
+        `,
+      }}
+    >
 
-        <div
-            className="loginPage"
-            style={{
-                backgroundImage:
-                    `linear-gradient(rgba(0,35,80,.72), rgba(0,70,140,.60)), url(${background})`
-            }}
-        >
+      <div className="overlay"></div>
 
-            <div className="loginLogo">
+      {/* Top Logo */}
 
-                <img
-                    src={logo}
-                    alt="Logo"
-                />
+      <div className="topBrand">
 
-                <div>
+        <img
+          src={logo}
+          alt="AquaTrack"
+        />
 
-                    <h2>AquaTrack</h2>
+        <div>
 
-                    <span>Water Management System</span>
+          <h2>AquaTrack</h2>
 
-                </div>
-
-            </div>
-
-            <div className="loginCard">
-
-                <div className="loginIcon">
-
-                    <img
-                        src={logo}
-                        alt="Logo"
-                    />
-
-                </div>
-
-                <h1>Create Account</h1>
-
-                <p>Create your AquaTrack account</p>
-
-                <form onSubmit={handleRegister}>
-                                    <label>Username</label>
-
-                    <div className="inputBox">
-
-                        <FaUser className="inputIcon" />
-
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="Enter username"
-                            value={formData.username}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    <label>Email Address</label>
-
-                    <div className="inputBox">
-
-                        <FaEnvelope className="inputIcon" />
-
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    <label>Password</label>
-
-                    <div className="inputBox">
-
-                        <FaLock className="inputIcon" />
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Enter password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    <label>Confirm Password</label>
-
-                    <div className="inputBox">
-
-                        <FaLock className="inputIcon" />
-
-                        <input
-                            type="password"
-                            name="confirmPassword"
-                            placeholder="Confirm password"
-                            value={formData.confirmPassword}
-                            onChange={handleChange}
-                            required
-                        />
-
-                    </div>
-
-                    <label>Role</label>
-
-                    <select
-                        name="role"
-                        value={formData.role}
-                        onChange={handleChange}
-                        style={{
-                            width: "100%",
-                            padding: "14px",
-                            marginTop: "10px",
-                            marginBottom: "20px",
-                            borderRadius: "10px",
-                            border: "1px solid #ccc"
-                        }}
-                    >
-                        <option value="RESIDENT">Resident</option>
-                        <option value="ADMIN">Admin</option>
-                    </select>
-
-                    <button
-                        type="submit"
-                        className="loginBtn"
-                    >
-                        Create Account
-                    </button>
-
-                </form>
-
-                <div
-                    className="registerText"
-                    style={{ marginTop: "20px" }}
-                >
-
-                    Already have an account?
-
-                    <span
-                        onClick={() => navigate("/login")}
-                        style={{
-                            color: "#0d6efd",
-                            cursor: "pointer",
-                            fontWeight: "bold"
-                        }}
-                    >
-                        {" "}Login
-                    </span>
-
-                </div>
-
-            </div>
+          <span>
+            Smart Water Management System
+          </span>
 
         </div>
 
-    );
+      </div>
+
+      <div className="createContainer">
+
+        {/* Left Side */}
+
+        <div className="leftContent">
+
+          <span className="tag">
+            AI Powered Water Management
+          </span>
+
+          <h1>
+
+            Create Your
+
+            <span> AquaTrack </span>
+
+            Account
+
+          </h1>
+
+          <p>
+
+            Monitor water consumption,
+            automate apartment billing,
+            receive instant leak alerts
+            and manage your residential
+            community through one
+            intelligent platform.
+
+          </p>
+
+          <div className="featureGrid">
+
+            <div className="featureCard">
+
+              <FaTint />
+
+              Smart Water Monitoring
+
+            </div>
+
+            <div className="featureCard">
+
+              <FaChartLine />
+
+              Live Analytics
+
+            </div>
+
+            <div className="featureCard">
+
+              <FaBell />
+
+              Leak Detection
+
+            </div>
+
+            <div className="featureCard">
+
+              <FaFileInvoiceDollar />
+
+              Auto Billing
+
+            </div>
+
+            <div className="featureCard">
+
+              <FaShieldAlt />
+
+              Secure Access
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Right Side Card */}
+
+        <div className="registerCard">
+
+          <h2>Create Account</h2>
+
+          <p>
+            Register your AquaTrack account
+          </p>
+
+          <form onSubmit={handleRegister}>
+                        {/* Username */}
+
+            <label>Username</label>
+
+            <div className="inputGroup">
+
+              <FaUser className="inputIcon" />
+
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter your username"
+                value={formData.username}
+                onChange={handleChange}
+                autoComplete="username"
+                required
+              />
+
+            </div>
+
+            {/* Email */}
+
+            <label>Email Address</label>
+
+            <div className="inputGroup">
+
+              <FaEnvelope className="inputIcon" />
+
+              <input
+                type="email"
+                name="email"
+                placeholder="Enter your email address"
+                value={formData.email}
+                onChange={handleChange}
+                autoComplete="email"
+                required
+              />
+
+            </div>
+
+            {/* Password */}
+
+            <label>Password</label>
+
+            <div className="inputGroup">
+
+              <FaLock className="inputIcon" />
+
+              <input
+                type="password"
+                name="password"
+                placeholder="Create a strong password"
+                value={formData.password}
+                onChange={handleChange}
+                autoComplete="new-password"
+                required
+              />
+
+            </div>
+
+            {/* Confirm Password */}
+
+            <label>Confirm Password</label>
+
+            <div className="inputGroup">
+
+              <FaLock className="inputIcon" />
+
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                autoComplete="new-password"
+                required
+              />
+
+            </div>
+
+            {/* Account Type */}
+
+            <label>Account Type</label>
+
+            <div className="inputGroup">
+
+              <FaUserShield className="inputIcon" />
+
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+              >
+
+                <option value="RESIDENT">
+                  Resident
+                </option>
+
+                <option value="ADMIN">
+                  Apartment Administrator
+                </option>
+
+              </select>
+
+            </div>
+
+            <button
+              type="submit"
+              className="registerButton"
+              disabled={loading}
+            >
+
+              {loading
+                ? "Creating Account..."
+                : "Create Account"}
+
+            </button>
+
+            <div className="loginLink">
+
+              Already have an account?
+
+              <span onClick={() => navigate("/login")}>
+                Login
+              </span>
+
+            </div>
+                      </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  );
 
 }
-
-export default CreateAccount;
-                

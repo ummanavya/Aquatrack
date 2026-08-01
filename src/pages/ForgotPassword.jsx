@@ -1,73 +1,242 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-import "../styles/login.css";
 
-function ForgotPassword() {
+import "../styles/ForgotPassword.css";
 
-    const navigate = useNavigate();
+import {
+  FaEnvelope,
+  FaTint,
+  FaChartLine,
+  FaBell,
+  FaFileInvoiceDollar,
+  FaShieldAlt,
+} from "react-icons/fa";
 
-    const [email, setEmail] = useState("");
+import background from "../assets/bgimage.jpg";
+import logo from "../images/logo.png";
 
-    const handleSubmit = async (e) => {
+export default function ForgotPassword() {
 
-        e.preventDefault();
+  const navigate = useNavigate();
 
-        try {
+  const [loading, setLoading] = useState(false);
 
-            const response = await api.post("/auth/forgot-password", {
-                email
-            });
+  const [email, setEmail] = useState("");
 
-            alert(response.data);
+  const handleSubmit = async (e) => {
 
-            navigate("/login");
+    e.preventDefault();
 
-        } catch (error) {
+    try {
 
-            console.log(error);
+      setLoading(true);
 
-            alert("Unable to send reset email.");
+      await api.post("/auth/forgot-password", {
 
-        }
+        email,
 
-    };
+      });
 
-    return (
+      alert("Password reset link sent successfully.");
 
-        <div className="loginPage">
+    } catch (err) {
 
-            <div className="loginCard">
+      console.log(err);
 
-                <h1>Forgot Password</h1>
+      alert("Unable to send reset link.");
 
-                <p>Enter your registered email.</p>
+    } finally {
 
-                <form onSubmit={handleSubmit}>
+      setLoading(false);
 
-                    <input
-                        type="email"
-                        placeholder="Enter Email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+    }
 
-                    <button
-                        type="submit"
-                        className="loginBtn"
-                    >
-                        Send Reset Link
-                    </button>
+  };
 
-                </form>
+  return (
 
-            </div>
+    <div
+      className="forgotPage"
+      style={{
+        backgroundImage: `
+          linear-gradient(
+            rgba(8,20,45,.78),
+            rgba(8,20,45,.60)
+          ),
+          url(${background})
+        `,
+      }}
+    >
+
+      <div className="overlay"></div>
+
+      {/* Top Logo */}
+
+      <div className="topBrand">
+
+        <img
+          src={logo}
+          alt="AquaTrack"
+        />
+
+        <div>
+
+          <h2>AquaTrack</h2>
+
+          <span>
+            Smart Water Management System
+          </span>
 
         </div>
 
-    );
+      </div>
+
+      <div className="forgotContainer">
+
+        {/* Left Side */}
+
+        <div className="leftContent">
+
+          <span className="tag">
+
+            Password Recovery
+
+          </span>
+
+          <h1>
+
+            Forgot Your
+
+            <span> Password? </span>
+
+          </h1>
+
+          <p>
+
+            Don't worry. Enter your registered
+            email address and we'll send you
+            a secure password reset link.
+
+          </p>
+
+          <div className="featureGrid">
+                      <div className="featureCard">
+
+            <FaTint />
+
+            Smart Water Monitoring
+
+          </div>
+
+          <div className="featureCard">
+
+            <FaChartLine />
+
+            Live Analytics
+
+          </div>
+
+          <div className="featureCard">
+
+            <FaBell />
+
+            Leak Detection
+
+          </div>
+
+          <div className="featureCard">
+
+            <FaFileInvoiceDollar />
+
+            Auto Billing
+
+          </div>
+
+          <div className="featureCard">
+
+            <FaShieldAlt />
+
+            Secure Access
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* Right Side Card */}
+
+      <div className="registerCard">
+
+        <h2>Forgot Password</h2>
+
+        <p>
+
+          Enter your registered email address to receive a password reset link.
+
+        </p>
+
+        <form onSubmit={handleSubmit}>
+
+          {/* Email */}
+
+          <label>Email Address</label>
+
+          <div className="inputGroup">
+
+            <FaEnvelope className="inputIcon" />
+
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+            />
+
+          </div>
+
+          <button
+            type="submit"
+            className="registerButton"
+            disabled={loading}
+          >
+
+            {loading
+              ? "Sending Reset Link..."
+              : "Send Reset Link"}
+
+          </button>
+
+          <div className="loginLink">
+
+            Remember your password?
+
+            <span
+              onClick={() => navigate("/login")}
+            >
+              Back to Login
+            </span>
+
+          </div>
+                    <button
+            type="button"
+            className="homeButton"
+            onClick={() => navigate("/")}
+          >
+            Back to Home
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+
+);
 
 }
-
-export default ForgotPassword;

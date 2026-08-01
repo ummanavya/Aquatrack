@@ -1,172 +1,906 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
 }
 
 html,
 body,
 #root {
-  width: 100%;
-  height: 100%;
-  font-family: "Inter", sans-serif;
-  background: #081b33;
-  overflow: hidden; /* the page itself doesn't scroll — the right-hand
-                        sign-in panel scrolls internally on short viewports */
+    width: 100%;
+    min-height: 100%;
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    background: #081D3B;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
-/* ---------------------------------- */
-/* MUI TextField                      */
-/* ---------------------------------- */
+/* =====================================================
+   BACKGROUND
+===================================================== */
 
-.MuiTextField-root {
-  margin-top: 12px !important;
+.loginPage{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:100vh;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-size:cover;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
 }
 
-.MuiOutlinedInput-root {
-  border-radius: 14px !important;
-  background: rgba(255, 255, 255, 0.05);
-  transition: border-color 0.25s ease, background 0.25s ease;
+.overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+        135deg,
+        rgba(8,25,55,.72),
+        rgba(8,45,90,.42)
+    );
+
 }
 
-.MuiOutlinedInput-root:hover {
-  background: rgba(255, 255, 255, 0.08);
+/* =====================================================
+   TOP LOGO
+===================================================== */
+
+.topBrand{
+
+    position:absolute;
+
+    top:35px;
+
+    left:55px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    z-index:20;
+
 }
 
-.MuiOutlinedInput-notchedOutline {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+.topBrand img{
+
+    width:55px;
+
+    height:55px;
+
+    object-fit:contain;
+
 }
 
-.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #42a5f5 !important;
-  border-width: 1.5px !important;
+.topBrand h2{
+
+    color:#fff;
+
+    font-size:34px;
+
+    font-weight:800;
+
 }
 
-.MuiInputLabel-root {
-  color: #afc3d6 !important;
+.topBrand span{
+
+    color:rgba(255,255,255,.82);
+
+    font-size:14px;
+
 }
 
-.MuiInputLabel-root.Mui-focused {
-  color: #64b5f6 !important;
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* =====================================================
+   MAIN CONTAINER
+===================================================== */
+
+.loginContainer{
+
+    width:90%;
+    max-width:1400px;
+    height:82vh;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    gap:60px;
+
+    align-items:center;
+
+    position:relative;
+
+    z-index:5;
+
+}
+/* =====================================================
+   LEFT CONTENT
+===================================================== */
+
+.leftContent{
+
+    color:#ffffff;
+
+    padding-right:30px;
+
+    animation:fadeUp .8s ease forwards;
+
 }
 
-.MuiOutlinedInput-input {
-  color: #ffffff !important;
+.tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    padding:10px 22px;
+
+    border-radius:40px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    backdrop-filter:blur(18px);
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:30px;
+
 }
 
-.MuiOutlinedInput-input:-webkit-autofill {
-  -webkit-text-fill-color: #ffffff !important;
-  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
-  transition: background-color 9999s ease-in-out 0s;
+.leftContent h1{
+
+    font-size:66px;
+
+    line-height:1.1;
+
+    font-weight:800;
+
+    margin-bottom:25px;
+
 }
 
-/* ---------------------------------- */
-/* MUI Buttons                        */
-/* ---------------------------------- */
+.leftContent h1 span{
 
-.MuiButton-contained {
-  background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
-  border-radius: 14px !important;
-  box-shadow: 0 12px 28px rgba(33, 150, 243, 0.3);
-  transition: box-shadow 0.25s ease, background 0.25s ease;
+    color:#42A5F5;
+
 }
 
-.MuiButton-contained:hover {
-  background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
-  box-shadow: 0 14px 32px rgba(33, 150, 243, 0.4);
+.leftContent p{
+
+    max-width:620px;
+
+    color:rgba(255,255,255,.88);
+
+    font-size:18px;
+
+    line-height:1.9;
+
+    margin-bottom:45px;
+
 }
 
-.MuiButton-contained.Mui-disabled {
-  background: linear-gradient(90deg, #37628f, #4a83b8) !important;
-  color: rgba(255, 255, 255, 0.7) !important;
+/* =====================================================
+   FEATURE GRID
+===================================================== */
+
+.featureGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:18px;
+
 }
 
-.MuiButton-outlined {
-  border-radius: 14px !important;
-  border-color: rgba(255, 255, 255, 0.25) !important;
-  color: #dceaf7 !important;
+.featureCard{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:18px 22px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.16);
+
+    backdrop-filter:blur(18px);
+
+    transition:.35s;
+
 }
 
-.MuiButton-outlined:hover {
-  border-color: #42a5f5 !important;
-  background: rgba(66, 165, 245, 0.08) !important;
+.featureCard:hover{
+
+    transform:translateY(-6px);
+
+    background:rgba(255,255,255,.16);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.20);
+
 }
 
-/* ---------------------------------- */
-/* Divider                            */
-/* ---------------------------------- */
+.featureIcon{
 
-.MuiDivider-root {
-  color: #afc3d6 !important;
-  font-size: 12px;
-  letter-spacing: 0.5px;
+    width:50px;
+
+    height:50px;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:rgba(66,165,245,.15);
+
+    color:#42A5F5;
+
+    font-size:24px;
+
+    flex-shrink:0;
+
+}
+
+.featureCard h3{
+
+    color:#ffffff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+}
+
+.featureCard p{
+
+    color:#C7D8E8;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    margin:0;
+
+}
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.loginCard{
+
+    width:100%;
+
+    max-width:480px;
+
+    margin-left:auto;
+
+    padding:40px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    backdrop-filter:blur(24px);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.35);
+
+    animation:fadeUp .9s ease forwards;
+
+}
+
+.loginTitle{
+
+    color:#ffffff;
+
+    font-weight:800;
+
+    text-align:center;
+
+    margin-bottom:10px;
+
+}
+
+.loginSubtitle{
+
+    color:rgba(255,255,255,.82);
+
+    text-align:center;
+
+    margin-bottom:28px;
+
+    line-height:1.7;
+
+}
+/* =====================================================
+   MUI TEXTFIELDS
+===================================================== */
+
+.MuiTextField-root{
+
+    margin-top:14px !important;
+
+}
+
+.MuiOutlinedInput-root{
+
+    border-radius:16px !important;
+
+    background:rgba(255,255,255,.05);
+
+    transition:all .35s ease;
+
+}
+
+.MuiOutlinedInput-root:hover{
+
+    background:rgba(255,255,255,.08);
+
+    transform:translateY(-1px);
+
+}
+
+.MuiOutlinedInput-root.Mui-focused{
+
+    background:rgba(255,255,255,.10);
+
+    box-shadow:0 0 0 4px rgba(66,165,245,.15);
+
+}
+
+.MuiOutlinedInput-notchedOutline{
+
+    border-color:rgba(255,255,255,.18) !important;
+
+}
+
+.MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline{
+
+    border-color:#42A5F5 !important;
+
+}
+
+.MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline{
+
+    border-color:#42A5F5 !important;
+
+    border-width:2px !important;
+
+}
+
+.MuiInputLabel-root{
+
+    color:#B8CEE3 !important;
+
+}
+
+.MuiInputLabel-root.Mui-focused{
+
+    color:#42A5F5 !important;
+
+}
+
+.MuiOutlinedInput-input{
+
+    color:#ffffff !important;
+
+}
+
+.MuiOutlinedInput-input::placeholder{
+
+    color:#D0DCE8;
+
+}
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.MuiButton-contained{
+
+    margin-top:8px !important;
+
+    background:linear-gradient(
+        135deg,
+        #1976D2,
+        #42A5F5
+    ) !important;
+
+    border-radius:16px !important;
+
+    height:56px;
+
+    font-size:16px !important;
+
+    font-weight:700 !important;
+
+    text-transform:none !important;
+
+    box-shadow:0 18px 40px rgba(25,118,210,.35);
+
+    transition:.35s !important;
+
+}
+
+.MuiButton-contained:hover{
+
+    transform:translateY(-3px);
+
+    background:linear-gradient(
+        135deg,
+        #1565C0,
+        #2196F3
+    ) !important;
+
+    box-shadow:0 25px 55px rgba(25,118,210,.45);
+
+}
+
+.MuiButton-outlined{
+
+    border-radius:16px !important;
+
+    height:54px;
+
+    border:1px solid rgba(255,255,255,.18) !important;
+
+    color:#ffffff !important;
+
+    text-transform:none !important;
+
+    font-weight:600 !important;
+
+}
+
+.MuiButton-outlined:hover{
+
+    background:rgba(255,255,255,.08) !important;
+
+    border-color:#42A5F5 !important;
+
+}
+
+/* =====================================================
+   CHECKBOX
+===================================================== */
+
+.MuiCheckbox-root{
+
+    color:#42A5F5 !important;
+
+}
+
+.MuiCheckbox-root.Mui-checked{
+
+    color:#42A5F5 !important;
+
+}
+
+.MuiFormControlLabel-label{
+
+    color:#D8E6F4 !important;
+
+    font-size:14px !important;
+
+}
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.MuiDivider-root{
+
+    color:#BFD4E8 !important;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+
 }
 
 .MuiDivider-root::before,
-.MuiDivider-root::after {
-  border-color: rgba(255, 255, 255, 0.15) !important;
+.MuiDivider-root::after{
+
+    border-color:
+        rgba(255,255,255,.12) !important;
+
 }
 
-/* ---------------------------------- */
-/* Checkbox                           */
-/* ---------------------------------- */
+/* =====================================================
+   LINKS
+===================================================== */
 
-.MuiCheckbox-root {
-  color: #42a5f5 !important;
+.MuiLink-root{
+
+    color:#42A5F5 !important;
+
+    font-weight:600 !important;
+
+    transition:.3s;
+
 }
 
-.MuiFormControlLabel-label {
-  color: #c7d8e8 !important;
-  font-size: 14px !important;
+.MuiLink-root:hover{
+
+    color:#90CAF9 !important;
+
+    text-decoration:none !important;
+
 }
 
-/* ---------------------------------- */
-/* Links                              */
-/* ---------------------------------- */
+/* =====================================================
+   GOOGLE LOGIN
+===================================================== */
 
-a {
-  color: #64b5f6;
-  text-decoration: none;
+.googleLogin{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin:20px 0;
+
+    transition:.35s;
+
 }
 
-a:hover {
-  text-decoration: underline;
+.googleLogin:hover{
+
+    transform:translateY(-2px);
+
+}
+/* =====================================================
+   SCROLLBAR
+===================================================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
 }
 
-/* ---------------------------------- */
-/* Scrollbar (right-panel card only)  */
-/* ---------------------------------- */
+::-webkit-scrollbar-track{
 
-::-webkit-scrollbar {
-  width: 8px;
+    background:transparent;
+
 }
 
-::-webkit-scrollbar-thumb {
-  background: #1976d2;
-  border-radius: 20px;
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+        180deg,
+        #1976D2,
+        #42A5F5
+    );
+
+    border-radius:20px;
+
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+::-webkit-scrollbar-thumb:hover{
+
+    background:#42A5F5;
+
 }
 
-/* ---------------------------------- */
-/* Mobile                             */
-/* ---------------------------------- */
+/* =====================================================
+   ANIMATIONS
+===================================================== */
 
-@media (max-width: 900px) {
-  html,
-  body,
-  #root {
-    overflow: auto;
-  }
+.featureCard{
+
+    animation:fadeUp .8s ease forwards;
+
+}
+
+.featureCard:nth-child(1){
+
+    animation-delay:.45s;
+
+}
+
+.featureCard:nth-child(2){
+
+    animation-delay:.6s;
+
+}
+
+.featureCard:nth-child(3){
+
+    animation-delay:.75s;
+
+}
+
+.featureCard:nth-child(4){
+
+    animation-delay:.9s;
+
+}
+
+.loginCard{
+
+    animation:fadeUp .9s ease forwards;
+
+}
+
+.topBrand{
+
+    animation:fadeUp .7s ease forwards;
+
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1200px){
+
+    .loginContainer{
+
+        width:92%;
+
+        gap:40px;
+
+    }
+
+    .leftContent h1{
+
+        font-size:54px;
+
+    }
+
+}
+
+@media(max-width:992px){
+
+    body{
+
+        overflow:auto;
+
+    }
+
+    .loginPage{
+
+        padding:110px 25px 40px;
+
+    }
+
+    .loginContainer{
+
+        grid-template-columns:1fr;
+
+        height:auto;
+
+    }
+
+    .leftContent{
+
+        text-align:center;
+
+        padding-right:0;
+
+    }
+
+    .leftContent p{
+
+        margin:auto auto 40px;
+
+    }
+
+    .featureGrid{
+
+        grid-template-columns:1fr;
+
+        max-width:520px;
+
+        margin:auto auto 45px;
+
+    }
+
+    .loginCard{
+
+        margin:auto;
+
+        max-width:560px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .topBrand{
+
+        top:20px;
+
+        left:20px;
+
+    }
+
+    .topBrand img{
+
+        width:45px;
+
+        height:45px;
+
+    }
+
+    .topBrand h2{
+
+        font-size:28px;
+
+    }
+
+    .topBrand span{
+
+        display:none;
+
+    }
+
+    .leftContent{
+
+        display:none;
+
+    }
+
+    .loginContainer{
+
+        display:flex;
+
+        justify-content:center;
+
+        align-items:center;
+
+    }
+
+    .loginCard{
+
+        max-width:450px;
+
+        padding:30px 24px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    body{
+
+        overflow:auto;
+
+    }
+
+    .loginPage{
+
+        padding:85px 15px 20px;
+
+    }
+
+    .loginCard{
+
+        width:100%;
+
+        padding:22px 18px;
+
+        border-radius:20px;
+
+    }
+
+    .MuiButton-root{
+
+        height:52px !important;
+
+    }
+
+    .MuiOutlinedInput-root{
+
+        min-height:50px;
+
+    }
+
+}
+
+/* =====================================================
+   FINAL POLISH
+===================================================== */
+
+.MuiPaper-root{
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+}
+
+.MuiPaper-root:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.35);
+
+}
+
+::selection{
+
+    background:#42A5F5;
+
+    color:#fff;
+
+}
+
+button,
+a,
+.MuiButton-root,
+.MuiOutlinedInput-root{
+
+    transition:.3s ease;
+
 }
