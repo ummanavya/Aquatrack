@@ -20,7 +20,7 @@ export default function ScrollTop() {
           })
         }
         sx={{
-          position: "fixed",
+          position: "absolute",
           right: 24,
           bottom: 24,
           zIndex: 2000,

@@ -19,20 +19,23 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import EmailRoundedIcon from "@mui/icons-material/EmailRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
+import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 
 export default function LandingFooter() {
   return (
     <Box
+      id="contact"
+      component="footer"
       sx={{
+        position: "relative",
         bgcolor: "#0F172A",
         color: "#fff",
         pt: 4,
         pb: 2,
-        position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
       }}
     >
-      {/* Background Glow */}
+      {/* ================= BACKGROUND GLOW ================= */}
 
       <Box
         sx={{
@@ -67,9 +70,17 @@ export default function LandingFooter() {
           zIndex: 2,
         }}
       >
-        <Grid container spacing={3}>
-                  <Grid size={{ xs: 12, md: 4 }}>
+        <Grid
+          container
+          spacing={3}
+        >
+          {/* ================= BRAND ================= */}
 
+          <Grid
+            item
+            xs={12}
+            md={4}
+          >
             <Box
               display="flex"
               alignItems="center"
@@ -102,8 +113,9 @@ export default function LandingFooter() {
                 mb: 2,
               }}
             >
-              Smart water monitoring, automated billing and leak detection for
-              apartments.
+              Smart water monitoring,
+              automated billing and leak
+              detection for apartments.
             </Typography>
 
             <Box
@@ -122,11 +134,13 @@ export default function LandingFooter() {
                     width: 40,
                     height: 40,
                     color: "#fff",
-                    background: "rgba(255,255,255,.08)",
+                    background:
+                      "rgba(255,255,255,.08)",
 
                     "&:hover": {
                       background: "#1976D2",
-                      transform: "translateY(-3px)",
+                      transform:
+                        "translateY(-3px)",
                     },
                   }}
                 >
@@ -136,9 +150,13 @@ export default function LandingFooter() {
             </Box>
 
           </Grid>
-                    {/* ================= Company ================= */}
+                    {/* ================= COMPANY ================= */}
 
-          <Grid size={{ xs: 6, md: 2 }}>
+          <Grid
+            item
+            xs={6}
+            md={2}
+          >
             <Typography
               sx={{
                 fontWeight: 700,
@@ -163,7 +181,7 @@ export default function LandingFooter() {
                   fontSize: 14,
                   mb: 1.2,
                   cursor: "pointer",
-                  transition: "0.3s",
+                  transition: ".3s",
 
                   "&:hover": {
                     color: "#42A5F5",
@@ -174,11 +192,16 @@ export default function LandingFooter() {
                 {item}
               </Typography>
             ))}
+
           </Grid>
 
-          {/* ================= Contact ================= */}
+          {/* ================= CONTACT ================= */}
 
-          <Grid size={{ xs: 6, md: 3 }}>
+          <Grid
+            item
+            xs={6}
+            md={3}
+          >
             <Typography
               sx={{
                 fontWeight: 700,
@@ -189,7 +212,11 @@ export default function LandingFooter() {
               Contact
             </Typography>
 
-            <Box display="flex" alignItems="center" mb={1.5}>
+            <Box
+              display="flex"
+              alignItems="center"
+              mb={1.5}
+            >
               <EmailRoundedIcon
                 sx={{
                   color: "#42A5F5",
@@ -208,7 +235,11 @@ export default function LandingFooter() {
               </Typography>
             </Box>
 
-            <Box display="flex" alignItems="center" mb={1.5}>
+            <Box
+              display="flex"
+              alignItems="center"
+              mb={1.5}
+            >
               <PhoneRoundedIcon
                 sx={{
                   color: "#42A5F5",
@@ -227,7 +258,10 @@ export default function LandingFooter() {
               </Typography>
             </Box>
 
-            <Box display="flex" alignItems="center">
+            <Box
+              display="flex"
+              alignItems="center"
+            >
               <LocationOnRoundedIcon
                 sx={{
                   color: "#42A5F5",
@@ -245,11 +279,16 @@ export default function LandingFooter() {
                 Vijayawada, Andhra Pradesh
               </Typography>
             </Box>
+
           </Grid>
 
-          {/* ================= Newsletter ================= */}
+          {/* ================= NEWSLETTER ================= */}
 
-          <Grid size={{ xs: 12, md: 3 }}>
+          <Grid
+            item
+            xs={12}
+            md={3}
+          >
             <Typography
               sx={{
                 fontWeight: 700,
@@ -285,10 +324,11 @@ export default function LandingFooter() {
                   "& .MuiOutlinedInput-root": {
                     height: 42,
                     borderRadius: "10px",
-                    bgcolor: "rgba(255,255,255,0.08)",
+                    bgcolor: "rgba(255,255,255,.08)",
 
                     "& fieldset": {
-                      borderColor: "rgba(255,255,255,0.15)",
+                      borderColor:
+                        "rgba(255,255,255,.15)",
                     },
 
                     "&:hover fieldset": {
@@ -329,17 +369,19 @@ export default function LandingFooter() {
               >
                 Join
               </Button>
-            </Box>
-          </Grid>
-                  </Grid>
 
-        {/* ================= Divider ================= */}
+            </Box>
+
+          </Grid>
+
+        </Grid>
+                {/* ================= FOOTER BOTTOM ================= */}
 
         <Box
           sx={{
             mt: 4,
             pt: 2,
-            borderTop: "1px solid rgba(255,255,255,0.08)",
+            borderTop: "1px solid rgba(255,255,255,.08)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
@@ -363,14 +405,18 @@ export default function LandingFooter() {
               flexWrap: "wrap",
             }}
           >
-            {["Privacy Policy", "Terms", "Support"].map((item) => (
+            {[
+              "Privacy Policy",
+              "Terms",
+              "Support",
+            ].map((item) => (
               <Typography
                 key={item}
                 sx={{
                   color: "#94A3B8",
                   fontSize: 14,
                   cursor: "pointer",
-                  transition: "0.3s",
+                  transition: ".3s",
 
                   "&:hover": {
                     color: "#42A5F5",
@@ -382,9 +428,10 @@ export default function LandingFooter() {
             ))}
           </Box>
         </Box>
+
       </Container>
 
-      {/* ================= Back To Top ================= */}
+      {/* ================= BACK TO TOP ================= */}
 
       <IconButton
         onClick={() =>
@@ -397,11 +444,13 @@ export default function LandingFooter() {
           position: "fixed",
           right: 24,
           bottom: 24,
-          width: 48,
-          height: 48,
+          width: 52,
+          height: 52,
           bgcolor: "#1976D2",
           color: "#fff",
-          boxShadow: "0 10px 25px rgba(25,118,210,0.35)",
+          zIndex: 1200,
+          boxShadow:
+            "0 12px 30px rgba(25,118,210,.35)",
 
           "&:hover": {
             bgcolor: "#1565C0",
@@ -409,8 +458,9 @@ export default function LandingFooter() {
           },
         }}
       >
-        ↑
+        <KeyboardArrowUpRoundedIcon />
       </IconButton>
+
     </Box>
   );
 }

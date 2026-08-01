@@ -530,7 +530,7 @@ Subscribe
         })
       }
       sx={{
-        position: "fixed",
+        position: "absolute",
         bottom: 25,
         right: 25,
         width: 48,

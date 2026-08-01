@@ -1,480 +1,172 @@
-/* ===========================
-   Google Font
-=========================== */
-
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Inter",sans-serif;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html,
 body,
-#root{
-    width:100%;
-    height:100%;
+#root {
+  width: 100%;
+  height: 100%;
+  font-family: "Inter", sans-serif;
+  background: #081b33;
+  overflow: hidden; /* the page itself doesn't scroll — the right-hand
+                        sign-in panel scrolls internally on short viewports */
 }
 
-/* ===========================
-   Main Page
-=========================== */
-
-.login-page{
-
-    width:100%;
-    height:100vh;
-
-    overflow:hidden;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    position:relative;
-
-    background:
-        linear-gradient(
-            rgba(6,20,45,.90),
-            rgba(6,20,45,.92)
-        ),
-        url("../assets/bgimage.jpg");
-
-    background-size:cover;
-    background-position:center;
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===========================
-   Floating Bubbles
-=========================== */
+/* ---------------------------------- */
+/* MUI TextField                      */
+/* ---------------------------------- */
 
-.bubble{
-
-    position:absolute;
-
-    border-radius:50%;
-
-    filter:blur(70px);
-
+.MuiTextField-root {
+  margin-top: 12px !important;
 }
 
-.bubble1{
-
-    width:260px;
-    height:260px;
-
-    top:70px;
-    right:100px;
-
-    background:rgba(33,150,243,.18);
-
+.MuiOutlinedInput-root {
+  border-radius: 14px !important;
+  background: rgba(255, 255, 255, 0.05);
+  transition: border-color 0.25s ease, background 0.25s ease;
 }
 
-.bubble2{
-
-    width:340px;
-    height:340px;
-
-    left:-120px;
-    bottom:-120px;
-
-    background:rgba(0,188,212,.12);
-
+.MuiOutlinedInput-root:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* ===========================
-   Main Container
-=========================== */
-
-.login-container{
-
-    width:94% !important;
-    max-width:1450px;
-
-    height:90vh;
-
-    border-radius:30px;
-
-    overflow:hidden;
-
-    backdrop-filter:blur(25px);
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    box-shadow:0 30px 80px rgba(0,0,0,.45);
-
+.MuiOutlinedInput-notchedOutline {
+  border-color: rgba(255, 255, 255, 0.18) !important;
 }
 
-/* ===========================
-   Left Panel
-=========================== */
-
-.left-panel{
-
-    position:relative;
-
-    display:flex !important;
-    flex-direction:column;
-    justify-content:center;
-
-    padding:70px;
-
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #42a5f5 !important;
+  border-width: 1.5px !important;
 }
 
-.left-overlay{
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            90deg,
-            rgba(6,20,45,.78),
-            rgba(6,20,45,.30)
-        );
-
+.MuiInputLabel-root {
+  color: #afc3d6 !important;
 }
 
-.left-content{
-
-    position:relative;
-    z-index:2;
-
+.MuiInputLabel-root.Mui-focused {
+  color: #64b5f6 !important;
 }
 
-.logo-avatar{
-
-    width:78px !important;
-    height:78px !important;
-
-    background:#fff;
-
+.MuiOutlinedInput-input {
+  color: #ffffff !important;
 }
 
-.brand-title{
-
-    color:white;
-
-    font-size:42px !important;
-
-    font-weight:800 !important;
-
+.MuiOutlinedInput-input:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.05) inset !important;
+  transition: background-color 9999s ease-in-out 0s;
 }
 
-.brand-subtitle{
+/* ---------------------------------- */
+/* MUI Buttons                        */
+/* ---------------------------------- */
 
-    color:#9DD7FF;
-
-    font-size:18px !important;
-
+.MuiButton-contained {
+  background: linear-gradient(90deg, #1976d2, #42a5f5) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 28px rgba(33, 150, 243, 0.3);
+  transition: box-shadow 0.25s ease, background 0.25s ease;
 }
 
-.hero-title{
-
-    margin-top:70px !important;
-
-    color:white;
-
-    font-size:68px !important;
-
-    font-weight:900 !important;
-
-    line-height:1.05 !important;
-
+.MuiButton-contained:hover {
+  background: linear-gradient(90deg, #1565c0, #1e88e5) !important;
+  box-shadow: 0 14px 32px rgba(33, 150, 243, 0.4);
 }
 
-.highlight{
-
-    color:#39B6FF;
-
+.MuiButton-contained.Mui-disabled {
+  background: linear-gradient(90deg, #37628f, #4a83b8) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.hero-description{
-
-    margin-top:35px !important;
-
-    max-width:520px;
-
-    color:#D8E6F6;
-
-    line-height:1.9 !important;
-
-    font-size:20px !important;
-
+.MuiButton-outlined {
+  border-radius: 14px !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  color: #dceaf7 !important;
 }
 
-.stats-row{
-
-    margin-top:60px !important;
-
+.MuiButton-outlined:hover {
+  border-color: #42a5f5 !important;
+  background: rgba(66, 165, 245, 0.08) !important;
 }
 
-.stat-number{
+/* ---------------------------------- */
+/* Divider                            */
+/* ---------------------------------- */
 
-    color:white;
-
-    font-size:34px !important;
-
-    font-weight:800 !important;
-
+.MuiDivider-root {
+  color: #afc3d6 !important;
+  font-size: 12px;
+  letter-spacing: 0.5px;
 }
 
-.stat-text{
-
-    color:#AFC8DD;
-
+.MuiDivider-root::before,
+.MuiDivider-root::after {
+  border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* ===========================
-   Right Panel
-=========================== */
+/* ---------------------------------- */
+/* Checkbox                           */
+/* ---------------------------------- */
 
-.right-panel{
-
-    display:flex !important;
-
-    justify-content:center;
-    align-items:center;
-
-    padding:40px;
-
+.MuiCheckbox-root {
+  color: #42a5f5 !important;
 }
 
-.login-card{
-
-    border-radius:28px !important;
-
-    backdrop-filter:blur(30px);
-
-    background:rgba(255,255,255,.08) !important;
-
-    border:1px solid rgba(255,255,255,.10);
-
-    box-shadow:0 25px 60px rgba(0,0,0,.35);
-
+.MuiFormControlLabel-label {
+  color: #c7d8e8 !important;
+  font-size: 14px !important;
 }
 
-/* ===========================
-   Text
-=========================== */
+/* ---------------------------------- */
+/* Links                              */
+/* ---------------------------------- */
 
-.welcome-text{
-
-    color:#64B5F6;
-
-    letter-spacing:2px;
-
-    font-size:13px !important;
-
-    font-weight:700 !important;
-
+a {
+  color: #64b5f6;
+  text-decoration: none;
 }
 
-.signin-title{
-
-    margin-top:8px !important;
-
-    color:white;
-
-    font-size:38px !important;
-
-    font-weight:800 !important;
-
+a:hover {
+  text-decoration: underline;
 }
 
-.signin-subtitle{
+/* ---------------------------------- */
+/* Scrollbar (right-panel card only)  */
+/* ---------------------------------- */
 
-    margin-top:10px !important;
-    margin-bottom:28px !important;
-
-    color:#C7D7E6;
-
-    line-height:1.7 !important;
-
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* ===========================
-   TextFields
-=========================== */
-
-.input-field .MuiOutlinedInput-root{
-
-    border-radius:16px !important;
-
-    color:white;
-
-    background:rgba(255,255,255,.05);
-
+::-webkit-scrollbar-thumb {
+  background: #1976d2;
+  border-radius: 20px;
 }
 
-.input-field .MuiOutlinedInput-notchedOutline{
-
-    border-color:rgba(255,255,255,.15);
-
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.input-field .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline{
-
-    border-color:#42A5F5;
-
-}
-
-.input-field .Mui-focused .MuiOutlinedInput-notchedOutline{
-
-    border-color:#42A5F5 !important;
-
-}
-
-.input-field .MuiInputLabel-root{
-
-    color:#B0BEC5;
-
-}
-
-/* ===========================
-   Remember Row
-=========================== */
-
-.remember-row{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin:18px 0 26px;
-
-}
-
-/* ===========================
-   Buttons
-=========================== */
-
-.signin-button{
-
-    border-radius:16px !important;
-
-    padding:14px !important;
-
-    text-transform:none !important;
-
-    font-size:17px !important;
-
-    font-weight:700 !important;
-
-    background:
-        linear-gradient(
-            90deg,
-            #1976D2,
-            #42A5F5
-        ) !important;
-
-}
-
-.signin-button:hover{
-
-    transform:translateY(-2px);
-
-}
-
-.back-home-btn{
-
-    margin-top:20px !important;
-
-    border-radius:16px !important;
-
-    text-transform:none !important;
-
-    padding:13px !important;
-
-    color:white !important;
-
-    border-color:rgba(255,255,255,.20) !important;
-
-}
-
-.back-home-btn:hover{
-
-    background:rgba(66,165,245,.08) !important;
-
-}
-
-/* ===========================
-   Footer
-=========================== */
-
-.footer-divider{
-
-    margin:28px 0 !important;
-
-}
-
-.login-footer{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-}
-
-.footer-brand{
-
-    color:white;
-
-    font-weight:700 !important;
-
-}
-
-.footer-version{
-
-    color:#9FB3C8;
-
-    font-size:13px !important;
-
-}
-
-/* ===========================
-   Responsive
-=========================== */
-
-@media(max-width:900px){
-
-.left-panel{
-
-    display:none !important;
-
-}
-
-.right-panel{
-
-    width:100%;
-
-    padding:20px;
-
-}
-
-.login-container{
-
-    width:95% !important;
-
-    height:auto;
-
-    min-height:95vh;
-
-}
-
-.login-card{
-
-    width:100%;
-
-}
-
+/* ---------------------------------- */
+/* Mobile                             */
+/* ---------------------------------- */
+
+@media (max-width: 900px) {
+  html,
+  body,
+  #root {
+    overflow: auto;
+  }
 }

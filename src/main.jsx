@@ -15,10 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       clientId="YOUR_GOOGLE_CLIENT_ID"
     >
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <App />
-        </ThemeProvider>
+        <App />
       </BrowserRouter>
     </GoogleOAuthProvider>
   </React.StrictMode>

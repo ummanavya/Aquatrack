@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -47,6 +48,7 @@ export default function HeroSection() {
         id="home"
         sx={{
           position: "relative",
+          width: "100%",
           minHeight: "100vh",
           display: "flex",
           alignItems: "center",
@@ -103,10 +105,17 @@ export default function HeroSection() {
         />
 
         <Container
-          maxWidth="xl"
+          maxWidth={false}
+          disableGutters
           sx={{
             position: "relative",
             zIndex: 2,
+            width: "100%",
+            px: {
+              xs: 3,
+              md: 6,
+              lg: 8,
+            },
           }}
         >
           <Box
@@ -115,18 +124,24 @@ export default function HeroSection() {
 
               gridTemplateColumns: {
                 xs: "1fr",
-                lg: "1.08fr .92fr",
+                lg: "1.15fr 0.85fr",
               },
 
               alignItems: "center",
 
-              gap: 10,
+              gap: {
+                xs: 6,
+                lg: 8,
+              },
+
+              width: "100%",
+              maxWidth: "1700px",
+              mx: "auto",
             }}
           >
             {/* LEFT SIDE */}
 
             <Box>
-
               <Chip
                 icon={<WaterDropRounded />}
                 label="AI Powered Smart Water Management"
@@ -138,8 +153,7 @@ export default function HeroSection() {
                   border: "1px solid rgba(255,255,255,.15)",
                 }}
               />
-
-              <Typography
+                            <Typography
                 sx={{
                   fontWeight: 900,
                   fontSize: {
@@ -190,21 +204,29 @@ export default function HeroSection() {
 
               <Typography
                 sx={{
-                  maxWidth: 620,
-                  fontSize: 20,
+                  maxWidth: 650,
+                  fontSize: {
+                    xs: 18,
+                    md: 20,
+                  },
                   lineHeight: 1.9,
                   color: "rgba(255,255,255,.88)",
                 }}
               >
-                Monitor every litre of water, automate apartment billing,
-                detect leakages instantly, analyse consumption trends,
-                and manage your entire residential community through one
-                secure AI-powered platform.
+                Monitor every litre of water, automate apartment
+                billing, detect leakages instantly, analyse
+                consumption trends, and manage your entire
+                residential community through one secure
+                AI-powered platform.
               </Typography>
-                            {/* ================= Buttons ================= */}
+
+              {/* ================= Buttons ================= */}
 
               <Stack
-                direction={{ xs: "column", sm: "row" }}
+                direction={{
+                  xs: "column",
+                  sm: "row",
+                }}
                 spacing={3}
                 mt={5}
               >
@@ -315,10 +337,10 @@ export default function HeroSection() {
                 justifyContent: "center",
               }}
             >
-              <Card
+                            <Card
                 sx={{
                   width: "100%",
-                  maxWidth: 720,
+                  maxWidth: 760,
                   bgcolor: "rgba(18,30,58,.72)",
                   backdropFilter: "blur(28px)",
                   borderRadius: "30px",
@@ -338,6 +360,7 @@ export default function HeroSection() {
                     mb={4}
                   >
                     <Box>
+
                       <Typography
                         color="#fff"
                         fontWeight={800}
@@ -349,15 +372,17 @@ export default function HeroSection() {
                       <Typography color="#9CA3AF">
                         Live Apartment Dashboard
                       </Typography>
+
                     </Box>
 
                     <Chip
                       label="LIVE"
                       color="success"
                     />
+
                   </Box>
 
-                  {/* KPI Cards */}
+                  {/* ================= KPI Cards ================= */}
 
                   <Grid container spacing={2}>
 
@@ -383,10 +408,12 @@ export default function HeroSection() {
                         title: "Efficiency",
                       },
                     ].map((item, index) => (
+
                       <Grid
                         size={{ xs: 6, md: 3 }}
                         key={index}
                       >
+
                         <Card
                           sx={{
                             bgcolor:
@@ -396,6 +423,7 @@ export default function HeroSection() {
                             textAlign: "center",
                           }}
                         >
+
                           <CardContent>
 
                             <Avatar
@@ -423,12 +451,16 @@ export default function HeroSection() {
                             </Typography>
 
                           </CardContent>
+
                         </Card>
+
                       </Grid>
+
                     ))}
 
                   </Grid>
-                                    {/* ================= Water Usage ================= */}
+
+                  {/* ================= Water Usage ================= */}
 
                   <Card
                     sx={{
@@ -437,6 +469,7 @@ export default function HeroSection() {
                       borderRadius: "22px",
                     }}
                   >
+
                     <CardContent>
 
                       <Typography
@@ -448,12 +481,32 @@ export default function HeroSection() {
                       </Typography>
 
                       {[
-                        { name: "Block A", value: 82, color: "primary" },
-                        { name: "Block B", value: 67, color: "success" },
-                        { name: "Block C", value: 48, color: "warning" },
+                        {
+                          name: "Block A",
+                          value: 82,
+                          color: "primary",
+                        },
+                        {
+                          name: "Block B",
+                          value: 67,
+                          color: "success",
+                        },
+                        {
+                          name: "Block C",
+                          value: 48,
+                          color: "warning",
+                        },
                       ].map((item, index) => (
-                        <Box key={index} mb={2}>
-                          <Typography color="#fff" mb={1}>
+
+                        <Box
+                          key={index}
+                          mb={2}
+                        >
+
+                          <Typography
+                            color="#fff"
+                            mb={1}
+                          >
                             {item.name}
                           </Typography>
 
@@ -466,13 +519,15 @@ export default function HeroSection() {
                               borderRadius: 10,
                             }}
                           />
+
                         </Box>
+
                       ))}
 
                     </CardContent>
-                  </Card>
 
-                  {/* ================= Alerts ================= */}
+                  </Card>
+                                    {/* ================= Recent Alerts ================= */}
 
                   <Card
                     sx={{
@@ -545,14 +600,18 @@ export default function HeroSection() {
 
                 </CardContent>
               </Card>
+
             </Box>
 
           </Box>
 
           {/* ================= Statistics ================= */}
 
-          <Grid container spacing={3} mt={8}>
-
+          <Grid
+            container
+            spacing={3}
+            mt={8}
+          >
             {[
               {
                 value: "25K+",
@@ -580,8 +639,8 @@ export default function HeroSection() {
               },
             ].map((item, index) => (
               <Grid
-                key={index}
                 size={{ xs: 12, sm: 6, md: 3 }}
+                key={index}
               >
                 <Card
                   sx={{
@@ -621,9 +680,7 @@ export default function HeroSection() {
                       {item.value}
                     </Typography>
 
-                    <Typography
-                      color="#CBD5E1"
-                    >
+                    <Typography color="#CBD5E1">
                       {item.title}
                     </Typography>
 
@@ -631,12 +688,10 @@ export default function HeroSection() {
                 </Card>
               </Grid>
             ))}
-
           </Grid>
 
         </Container>
-
-        {/* ================= Floating Bubbles ================= */}
+                {/* ================= Floating Bubbles ================= */}
 
         {[...Array(8)].map((_, index) => (
           <Box
@@ -649,6 +704,9 @@ export default function HeroSection() {
               bgcolor: "rgba(59,130,246,.30)",
               left: `${8 + index * 11}%`,
               top: `${12 + (index % 4) * 18}%`,
+              animation: `float${index} ${
+                5 + index
+              }s ease-in-out infinite`,
             }}
           />
         ))}
@@ -679,14 +737,43 @@ export default function HeroSection() {
             sx={{
               width: 28,
               height: 48,
-              border: "2px solid rgba(255,255,255,.7)",
+              border:
+                "2px solid rgba(255,255,255,.7)",
               borderRadius: "40px",
               mx: "auto",
+              position: "relative",
+
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                top: 8,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: 4,
+                height: 8,
+                borderRadius: 4,
+                bgcolor: "#fff",
+                animation:
+                  "scrollWheel 1.6s infinite",
+              },
+
+              "@keyframes scrollWheel": {
+                "0%": {
+                  opacity: 1,
+                  transform:
+                    "translate(-50%,0)",
+                },
+
+                "100%": {
+                  opacity: 0,
+                  transform:
+                    "translate(-50%,16px)",
+                },
+              },
             }}
           />
         </Box>
-
-        {/* ================= Bottom Wave ================= */}
+                {/* ================= Bottom Wave ================= */}
 
         <Box
           sx={{
@@ -714,6 +801,7 @@ export default function HeroSection() {
         </Box>
 
       </Box>
+
     </motion.div>
   );
 }

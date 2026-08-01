@@ -40,7 +40,11 @@ const stats = [
     title: "Leak Accuracy",
     value: "98%",
     subtitle: "AI Detection",
-    icon: <NotificationsActiveRoundedIcon sx={{ fontSize: 42 }} />,
+    icon: (
+      <NotificationsActiveRoundedIcon
+        sx={{ fontSize: 42 }}
+      />
+    ),
     color: "#E53935",
   },
 ];
@@ -54,8 +58,12 @@ function StatisticsSection() {
           "linear-gradient(to bottom,#ffffff,#F7FAFC)",
       }}
     >
-      <Container maxWidth="xl">
-
+      <Container
+        maxWidth="lg"
+        sx={{
+          textAlign: "center",
+        }}
+      >
         <Stack
           spacing={2}
           alignItems="center"
@@ -82,46 +90,57 @@ function StatisticsSection() {
               color: "#0F172A",
             }}
           >
-            Trusted By Modern Apartment Communities
+            Trusted By Modern Apartment
+            Communities
           </Typography>
 
           <Typography
-  align="center"
-  sx={{
-    color: "#64748B",
-    maxWidth: "100%",
-    mx: "auto",
-    fontSize: {
-      xs: 16,
-      md: 18,
-    },
-    lineHeight: 1.8,
-    whiteSpace: {
-      xs: "normal",
-      lg: "nowrap",
-    },
-  }}
->
-  AquaTrack empowers apartment communities with intelligent monitoring, automated billing, leak detection and real-time analytics, making water management smarter than ever.
-</Typography>
+            align="center"
+            sx={{
+              color: "#64748B",
+              maxWidth: 950,
+              mx: "auto",
+              fontSize: {
+                xs: 16,
+                md: 18,
+              },
+              lineHeight: 1.8,
+            }}
+          >
+            AquaTrack empowers apartment
+            communities with intelligent
+            monitoring, automated billing,
+            leak detection and real-time
+            analytics, making water
+            management smarter than ever.
+          </Typography>
         </Stack>
 
-        <Grid container spacing={4}>
-
-          {stats.map((item) => (
+        <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          alignItems="stretch"
+        >
+                    {stats.map((item) => (
 
             <Grid
               item
               xs={12}
               sm={6}
+              md={6}
               lg={3}
               key={item.title}
+              display="flex"
+              justifyContent="center"
             >
 
               <Paper
                 elevation={0}
                 sx={{
                   p: 4,
+                  width: "100%",
+                  maxWidth: 260,
                   height: "100%",
                   borderRadius: 6,
                   border: "1px solid #E2E8F0",
@@ -152,7 +171,8 @@ function StatisticsSection() {
 
                 <Stack
                   spacing={3}
-                  alignItems="flex-start"
+                  alignItems="center"
+                  textAlign="center"
                 >
 
                   <Box
@@ -208,31 +228,38 @@ function StatisticsSection() {
           ))}
 
         </Grid>
+                {/* ================= Bottom Performance Banner ================= */}
 
-        {/* Bottom Performance Banner */}
-                <Box
+        <Box
           sx={{
             mt: 10,
             borderRadius: 6,
             overflow: "hidden",
-            background: "linear-gradient(135deg,#1976D2,#42A5F5)",
+            background:
+              "linear-gradient(135deg,#1976D2,#42A5F5)",
             color: "#fff",
             p: {
               xs: 4,
               md: 6,
             },
-            boxShadow: "0 25px 60px rgba(25,118,210,.25)",
+            boxShadow:
+              "0 25px 60px rgba(25,118,210,.25)",
           }}
         >
           <Grid
             container
             spacing={5}
             alignItems="center"
+            justifyContent="space-between"
           >
+
             {/* Left Side */}
 
-            <Grid item xs={12} md={7}>
-
+            <Grid
+              item
+              xs={12}
+              md={7}
+            >
               <Typography
                 sx={{
                   fontWeight: 800,
@@ -254,53 +281,59 @@ function StatisticsSection() {
                   maxWidth: 650,
                 }}
               >
-                AquaTrack enables apartment communities to
-                reduce water wastage, automate billing,
-                detect leakages instantly and gain valuable
-                insights through one intelligent platform.
+                AquaTrack enables apartment
+                communities to reduce water
+                wastage, automate billing,
+                detect leakages instantly
+                and gain valuable insights
+                through one intelligent
+                platform.
               </Typography>
-
             </Grid>
 
             {/* Right Side */}
 
-            <Grid item xs={12} md={5}>
-
+            <Grid
+              item
+              xs={12}
+              md={5}
+            >
               <Stack spacing={3}>
 
                 {[
                   {
                     title: "32%",
-                    subtitle: "Reduction in Water Wastage",
+                    subtitle:
+                      "Reduction in Water Wastage",
                   },
                   {
                     title: "24 / 7",
-                    subtitle: "Real-Time Monitoring",
+                    subtitle:
+                      "Real-Time Monitoring",
                   },
                   {
                     title: "100%",
-                    subtitle: "Automated Billing Accuracy",
+                    subtitle:
+                      "Automated Billing Accuracy",
                   },
                 ].map((item) => (
-
-                  <Paper
+                                    <Paper
                     key={item.title}
                     elevation={0}
                     sx={{
                       bgcolor: "rgba(255,255,255,.14)",
-                      border: "1px solid rgba(255,255,255,.18)",
+                      border:
+                        "1px solid rgba(255,255,255,.18)",
                       backdropFilter: "blur(15px)",
                       borderRadius: 4,
                       p: 3,
                     }}
                   >
-
                     <Stack
                       direction="row"
                       spacing={2}
                       alignItems="center"
                     >
-
                       <Box
                         sx={{
                           width: 58,
@@ -317,7 +350,6 @@ function StatisticsSection() {
                       </Box>
 
                       <Box>
-
                         <Typography
                           sx={{
                             fontWeight: 800,
@@ -334,11 +366,8 @@ function StatisticsSection() {
                         >
                           {item.subtitle}
                         </Typography>
-
                       </Box>
-
                     </Stack>
-
                   </Paper>
 
                 ))}

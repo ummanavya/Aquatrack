@@ -56,7 +56,7 @@ export default function FAQSection() {
     <Box
       sx={{
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
         py: { xs: 10, md: 14 },
         background:
           "linear-gradient(180deg,#F8FBFF 0%,#FFFFFF 60%,#F5FAFF 100%)",

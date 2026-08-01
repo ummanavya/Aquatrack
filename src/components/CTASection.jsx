@@ -18,7 +18,7 @@ export default function CTASection() {
         background:
           "linear-gradient(135deg,#1565C0 0%,#42A5F5 100%)",
         position: "relative",
-        overflow: "hidden",
+        overflow: "visible",
       }}
     >
       {/* Decorative Circles */}

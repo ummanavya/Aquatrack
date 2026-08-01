@@ -2,6 +2,7 @@ import React from "react";
 
 import LandingNavbar from "../components/LandingNavbar";
 import HeroSection from "../components/HeroSection";
+import StatisticsSection from "../components/StatisticsSection";
 import FeaturesSection from "../components/FeaturesSection";
 import HowItWorksSection from "../components/HowItWorksSection";
 import DashboardShowcase from "../components/DashboardShowcase";
@@ -14,33 +15,39 @@ export default function Welcome() {
     <>
       <LandingNavbar />
 
-      <section id="home">
-        <HeroSection />
-      </section>
+      <main>
+        <section id="home">
+          <HeroSection />
+        </section>
 
-      <section id="features">
-        <FeaturesSection />
-      </section>
+        <section id="statistics">
+          <StatisticsSection />
+        </section>
 
-      <section id="how">
-        <HowItWorksSection />
-      </section>
+        <section id="features">
+          <FeaturesSection />
+        </section>
 
-      <section id="dashboard">
-        <DashboardShowcase />
-      </section>
+        <section id="how">
+          <HowItWorksSection />
+        </section>
 
-      <section id="testimonials">
-        <TestimonialsSection />
-      </section>
+        <section id="dashboard">
+          <DashboardShowcase />
+        </section>
 
-      <section id="faq">
-        <FAQSection />
-      </section>
+        <section id="testimonials">
+          <TestimonialsSection />
+        </section>
 
-      <section id="contact">
-        <LandingFooter />
-      </section>
+        <section id="faq">
+          <FAQSection />
+        </section>
+
+        <section id="contact">
+          <LandingFooter />
+        </section>
+      </main>
     </>
   );
 }
