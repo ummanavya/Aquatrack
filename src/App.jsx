@@ -9,7 +9,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import ResidentDashboard from "./pages/ResidentDashboard";
 import ResidentProfile from "./pages/ResidentProfile";
 import ResidentWaterUsage from "./pages/ResidentWaterUsage";
-
+import ResidentBills from "./pages/ResidentBills";
+import ResidentNotifications from "./pages/ResidentNotifications";
 export default function App() {
 
   return (
@@ -59,8 +60,16 @@ export default function App() {
         element={<AdminDashboard />}
       />
       <Route
+  path="/resident-bills"
+  element={<ResidentBills />}
+/>
+      <Route
   path="/resident-water-usage"
   element={<ResidentWaterUsage />}
+/>
+<Route
+  path="/resident-notifications"
+  element={<ResidentNotifications />}
 />
 
     </Routes>

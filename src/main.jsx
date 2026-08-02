@@ -5,19 +5,9 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import App from "./App";
 
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme";
-
-setInterval(() => {
-  document.body.style.overflow = "auto";
-  document.documentElement.style.overflow = "auto";
-}, 100);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider
-      clientId="YOUR_GOOGLE_CLIENT_ID"
-    >
+    <GoogleOAuthProvider clientId="439420771466-ghe01upp424rblf04m9tsuvron76h22a.apps.googleusercontent.com">
       <BrowserRouter>
         <App />
       </BrowserRouter>
