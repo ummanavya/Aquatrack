@@ -9,6 +9,10 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 
+setInterval(() => {
+  document.body.style.overflow = "auto";
+  document.documentElement.style.overflow = "auto";
+}, 100);
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GoogleOAuthProvider

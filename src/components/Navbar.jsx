@@ -98,6 +98,7 @@ export default function Navbar() {
           </IconButton>
 
           <Menu
+    disableScrollLock
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}

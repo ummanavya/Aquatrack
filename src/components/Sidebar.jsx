@@ -81,6 +81,9 @@ function Sidebar() {
 
   return (
     <Drawer
+    ModalProps={{
+        disableScrollLock: true,
+    }}
       variant="permanent"
       sx={{
         width: drawerWidth,

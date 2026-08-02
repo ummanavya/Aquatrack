@@ -49,8 +49,10 @@ const stats = [
   },
 ];
 
-function StatisticsSection() {
+export default function StatisticsSection() {
+
   return (
+
     <Box
       sx={{
         py: 14,
@@ -58,17 +60,17 @@ function StatisticsSection() {
           "linear-gradient(to bottom,#ffffff,#F7FAFC)",
       }}
     >
-      <Container
-        maxWidth="lg"
-        sx={{
-          textAlign: "center",
-        }}
-      >
+
+      <Container maxWidth="lg">
+
+        {/* ================= Heading ================= */}
+
         <Stack
           spacing={2}
           alignItems="center"
           mb={8}
         >
+
           <Chip
             label="OUR IMPACT"
             color="primary"
@@ -90,8 +92,9 @@ function StatisticsSection() {
               color: "#0F172A",
             }}
           >
-            Trusted By Modern Apartment
-            Communities
+
+            Trusted By Modern Apartment Communities
+
           </Typography>
 
           <Typography
@@ -107,20 +110,24 @@ function StatisticsSection() {
               lineHeight: 1.8,
             }}
           >
+
             AquaTrack empowers apartment
             communities with intelligent
             monitoring, automated billing,
             leak detection and real-time
             analytics, making water
             management smarter than ever.
+
           </Typography>
+
         </Stack>
+
+        {/* ================= Top Statistics ================= */}
 
         <Grid
           container
           spacing={4}
           justifyContent="center"
-          alignItems="stretch"
         >
                     {stats.map((item) => (
 
@@ -128,7 +135,6 @@ function StatisticsSection() {
               item
               xs={12}
               sm={6}
-              md={6}
               lg={3}
               key={item.title}
               display="flex"
@@ -141,12 +147,11 @@ function StatisticsSection() {
                   p: 4,
                   width: "100%",
                   maxWidth: 260,
-                  height: "100%",
                   borderRadius: 6,
                   border: "1px solid #E2E8F0",
-                  transition: ".35s",
                   position: "relative",
                   overflow: "hidden",
+                  transition: ".35s",
 
                   "&:hover": {
                     transform: "translateY(-10px)",
@@ -165,7 +170,7 @@ function StatisticsSection() {
                     height: 120,
                     borderRadius: "50%",
                     bgcolor: item.color,
-                    opacity: 0.08,
+                    opacity: .08,
                   }}
                 />
 
@@ -181,14 +186,16 @@ function StatisticsSection() {
                       height: 82,
                       borderRadius: "24px",
                       bgcolor: item.color,
+                      color: "#fff",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      color: "#fff",
                       boxShadow: `0 15px 35px ${item.color}55`,
                     }}
                   >
+
                     {item.icon}
+
                   </Box>
 
                   <Typography
@@ -198,7 +205,9 @@ function StatisticsSection() {
                       color: "#0F172A",
                     }}
                   >
+
                     {item.value}
+
                   </Typography>
 
                   <Typography
@@ -207,7 +216,9 @@ function StatisticsSection() {
                       fontSize: 22,
                     }}
                   >
+
                     {item.title}
+
                   </Typography>
 
                   <Typography
@@ -216,7 +227,9 @@ function StatisticsSection() {
                       lineHeight: 1.8,
                     }}
                   >
+
                     {item.subtitle}
+
                   </Typography>
 
                 </Stack>
@@ -228,7 +241,8 @@ function StatisticsSection() {
           ))}
 
         </Grid>
-                {/* ================= Bottom Performance Banner ================= */}
+
+        {/* ================= Performance Banner ================= */}
 
         <Box
           sx={{
@@ -246,135 +260,140 @@ function StatisticsSection() {
               "0 25px 60px rgba(25,118,210,.25)",
           }}
         >
-          <Grid
-            container
-            spacing={5}
-            alignItems="center"
-            justifyContent="space-between"
+
+          <Typography
+            align="center"
+            sx={{
+              fontWeight: 800,
+              fontSize: {
+                xs: 30,
+                md: 42,
+              },
+              mb: 3,
+            }}
           >
 
-            {/* Left Side */}
+            Smarter Water Management Starts Here
 
-            <Grid
-              item
-              xs={12}
-              md={7}
-            >
-              <Typography
-                sx={{
-                  fontWeight: 800,
-                  fontSize: {
-                    xs: 30,
-                    md: 40,
-                  },
-                  mb: 2,
-                }}
+          </Typography>
+
+          <Typography
+            align="center"
+            sx={{
+              maxWidth: 800,
+              mx: "auto",
+              fontSize: 18,
+              lineHeight: 1.9,
+              opacity: .95,
+              mb: 6,
+            }}
+          >
+
+            AquaTrack enables apartment communities
+            to reduce water wastage, automate
+            billing, detect leakages instantly
+            and gain valuable insights through
+            one intelligent platform.
+
+          </Typography>
+
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+          >
+                        {[
+              {
+                title: "32%",
+                subtitle: "Reduction in Water Wastage",
+              },
+              {
+                title: "24 / 7",
+                subtitle: "Real-Time Monitoring",
+              },
+              {
+                title: "100%",
+                subtitle: "Automated Billing Accuracy",
+              },
+            ].map((item) => (
+
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={item.title}
+                display="flex"
+                justifyContent="center"
               >
-                Smarter Water Management Starts Here
-              </Typography>
 
-              <Typography
-                sx={{
-                  fontSize: 18,
-                  lineHeight: 1.9,
-                  opacity: 0.95,
-                  maxWidth: 650,
-                }}
-              >
-                AquaTrack enables apartment
-                communities to reduce water
-                wastage, automate billing,
-                detect leakages instantly
-                and gain valuable insights
-                through one intelligent
-                platform.
-              </Typography>
-            </Grid>
+                <Paper
+                  elevation={0}
+                  sx={{
+                    width: "100%",
+                    maxWidth: 280,
+                    bgcolor: "rgba(255,255,255,.14)",
+                    border: "1px solid rgba(255,255,255,.18)",
+                    backdropFilter: "blur(15px)",
+                    borderRadius: 5,
+                    p: 4,
+                    textAlign: "center",
+                    transition: ".35s",
 
-            {/* Right Side */}
+                    "&:hover": {
+                      transform: "translateY(-8px)",
+                      boxShadow:
+                        "0 18px 40px rgba(0,0,0,.18)",
+                    },
+                  }}
+                >
 
-            <Grid
-              item
-              xs={12}
-              md={5}
-            >
-              <Stack spacing={3}>
-
-                {[
-                  {
-                    title: "32%",
-                    subtitle:
-                      "Reduction in Water Wastage",
-                  },
-                  {
-                    title: "24 / 7",
-                    subtitle:
-                      "Real-Time Monitoring",
-                  },
-                  {
-                    title: "100%",
-                    subtitle:
-                      "Automated Billing Accuracy",
-                  },
-                ].map((item) => (
-                                    <Paper
-                    key={item.title}
-                    elevation={0}
+                  <Box
                     sx={{
-                      bgcolor: "rgba(255,255,255,.14)",
-                      border:
-                        "1px solid rgba(255,255,255,.18)",
-                      backdropFilter: "blur(15px)",
-                      borderRadius: 4,
-                      p: 3,
+                      width: 70,
+                      height: 70,
+                      borderRadius: "22px",
+                      bgcolor: "#fff",
+                      color: "#1976D2",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      mx: "auto",
+                      mb: 3,
                     }}
                   >
-                    <Stack
-                      direction="row"
-                      spacing={2}
-                      alignItems="center"
-                    >
-                      <Box
-                        sx={{
-                          width: 58,
-                          height: 58,
-                          borderRadius: "18px",
-                          bgcolor: "#fff",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: "#1976D2",
-                        }}
-                      >
-                        <TrendingUpRoundedIcon />
-                      </Box>
 
-                      <Box>
-                        <Typography
-                          sx={{
-                            fontWeight: 800,
-                            fontSize: 28,
-                          }}
-                        >
-                          {item.title}
-                        </Typography>
+                    <TrendingUpRoundedIcon
+                      sx={{ fontSize: 36 }}
+                    />
 
-                        <Typography
-                          sx={{
-                            opacity: 0.9,
-                          }}
-                        >
-                          {item.subtitle}
-                        </Typography>
-                      </Box>
-                    </Stack>
-                  </Paper>
+                  </Box>
 
-                ))}
+                  <Typography
+                    sx={{
+                      fontWeight: 800,
+                      fontSize: 36,
+                      mb: 1,
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
 
-              </Stack>
+                  <Typography
+                    sx={{
+                      opacity: .95,
+                      fontSize: 16,
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {item.subtitle}
+                  </Typography>
 
-            </Grid>
+                </Paper>
+
+              </Grid>
+
+            ))}
 
           </Grid>
 
@@ -383,7 +402,7 @@ function StatisticsSection() {
       </Container>
 
     </Box>
-  );
-}
 
-export default StatisticsSection;
+  );
+
+}

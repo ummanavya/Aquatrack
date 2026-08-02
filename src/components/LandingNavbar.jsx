@@ -48,24 +48,23 @@ export default function LandingNavbar() {
   ];
 
   const scrollToSection = (id) => {
-    const section = document.getElementById(id);
 
-    if (section) {
-      const navbarHeight = 90;
+  const section = document.getElementById(id);
 
-      const y =
-        section.getBoundingClientRect().top +
-        window.pageYOffset -
-        navbarHeight;
 
-      window.scrollTo({
-        top: y,
-        behavior: "smooth",
-      });
-    }
+  if (section) {
 
-    setDrawerOpen(false);
-  };
+    section.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
+  }
+
+  setDrawerOpen(false);
+
+};
+
 
   return (
     <>
@@ -141,8 +140,8 @@ export default function LandingNavbar() {
             >
               {menu.map((item) => (
                 <Typography
-                  key={item.name}
-                  onClick={() => scrollToSection(item.id)}
+  key={item.name}
+  onClick={() => scrollToSection(item.id)}
                   sx={{
                     cursor: "pointer",
                     color: DARK,
@@ -219,10 +218,13 @@ export default function LandingNavbar() {
             {/* ================= Mobile Drawer ================= */}
 
       <Drawer
-        anchor="right"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-      >
+  anchor="right"
+  open={drawerOpen}
+  onClose={() => setDrawerOpen(false)}
+  ModalProps={{
+    disableScrollLock: true,
+  }}
+>
         <Box
           sx={{
             width: 280,
@@ -269,7 +271,10 @@ export default function LandingNavbar() {
               >
 
                 <ListItemButton
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => {
+  console.log(item.id);
+  scrollToSection(item.id);
+}}
                   sx={{
                     borderRadius: "12px",
                     mb: 1,

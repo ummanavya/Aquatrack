@@ -1,3 +1,4 @@
+import React from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -13,14 +14,10 @@ import {
   Box,
   Button,
   Stack,
-  TextField,
-  InputAdornment,
 } from "@mui/material";
 
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 
 function RecentBills({ bills = [] }) {
 
@@ -46,7 +43,6 @@ function RecentBills({ bills = [] }) {
       <Paper
         elevation={0}
         sx={{
-          mt: 4,
           borderRadius: "30px",
           overflow: "hidden",
           border: "1px solid #E8EEF5",
@@ -59,9 +55,11 @@ function RecentBills({ bills = [] }) {
 
         <Box
           sx={{
-            px: 4,
-            py: 3,
-            borderBottom: "1px solid #EEF2F7",
+            p: {
+              xs: 2.5,
+              md: 4,
+            },
+            borderBottom: "1px solid #E8EEF5",
             bgcolor: "#FFFFFF",
           }}
         >
@@ -72,11 +70,11 @@ function RecentBills({ bills = [] }) {
               md: "row",
             }}
             justifyContent="space-between"
+            spacing={2}
             alignItems={{
               xs: "flex-start",
               md: "center",
             }}
-            spacing={3}
           >
 
             <Box>
@@ -91,18 +89,21 @@ function RecentBills({ bills = [] }) {
                 <ReceiptLongRoundedIcon
                   sx={{
                     color: "#1976D2",
-                    fontSize: 32,
+                    fontSize: 34,
                   }}
                 />
 
                 <Typography
                   sx={{
-                    fontSize: 30,
+                    fontSize: {
+                      xs: 24,
+                      md: 30,
+                    },
                     fontWeight: 900,
                     color: "#0F172A",
                   }}
                 >
-                  Billing History
+                  Recent Bills
                 </Typography>
 
               </Stack>
@@ -112,65 +113,40 @@ function RecentBills({ bills = [] }) {
                   color: "#64748B",
                 }}
               >
-                Track every invoice and payment made for your household.
+                View and download your latest water bills.
               </Typography>
 
             </Box>
 
-            <Stack
-              direction="row"
-              spacing={2}
+            <Button
+              variant="contained"
+              sx={{
+                borderRadius: "14px",
+                px: 3,
+                py: 1.2,
+                textTransform: "none",
+                fontWeight: 700,
+              }}
             >
-
-              <TextField
-                placeholder="Search bills..."
-                size="small"
-                sx={{
-                  width: 220,
-                  bgcolor: "#F8FBFF",
-                  borderRadius: "14px",
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchRoundedIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              <Button
-                startIcon={<FilterListRoundedIcon />}
-                variant="outlined"
-                sx={{
-                  borderRadius: "14px",
-                  textTransform: "none",
-                  fontWeight: 700,
-                }}
-              >
-                Filter
-              </Button>
-
-              <Button
-                variant="contained"
-                sx={{
-                  borderRadius: "14px",
-                  px: 3,
-                  textTransform: "none",
-                  fontWeight: 700,
-                }}
-              >
-                View All
-              </Button>
-
-            </Stack>
+              View All Bills
+            </Button>
 
           </Stack>
 
         </Box>
-                <TableContainer>
+                {/* ================= Table ================= */}
 
-          <Table>
+        <TableContainer
+          sx={{
+            overflowX: "auto",
+          }}
+        >
+
+          <Table
+            sx={{
+              minWidth: 900,
+            }}
+          >
 
             <TableHead
               sx={{
@@ -180,7 +156,9 @@ function RecentBills({ bills = [] }) {
 
               <TableRow>
 
-                <TableCell sx={{ fontWeight: 800 }}>House</TableCell>
+                <TableCell sx={{ fontWeight: 800 }}>
+                  House
+                </TableCell>
 
                 <TableCell sx={{ fontWeight: 800 }}>
                   Billing Period
@@ -234,21 +212,11 @@ function RecentBills({ bills = [] }) {
 
                     <Typography
                       sx={{
-                        fontSize: 18,
-                        fontWeight: 700,
                         color: "#64748B",
+                        fontSize: 16,
                       }}
                     >
-                      No Billing Records Found
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        mt: 1,
-                        color: "#94A3B8",
-                      }}
-                    >
-                      Bills generated by AquaTrack will appear here.
+                      No billing records available.
                     </Typography>
 
                   </TableCell>
@@ -257,16 +225,19 @@ function RecentBills({ bills = [] }) {
 
               ) : (
 
-                bills.map((bill) => (
+                bills.slice(0, 8).map((bill) => (
 
                   <TableRow
                     key={bill.id}
                     hover
                     sx={{
+
                       transition: ".3s",
 
                       "&:hover": {
-                        bgcolor: "#F7FBFF",
+
+                        bgcolor: "#F8FBFF",
+
                       },
                     }}
                   >
@@ -280,16 +251,10 @@ function RecentBills({ bills = [] }) {
                     </TableCell>
 
                     <TableCell>
-                      {bill.cycleStartDate} - {bill.cycleEndDate}
+                      {bill.cycleStartDate} – {bill.cycleEndDate}
                     </TableCell>
 
-                    <TableCell
-                      align="right"
-                      sx={{
-                        fontWeight: 700,
-                        color: "#1976D2",
-                      }}
-                    >
+                    <TableCell align="right">
                       {bill.unitsConsumed} L
                     </TableCell>
 
@@ -297,8 +262,7 @@ function RecentBills({ bills = [] }) {
                       align="right"
                       sx={{
                         fontWeight: 800,
-                        color: "#0F172A",
-                        fontSize: 16,
+                        color: "#1976D2",
                       }}
                     >
                       ₹{bill.totalAmount}
@@ -310,9 +274,9 @@ function RecentBills({ bills = [] }) {
                         label={bill.status}
                         size="small"
                         sx={{
-                          minWidth: 95,
+                          minWidth: 100,
                           fontWeight: 700,
-                          color: "#fff",
+                          color: "#FFFFFF",
                           bgcolor:
                             bill.status === "FINALIZED"
                               ? "#16A34A"
@@ -324,41 +288,22 @@ function RecentBills({ bills = [] }) {
 
                     <TableCell align="center">
 
-                      <motion.div
-                        whileHover={{
-                          scale: 1.05,
-                        }}
-                        whileTap={{
-                          scale: .95,
+                      <Button
+                        variant="outlined"
+                        size="small"
+                        startIcon={<DownloadRoundedIcon />}
+                        sx={{
+                          borderRadius: "12px",
+                          textTransform: "none",
+                          fontWeight: 700,
+
+                          "&:hover": {
+                            bgcolor: "#EEF6FF",
+                          },
                         }}
                       >
-
-                        <Button
-                          variant="contained"
-                          size="small"
-                          startIcon={<DownloadRoundedIcon />}
-                          sx={{
-                            borderRadius: "12px",
-                            textTransform: "none",
-                            fontWeight: 700,
-                            boxShadow: "none",
-
-                            "&:hover": {
-                              boxShadow:
-                                "0 10px 25px rgba(25,118,210,.25)",
-                            },
-                          }}
-                          onClick={() =>
-                            console.log(
-                              "Download Invoice",
-                              bill.id
-                            )
-                          }
-                        >
-                          Download
-                        </Button>
-
-                      </motion.div>
+                        Download
+                      </Button>
 
                     </TableCell>
 
@@ -373,40 +318,6 @@ function RecentBills({ bills = [] }) {
           </Table>
 
         </TableContainer>
-
-        {/* ================= Footer ================= */}
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            px: 4,
-            py: 3,
-            bgcolor: "#FAFCFF",
-            borderTop: "1px solid #EEF2F7",
-          }}
-        >
-
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
-            Showing the latest {Math.min(bills.length, 8)} billing records.
-          </Typography>
-
-          <Chip
-            label="Secure Billing ✔"
-            sx={{
-              bgcolor: "#E8F5E9",
-              color: "#16A34A",
-              fontWeight: 700,
-            }}
-          />
-
-        </Box>
 
       </Paper>
 

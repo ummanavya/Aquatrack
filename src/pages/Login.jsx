@@ -322,18 +322,18 @@ export default function Login() {
           {/* Google Login */}
 
           <button
-            type="button"
-            className="googleButton"
-          >
-
-            <img
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              alt="Google"
-            />
-
-            Continue with Google
-
-          </button>
+  type="button"
+  className="googleButton"
+  onClick={() => {
+    window.location.href = "http://localhost:8082/oauth2/authorization/google";
+  }}
+>
+  <img
+    src="https://www.svgrepo.com/show/475656/google-color.svg"
+    alt="Google"
+  />
+  Continue with Google
+</button>
 
           <div className="loginLink">
 

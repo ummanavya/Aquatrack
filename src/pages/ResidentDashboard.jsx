@@ -1,149 +1,219 @@
-import Navbar from "../components/Navbar";
-import "../styles/residentDashboard.css";
+import React from "react";
+import { motion } from "framer-motion";
 
-function ResidentDashboard() {
+import ResidentSidebar from "../components/ResidentSidebar";
+import ResidentTopbar from "../components/ResidentTopbar";
+import ResidentHero from "../components/ResidentHero";
+import ResidentStats from "../components/ResidentStats";
+import UsageChart from "../components/UsageChart";
+import RecentBills from "../components/RecentBills";
+import NotificationsPanel from "../components/NotificationsPanel";
+import EcoImpact from "../components/EcoImpact";
+import SmartTips from "../components/SmartTips";
+import CommunitySpotlight from "../components/CommunitySpotlight";
 
-    const resident = {
-        username: "Navya",
-        apartment: "Aqua Residency",
-        house: "A-101",
-        waterUsage: 1245,
-        bill: 850,
-        dueDate: "20 July 2026"
-    };
+import {
+  Box,
+  Grid,
+  Stack,
+  Container,
+} from "@mui/material";
 
-    return (
+export default function ResidentDashboard() {
 
-        <>
-            <Navbar />
+  return (
 
-            <div className="resident-container">
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        bgcolor: "#F5F9FF",
+        overflowX: "hidden",
+      }}
+    >
 
-                <div className="resident-sidebar">
+      {/* ================= Sidebar ================= */}
 
-                    <h2>AquaTrack</h2>
+      <ResidentSidebar />
 
-                    <ul>
+      {/* ================= Main Content ================= */}
 
-                        <li>🏠 Dashboard</li>
+      <Box
+        sx={{
+          flex: 1,
 
-                        <li>👤 My Profile</li>
+          ml: {
+            xs: 0,
+            lg: "280px",
+          },
 
-                        <li>💧 Water Usage</li>
+          width: {
+            xs: "100%",
+            lg: "calc(100% - 280px)",
+          },
 
-                        <li>💰 Bills</li>
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
 
-                        <li>🔔 Notifications</li>
+        <ResidentTopbar />
 
-                        <li
-                            onClick={() => {
-                                localStorage.removeItem("token");
-                                window.location.href="/login";
-                            }}
-                        >
-                            🚪 Logout
-                        </li>
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: .6,
+          }}
+        >
 
-                    </ul>
+          <Container
+            maxWidth={false}
+            sx={{
 
-                </div>
+              mt: {
+                xs: "80px",
+                md: "92px",
+              },
 
-                <div className="resident-content">
+              pb: 5,
 
-                    <div className="welcome-box">
+              px: {
+                xs: 2,
+                sm: 3,
+                md: 4,
+                lg: 5,
+              },
 
-                        <h1>
-                            Welcome {resident.username} 👋
-                        </h1>
+              maxWidth: "1650px",
 
-                        <p>
-                            Manage your water usage and bills.
-                        </p>
+              mx: "auto",
 
-                    </div>
+            }}
+          >
+                        {/* ================= Hero ================= */}
 
-                    <div className="cards">
+            <ResidentHero />
 
-                        <div className="card">
+            <Box sx={{ height: 32 }} />
 
-                            <h2>🏢 Apartment</h2>
+            {/* ================= Stats ================= */}
 
-                            <h3>{resident.apartment}</h3>
+            <Box
+              sx={{
+                width: "100%",
+              }}
+            >
+              <ResidentStats />
+            </Box>
 
-                        </div>
+            <Box sx={{ height: 36 }} />
 
-                        <div className="card">
+            {/* ================= Dashboard Grid ================= */}
 
-                            <h2>🏠 House</h2>
+            <Grid
+              container
+              spacing={4}
+              alignItems="stretch"
+            >
 
-                            <h3>{resident.house}</h3>
+              {/* ================= Left Side ================= */}
 
-                        </div>
+              <Grid
+                item
+                xs={12}
+                lg={8}
+              >
 
-                        <div className="card">
+                <Stack spacing={4}>
 
-                            <h2>💧 Water Usage</h2>
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: .5 }}
+                  >
+                    <UsageChart />
+                  </motion.div>
 
-                            <h3>{resident.waterUsage} Litres</h3>
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: .1 }}
+                  >
+                    <RecentBills bills={[]} />
+                  </motion.div>
 
-                        </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 25 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: .2 }}
+                  >
+                    <SmartTips />
+                  </motion.div>
 
-                        <div className="card">
+                </Stack>
 
-                            <h2>💰 Current Bill</h2>
+              </Grid>
 
-                            <h3>₹ {resident.bill}</h3>
+              {/* ================= Right Side ================= */}
 
-                        </div>
+              <Grid
+                item
+                xs={12}
+                lg={4}
+              >
 
-                    </div>
+                <Stack spacing={4}>
 
-                    <div className="info-panel">
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: .5 }}
+                  >
+                    <NotificationsPanel />
+                  </motion.div>
 
-                        <h2>Billing Details</h2>
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: .1 }}
+                  >
+                    <EcoImpact />
+                  </motion.div>
 
-                        <p>
+                  <motion.div
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: .2 }}
+                  >
+                    <CommunitySpotlight />
+                  </motion.div>
 
-                            Your current bill is
+                </Stack>
 
-                            <b> ₹ {resident.bill}</b>
+              </Grid>
 
-                        </p>
+            </Grid>
+                      </Container>
 
-                        <p>
+        </motion.div>
 
-                            Due Date :
+      </Box>
 
-                            <b> {resident.dueDate}</b>
+    </Box>
 
-                        </p>
-
-                    </div>
-
-                    <div className="info-panel">
-
-                        <h2>Notifications</h2>
-
-                        <ul>
-
-                            <li>✅ Welcome to AquaTrack.</li>
-
-                            <li>💧 Monitor your daily water usage.</li>
-
-                            <li>💰 Pay your bill before due date.</li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </>
-
-    );
+  );
 
 }
-
-export default ResidentDashboard;
