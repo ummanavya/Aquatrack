@@ -596,17 +596,24 @@ export default function ResidentNotifications() {
             >
 
               <Paper
-                elevation={0}
-                sx={{
-                  p: 4,
-                  height: "100%",
-                  minHeight: 720,
-                  borderRadius: "30px",
-                  border: "1px solid #E8EEF5",
-                  boxShadow:
-                    "0 18px 45px rgba(15,23,42,.06)",
-                }}
-              >
+  elevation={0}
+  sx={{
+    p: 4,
+    borderRadius: "30px",
+    border: "1px solid #E8EEF5",
+    boxShadow: "0 18px 45px rgba(15,23,42,.06)",
+
+    display: "flex",
+    flexDirection: "column",
+    gap: 3,
+
+    position: "sticky",
+    top: 100,
+
+    height: "fit-content",
+    minHeight: "auto",
+  }}
+>
 
                 <Typography
                   sx={{
@@ -618,58 +625,62 @@ export default function ResidentNotifications() {
                   Quick Actions
                 </Typography>
 
-                <Stack spacing={2.5}>
+                <Stack spacing={2.5} sx={{ mt: 2 }}>
 
-                  <Button
-                    fullWidth
-                    variant="contained"
-                    sx={{
-                      py: 1.8,
-                      borderRadius: "14px",
-                      textTransform: "none",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Mark All Read
-                  </Button>
+  <Button
+    variant="contained"
+    fullWidth
+    sx={{
+      py: 1.8,
+      borderRadius: 3,
+    }}
+  >
+    Mark All Read
+  </Button>
 
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                      py: 1.8,
-                      borderRadius: "14px",
-                      textTransform: "none",
-                    }}
-                  >
-                    Enable Alerts
-                  </Button>
+  <Paper
+    sx={{
+      p: 2,
+      border: "2px solid #1976D2",
+      borderRadius: 3,
+      textAlign: "center",
+      cursor: "pointer",
+    }}
+  >
+    <Typography fontWeight={700}>
+      Enable Alerts
+    </Typography>
+  </Paper>
 
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                      py: 1.8,
-                      borderRadius: "14px",
-                      textTransform: "none",
-                    }}
-                  >
-                    Download Report
-                  </Button>
+  <Paper
+    sx={{
+      p: 2,
+      border: "2px solid #1976D2",
+      borderRadius: 3,
+      textAlign: "center",
+      cursor: "pointer",
+    }}
+  >
+    <Typography fontWeight={700}>
+      Download Report
+    </Typography>
+  </Paper>
 
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    sx={{
-                      py: 1.8,
-                      borderRadius: "14px",
-                      textTransform: "none",
-                    }}
-                  >
-                    Notification Settings
-                  </Button>
+  <Paper
+    sx={{
+      p: 2,
+      border: "2px solid #1976D2",
+      borderRadius: 3,
+      textAlign: "center",
+      cursor: "pointer",
+    }}
+  >
+    <Typography fontWeight={700}>
+      Notification Settings
+    </Typography>
+  </Paper>
 
-                </Stack>
+</Stack>
 
                 <Paper
                   elevation={0}
