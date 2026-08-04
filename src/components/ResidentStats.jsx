@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import api from "../services/api";
 
 import {
   Box,
@@ -15,71 +16,88 @@ import {
   ArrowUpwardRounded,
 } from "@mui/icons-material";
 
-const cards = [
-  {
-    title: "Today's Usage",
-    value: "320 L",
-    subtitle: "+12% from yesterday",
-    icon: <WaterDropRounded fontSize="large" />,
-    color: "#1976D2",
-    gradient: "linear-gradient(135deg,#1976D2,#42A5F5)",
-  },
-  {
-    title: "Monthly Usage",
-    value: "12,450 L",
-    subtitle: "Current Month",
-    icon: <TrendingUpRounded fontSize="large" />,
-    color: "#00ACC1",
-    gradient: "linear-gradient(135deg,#00ACC1,#26C6DA)",
-  },
-  {
-    title: "Current Bill",
-    value: "₹850",
-    subtitle: "Due in 5 Days",
-    icon: <ReceiptLongRounded fontSize="large" />,
-    color: "#FB8C00",
-    gradient: "linear-gradient(135deg,#FB8C00,#FFB300)",
-  },
-  {
-    title: "Eco Score",
-    value: "92%",
-    subtitle: "Excellent",
-    icon: <EmojiEventsRounded fontSize="large" />,
-    color: "#43A047",
-    gradient: "linear-gradient(135deg,#43A047,#66BB6A)",
-  },
-];
-
 export default function ResidentStats() {
+
+  const [dashboard, setDashboard] = useState({
+    todayUsage: 0,
+    monthlyUsage: 0,
+    billAmount: 0,
+    waterSaving: 0,
+  });
+
+  useEffect(() => {
+    fetchDashboard();
+  }, []);
+
+  const fetchDashboard = async () => {
+
+    try {
+
+      const response = await api.get("/api/resident/dashboard");
+
+      setDashboard(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
+  const cards = [
+    {
+      title: "Today's Usage",
+      value: `${dashboard.todayUsage} L`,
+      subtitle: "+12% from yesterday",
+      icon: <WaterDropRounded fontSize="large" />,
+      color: "#1976D2",
+      gradient: "linear-gradient(135deg,#1976D2,#42A5F5)",
+    },
+    {
+      title: "Monthly Usage",
+      value: `${dashboard.monthlyUsage.toLocaleString()} L`,
+      subtitle: "Current Month",
+      icon: <TrendingUpRounded fontSize="large" />,
+      color: "#00ACC1",
+      gradient: "linear-gradient(135deg,#00ACC1,#26C6DA)",
+    },
+    {
+      title: "Current Bill",
+      value: `₹${dashboard.billAmount}`,
+      subtitle: `Due ${dashboard.nextDueDate || ""}`,
+      icon: <ReceiptLongRounded fontSize="large" />,
+      color: "#FB8C00",
+      gradient: "linear-gradient(135deg,#FB8C00,#FFB300)",
+    },
+    {
+      title: "Eco Score",
+      value: `${dashboard.waterSaving}%`,
+      subtitle: "Excellent",
+      icon: <EmojiEventsRounded fontSize="large" />,
+      color: "#43A047",
+      gradient: "linear-gradient(135deg,#43A047,#66BB6A)",
+    },
+  ];
 
   return (
 
     <Box
       sx={{
-
         mt: 1,
-
         width: "100%",
-
         display: "grid",
-
         gap: 3,
-
         gridTemplateColumns: {
-
           xs: "1fr",
-
           sm: "repeat(2,1fr)",
-
           md: "repeat(2,1fr)",
-
           lg: "repeat(4,minmax(0,1fr))",
-
         },
-
       }}
     >
-            {cards.map((card, index) => (
+
+      {cards.map((card, index) => (
 
         <motion.div
           key={card.title}
@@ -109,47 +127,26 @@ export default function ResidentStats() {
 
           <Box
             sx={{
-
               position: "relative",
-
               overflow: "hidden",
-
               height: "100%",
-
               minHeight: 245,
-
               borderRadius: "28px",
-
               p: 3,
-
               bgcolor: "#FFFFFF",
-
               border: "1px solid #E8EEF5",
-
-              boxShadow:
-                "0 18px 45px rgba(15,23,42,.08)",
-
+              boxShadow: "0 18px 45px rgba(15,23,42,.08)",
               transition: ".35s",
-
               display: "flex",
-
               flexDirection: "column",
-
               justifyContent: "space-between",
 
               "&:hover": {
-
                 borderColor: "#1976D2",
-
-                boxShadow:
-                  "0 28px 60px rgba(25,118,210,.15)",
-
+                boxShadow: "0 28px 60px rgba(25,118,210,.15)",
               },
-
             }}
           >
-
-            {/* Decorative Circle */}
 
             <Box
               sx={{
@@ -162,8 +159,6 @@ export default function ResidentStats() {
                 right: -50,
               }}
             />
-
-            {/* Header */}
 
             <Box
               display="flex"
@@ -181,8 +176,7 @@ export default function ResidentStats() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  boxShadow:
-                    `0 18px 35px ${card.color}55`,
+                  boxShadow: `0 18px 35px ${card.color}55`,
                 }}
               >
                 {card.icon}
@@ -253,7 +247,8 @@ export default function ResidentStats() {
         </motion.div>
 
       ))}
-          </Box>
+
+    </Box>
 
   );
 

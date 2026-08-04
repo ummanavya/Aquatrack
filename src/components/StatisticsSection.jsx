@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 import {
   Box,
   Chip,
@@ -14,45 +16,45 @@ import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
 import NotificationsActiveRoundedIcon from "@mui/icons-material/NotificationsActiveRounded";
 import TrendingUpRoundedIcon from "@mui/icons-material/TrendingUpRounded";
 
-const stats = [
-  {
-    title: "Apartments",
-    value: "120+",
-    subtitle: "Communities Connected",
-    icon: <ApartmentRoundedIcon sx={{ fontSize: 42 }} />,
-    color: "#1976D2",
-  },
-  {
-    title: "Water Tracked",
-    value: "18.2M L",
-    subtitle: "Monitored Every Month",
-    icon: <WaterDropRoundedIcon sx={{ fontSize: 42 }} />,
-    color: "#26A69A",
-  },
-  {
-    title: "Bills Generated",
-    value: "15,421",
-    subtitle: "Automated Billing",
-    icon: <ReceiptLongRoundedIcon sx={{ fontSize: 42 }} />,
-    color: "#FB8C00",
-  },
-  {
-    title: "Leak Accuracy",
-    value: "98%",
-    subtitle: "AI Detection",
-    icon: (
-      <NotificationsActiveRoundedIcon
-        sx={{ fontSize: 42 }}
-      />
-    ),
-    color: "#E53935",
-  },
-];
-
 export default function StatisticsSection() {
+  const { t } = useTranslation();
+
+  const stats = [
+    {
+      title: t("statApartments"),
+      value: "120+",
+      subtitle: t("statApartmentsSub"),
+      icon: <ApartmentRoundedIcon sx={{ fontSize: 42 }} />,
+      color: "#1976D2",
+    },
+    {
+      title: t("statWaterTracked"),
+      value: "18.2M L",
+      subtitle: t("statWaterTrackedSub"),
+      icon: <WaterDropRoundedIcon sx={{ fontSize: 42 }} />,
+      color: "#26A69A",
+    },
+    {
+      title: t("statBillsGenerated"),
+      value: "15,421",
+      subtitle: t("statBillsGeneratedSub"),
+      icon: <ReceiptLongRoundedIcon sx={{ fontSize: 42 }} />,
+      color: "#FB8C00",
+    },
+    {
+      title: t("statLeakAccuracy"),
+      value: "98%",
+      subtitle: t("statLeakAccuracySub"),
+      icon: (
+        <NotificationsActiveRoundedIcon
+          sx={{ fontSize: 42 }}
+        />
+      ),
+      color: "#E53935",
+    },
+  ];
 
   return (
-
     <Box
       sx={{
         py: 14,
@@ -60,19 +62,16 @@ export default function StatisticsSection() {
           "linear-gradient(to bottom,#ffffff,#F7FAFC)",
       }}
     >
-
       <Container maxWidth="lg">
-
-        {/* ================= Heading ================= */}
+                {/* ================= Heading ================= */}
 
         <Stack
           spacing={2}
           alignItems="center"
           mb={8}
         >
-
           <Chip
-            label="OUR IMPACT"
+            label={t("ourImpact")}
             color="primary"
             sx={{
               fontWeight: 700,
@@ -92,9 +91,7 @@ export default function StatisticsSection() {
               color: "#0F172A",
             }}
           >
-
-            Trusted By Modern Apartment Communities
-
+            {t("statisticsTitle")}
           </Typography>
 
           <Typography
@@ -110,16 +107,8 @@ export default function StatisticsSection() {
               lineHeight: 1.8,
             }}
           >
-
-            AquaTrack empowers apartment
-            communities with intelligent
-            monitoring, automated billing,
-            leak detection and real-time
-            analytics, making water
-            management smarter than ever.
-
+            {t("statisticsDescription")}
           </Typography>
-
         </Stack>
 
         {/* ================= Top Statistics ================= */}
@@ -129,8 +118,7 @@ export default function StatisticsSection() {
           spacing={4}
           justifyContent="center"
         >
-                    {stats.map((item) => (
-
+          {stats.map((item) => (
             <Grid
               item
               xs={12}
@@ -140,7 +128,6 @@ export default function StatisticsSection() {
               display="flex"
               justifyContent="center"
             >
-
               <Paper
                 elevation={0}
                 sx={{
@@ -160,7 +147,6 @@ export default function StatisticsSection() {
                   },
                 }}
               >
-
                 <Box
                   sx={{
                     position: "absolute",
@@ -170,7 +156,7 @@ export default function StatisticsSection() {
                     height: 120,
                     borderRadius: "50%",
                     bgcolor: item.color,
-                    opacity: .08,
+                    opacity: 0.08,
                   }}
                 />
 
@@ -179,7 +165,6 @@ export default function StatisticsSection() {
                   alignItems="center"
                   textAlign="center"
                 >
-
                   <Box
                     sx={{
                       width: 82,
@@ -193,9 +178,7 @@ export default function StatisticsSection() {
                       boxShadow: `0 15px 35px ${item.color}55`,
                     }}
                   >
-
                     {item.icon}
-
                   </Box>
 
                   <Typography
@@ -205,9 +188,7 @@ export default function StatisticsSection() {
                       color: "#0F172A",
                     }}
                   >
-
                     {item.value}
-
                   </Typography>
 
                   <Typography
@@ -216,9 +197,7 @@ export default function StatisticsSection() {
                       fontSize: 22,
                     }}
                   >
-
                     {item.title}
-
                   </Typography>
 
                   <Typography
@@ -227,9 +206,7 @@ export default function StatisticsSection() {
                       lineHeight: 1.8,
                     }}
                   >
-
                     {item.subtitle}
-
                   </Typography>
 
                 </Stack>
@@ -241,8 +218,7 @@ export default function StatisticsSection() {
           ))}
 
         </Grid>
-
-        {/* ================= Performance Banner ================= */}
+                {/* ================= Performance Banner ================= */}
 
         <Box
           sx={{
@@ -272,9 +248,7 @@ export default function StatisticsSection() {
               mb: 3,
             }}
           >
-
-            Smarter Water Management Starts Here
-
+            {t("performanceTitle")}
           </Typography>
 
           <Typography
@@ -288,13 +262,7 @@ export default function StatisticsSection() {
               mb: 6,
             }}
           >
-
-            AquaTrack enables apartment communities
-            to reduce water wastage, automate
-            billing, detect leakages instantly
-            and gain valuable insights through
-            one intelligent platform.
-
+            {t("performanceDescription")}
           </Typography>
 
           <Grid
@@ -302,18 +270,18 @@ export default function StatisticsSection() {
             spacing={3}
             justifyContent="center"
           >
-                        {[
+            {[
               {
                 title: "32%",
-                subtitle: "Reduction in Water Wastage",
+                subtitle: t("reductionWater"),
               },
               {
                 title: "24 / 7",
-                subtitle: "Real-Time Monitoring",
+                subtitle: t("realTimeMonitoring"),
               },
               {
                 title: "100%",
-                subtitle: "Automated Billing Accuracy",
+                subtitle: t("billingAccuracy"),
               },
             ].map((item) => (
 

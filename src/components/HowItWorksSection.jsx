@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Avatar,
@@ -21,54 +22,56 @@ import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 
 import { motion } from "framer-motion";
 
-const steps = [
-  {
-    number: "01",
-    title: "Register Apartment",
-    desc:
-      "Create your apartment, add households and configure smart water meters within minutes.",
-    icon: <ApartmentRoundedIcon sx={{ fontSize: 34 }} />,
-    color: "#1976D2",
-  },
-  {
-    number: "02",
-    title: "Track Water Usage",
-    desc:
-      "Monitor live meter readings and understand household water consumption in real time.",
-    icon: <WaterDropRoundedIcon sx={{ fontSize: 34 }} />,
-    color: "#00ACC1",
-  },
-  {
-    number: "03",
-    title: "Automatic Billing",
-    desc:
-      "Generate accurate invoices automatically using configurable tariff plans.",
-    icon: <ReceiptLongRoundedIcon sx={{ fontSize: 34 }} />,
-    color: "#FB8C00",
-  },
-  {
-    number: "04",
-    title: "Analytics & Alerts",
-    desc:
-      "Receive intelligent leak alerts and powerful analytics for better decisions.",
-    icon: <AnalyticsRoundedIcon sx={{ fontSize: 34 }} />,
-    color: "#7E57C2",
-  },
-];
-
 export default function HowItWorksSection() {
+
+  const { t } = useTranslation();
+
+  const steps = [
+    {
+      number: "01",
+      title: t("step1Title"),
+      desc: t("step1Desc"),
+      icon: <ApartmentRoundedIcon sx={{ fontSize: 34 }} />,
+      color: "#1976D2",
+    },
+    {
+      number: "02",
+      title: t("step2Title"),
+      desc: t("step2Desc"),
+      icon: <WaterDropRoundedIcon sx={{ fontSize: 34 }} />,
+      color: "#00ACC1",
+    },
+    {
+      number: "03",
+      title: t("step3Title"),
+      desc: t("step3Desc"),
+      icon: <ReceiptLongRoundedIcon sx={{ fontSize: 34 }} />,
+      color: "#FB8C00",
+    },
+    {
+      number: "04",
+      title: t("step4Title"),
+      desc: t("step4Desc"),
+      icon: <AnalyticsRoundedIcon sx={{ fontSize: 34 }} />,
+      color: "#7E57C2",
+    },
+  ];
+
   return (
-    <Box
+        <Box
       id="how"
       sx={{
         position: "relative",
         overflow: "hidden",
-        py: { xs: 12, md: 18 },
+        py: {
+          xs: 12,
+          md: 18,
+        },
         background:
           "linear-gradient(180deg,#F8FBFF 0%,#FFFFFF 55%,#F5FAFF 100%)",
       }}
     >
-      {/* Background Blur */}
+      {/* ================= Background Blur ================= */}
 
       <Box
         sx={{
@@ -96,10 +99,12 @@ export default function HowItWorksSection() {
         }}
       />
 
-      {/* Floating Bubble */}
+      {/* ================= Floating Bubble ================= */}
 
       <motion.div
-        animate={{ y: [0, -25, 0] }}
+        animate={{
+          y: [0, -25, 0],
+        }}
         transition={{
           duration: 7,
           repeat: Infinity,
@@ -129,7 +134,7 @@ export default function HowItWorksSection() {
           zIndex: 2,
         }}
       >
-        {/* Header */}
+        {/* ================= Header ================= */}
 
         <Stack
           spacing={3}
@@ -149,11 +154,11 @@ export default function HowItWorksSection() {
               once: true,
             }}
             transition={{
-              duration: .6,
+              duration: 0.6,
             }}
           >
             <Chip
-              label="⚡ HOW AQUATRACK WORKS"
+              label={t("howChip")}
               sx={{
                 px: 2,
                 py: 2.7,
@@ -181,7 +186,7 @@ export default function HowItWorksSection() {
               once: true,
             }}
             transition={{
-              duration: .7,
+              duration: 0.7,
             }}
           >
             <Typography
@@ -196,16 +201,18 @@ export default function HowItWorksSection() {
                 },
               }}
             >
-              Four Simple Steps
+              {t("howTitle1")}
               <br />
+
               <Box
                 component="span"
                 sx={{
                   color: "#1976D2",
                 }}
               >
-                Towards Smart Water Management
+                {t("howTitle2")}
               </Box>
+
             </Typography>
           </motion.div>
 
@@ -213,7 +220,7 @@ export default function HowItWorksSection() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: .2 }}
+            transition={{ delay: 0.2 }}
           >
             <Typography
               align="center"
@@ -224,21 +231,20 @@ export default function HowItWorksSection() {
                 lineHeight: 1.9,
               }}
             >
-              AquaTrack simplifies apartment water management by
-              combining smart monitoring, automated billing,
-              analytics and leak detection into one intelligent
-              platform.
+              {t("howDescription")}
             </Typography>
           </motion.div>
         </Stack>
-                {/* ================= Timeline ================= */}
+
+        {/* ================= Timeline ================= */}
 
         <Grid
           container
           spacing={4}
           justifyContent="center"
         >
-          {steps.map((step, index) => (
+                    {steps.map((step, index) => (
+
             <Grid
               key={step.number}
               size={{
@@ -247,6 +253,7 @@ export default function HowItWorksSection() {
                 lg: 3,
               }}
             >
+
               <motion.div
                 initial={{
                   opacity: 0,
@@ -267,15 +274,18 @@ export default function HowItWorksSection() {
                   y: -10,
                 }}
               >
+
                 <Box
                   sx={{
                     position: "relative",
                     height: "100%",
                   }}
                 >
+
                   {/* Connection Line */}
 
                   {index !== steps.length - 1 && (
+
                     <Box
                       sx={{
                         display: {
@@ -293,9 +303,8 @@ export default function HowItWorksSection() {
                         zIndex: 0,
                       }}
                     />
-                  )}
 
-                  {/* Card */}
+                  )}
 
                   <Paper
                     elevation={0}
@@ -325,7 +334,6 @@ export default function HowItWorksSection() {
                       },
                     }}
                   >
-                    {/* Step Number */}
 
                     <Typography
                       sx={{
@@ -340,8 +348,6 @@ export default function HowItWorksSection() {
                       {step.number}
                     </Typography>
 
-                    {/* Glow */}
-
                     <Box
                       sx={{
                         position: "absolute",
@@ -355,17 +361,16 @@ export default function HowItWorksSection() {
                       }}
                     />
 
-                    {/* Icon */}
-
                     <motion.div
                       whileHover={{
                         rotate: 360,
                         scale: 1.12,
                       }}
                       transition={{
-                        duration: .8,
+                        duration: 0.8,
                       }}
                     >
+
                       <Avatar
                         sx={{
                           width: 82,
@@ -379,9 +384,8 @@ export default function HowItWorksSection() {
                       >
                         {step.icon}
                       </Avatar>
-                    </motion.div>
 
-                    {/* Title */}
+                    </motion.div>
 
                     <Typography
                       align="center"
@@ -395,8 +399,6 @@ export default function HowItWorksSection() {
                       {step.title}
                     </Typography>
 
-                    {/* Description */}
-
                     <Typography
                       align="center"
                       sx={{
@@ -408,8 +410,6 @@ export default function HowItWorksSection() {
                       {step.desc}
                     </Typography>
 
-                    {/* Progress Dots */}
-
                     <Stack
                       direction="row"
                       spacing={1}
@@ -417,6 +417,7 @@ export default function HowItWorksSection() {
                       mt={4}
                     >
                       {[1, 2, 3].map((dot) => (
+
                         <motion.div
                           key={dot}
                           animate={{
@@ -429,6 +430,7 @@ export default function HowItWorksSection() {
                             delay: dot * 0.2,
                           }}
                         >
+
                           <Box
                             sx={{
                               width: 10,
@@ -437,14 +439,22 @@ export default function HowItWorksSection() {
                               bgcolor: step.color,
                             }}
                           />
+
                         </motion.div>
+
                       ))}
                     </Stack>
+
                   </Paper>
+
                 </Box>
+
               </motion.div>
+
             </Grid>
+
           ))}
+
         </Grid>
                 {/* ================= Premium CTA ================= */}
 
@@ -476,7 +486,8 @@ export default function HowItWorksSection() {
                 "0 30px 80px rgba(25,118,210,.35)",
             }}
           >
-            {/* Floating Glow */}
+
+            {/* Glow */}
 
             <Box
               sx={{
@@ -504,37 +515,6 @@ export default function HowItWorksSection() {
               }}
             />
 
-            {/* Floating Bubbles */}
-
-            {[1, 2, 3].map((bubble) => (
-              <motion.div
-                key={bubble}
-                animate={{
-                  y: [0, -18, 0],
-                  x: [0, 8, 0],
-                }}
-                transition={{
-                  duration: 4 + bubble,
-                  repeat: Infinity,
-                }}
-                style={{
-                  position: "absolute",
-                  top: `${15 + bubble * 18}%`,
-                  right: `${8 + bubble * 8}%`,
-                }}
-              >
-                <Box
-                  sx={{
-                    width: bubble * 12 + 20,
-                    height: bubble * 12 + 20,
-                    borderRadius: "50%",
-                    background: "rgba(255,255,255,.18)",
-                    backdropFilter: "blur(10px)",
-                  }}
-                />
-              </motion.div>
-            ))}
-
             <Typography
               sx={{
                 fontWeight: 900,
@@ -546,9 +526,9 @@ export default function HowItWorksSection() {
                 },
               }}
             >
-              Ready to Modernize
+              {t("howCtaTitle1")}
               <br />
-              Your Apartment Management?
+              {t("howCtaTitle2")}
             </Typography>
 
             <Typography
@@ -563,10 +543,7 @@ export default function HowItWorksSection() {
                 },
               }}
             >
-              Join apartment communities using AquaTrack to automate
-              billing, monitor water consumption, receive intelligent
-              leak alerts and make smarter decisions through powerful
-              analytics.
+              {t("howCtaDescription")}
             </Typography>
 
             <Stack
@@ -578,51 +555,48 @@ export default function HowItWorksSection() {
               justifyContent="center"
               mt={6}
             >
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Button
-                  variant="contained"
-                  endIcon={<ArrowForwardRoundedIcon />}
-                  sx={{
-                    bgcolor: "#fff",
-                    color: "#1976D2",
-                    px: 5,
-                    py: 1.8,
-                    borderRadius: "50px",
-                    fontWeight: 800,
-                    textTransform: "none",
-                    fontSize: 16,
+              <Button
+                variant="contained"
+                endIcon={<ArrowForwardRoundedIcon />}
+                sx={{
+                  bgcolor: "#fff",
+                  color: "#1976D2",
+                  px: 5,
+                  py: 1.8,
+                  borderRadius: "50px",
+                  fontWeight: 800,
+                  textTransform: "none",
+                  fontSize: 16,
 
-                    "&:hover": {
-                      bgcolor: "#F5F9FF",
-                    },
-                  }}
-                >
-                  Get Started
-                </Button>
-              </motion.div>
+                  "&:hover": {
+                    bgcolor: "#F5F9FF",
+                  },
+                }}
+              >
+                {t("getStarted")}
+              </Button>
 
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    px: 5,
-                    py: 1.8,
-                    borderRadius: "50px",
-                    color: "#fff",
-                    borderColor: "rgba(255,255,255,.7)",
-                    textTransform: "none",
-                    fontWeight: 700,
+              <Button
+                variant="outlined"
+                sx={{
+                  px: 5,
+                  py: 1.8,
+                  borderRadius: "50px",
+                  color: "#fff",
+                  borderColor: "rgba(255,255,255,.7)",
+                  textTransform: "none",
+                  fontWeight: 700,
 
-                    "&:hover": {
-                      borderColor: "#fff",
-                      bgcolor: "rgba(255,255,255,.08)",
-                    },
-                  }}
-                >
-                  Learn More
-                </Button>
-              </motion.div>
+                  "&:hover": {
+                    borderColor: "#fff",
+                    bgcolor: "rgba(255,255,255,.08)",
+                  },
+                }}
+              >
+                {t("learnMore")}
+              </Button>
             </Stack>
+
           </Box>
         </motion.div>
 
@@ -654,6 +628,7 @@ export default function HowItWorksSection() {
           />
         </svg>
       </Box>
+
     </Box>
   );
 }

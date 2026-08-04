@@ -11,6 +11,8 @@ import {
   Box,
   TextField,
   InputAdornment,
+  FormControl,
+  Select,
 } from "@mui/material";
 
 import {
@@ -19,12 +21,18 @@ import {
   AccountCircle,
   Logout,
   Settings,
+  Language,
 } from "@mui/icons-material";
 
 import { useNavigate } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
+
 export default function Navbar() {
   const navigate = useNavigate();
+
+  const { t } = useTranslation();
 
   const username = localStorage.getItem("username") || "Administrator";
 
@@ -43,7 +51,12 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  const today = new Date().toLocaleDateString("en-IN", {
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
+
+  const today = new Date().toLocaleDateString(i18n.language === "en" ? "en-IN" : undefined, {
     weekday: "long",
     day: "numeric",
     month: "long",
@@ -53,9 +66,10 @@ export default function Navbar() {
   return (
     <AppBar className="top-navbar" elevation={0}>
       <Toolbar className="navbar-toolbar">
+
         <Box className="navbar-left">
           <Typography className="navbar-title">
-            AquaTrack Dashboard
+            {t("dashboardTitle")}
           </Typography>
 
           <Typography className="navbar-date">
@@ -65,7 +79,7 @@ export default function Navbar() {
 
         <Box className="navbar-center">
           <TextField
-            placeholder="Search apartments, households..."
+            placeholder={t("search")}
             size="small"
             className="navbar-search"
             InputProps={{
@@ -78,7 +92,33 @@ export default function Navbar() {
           />
         </Box>
 
-        <Box className="navbar-right">
+        <Box
+          className="navbar-right"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+          }}
+        >
+          {/* Language Selector */}
+
+          <FormControl size="small">
+            <Select
+              value={i18n.language}
+              onChange={(e) => changeLanguage(e.target.value)}
+              startAdornment={<Language sx={{ mr: 1 }} />}
+              sx={{
+                minWidth: 130,
+                height: 40,
+              }}
+            >
+              <MenuItem value="en">English</MenuItem>
+              <MenuItem value="hi">हिन्दी</MenuItem>
+              <MenuItem value="te">తెలుగు</MenuItem>
+              <MenuItem value="ta">தமிழ்</MenuItem>
+            </Select>
+          </FormControl>
+
           <IconButton>
             <Badge badgeContent={4} color="error">
               <NotificationsNone />
@@ -98,7 +138,7 @@ export default function Navbar() {
           </IconButton>
 
           <Menu
-    disableScrollLock
+            disableScrollLock
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
             onClose={handleClose}
@@ -110,12 +150,12 @@ export default function Navbar() {
 
             <MenuItem onClick={handleClose}>
               <Settings sx={{ mr: 1 }} />
-              Settings
+              {t("settings")}
             </MenuItem>
 
             <MenuItem onClick={logout}>
               <Logout sx={{ mr: 1 }} />
-              Logout
+              {t("logout")}
             </MenuItem>
           </Menu>
         </Box>

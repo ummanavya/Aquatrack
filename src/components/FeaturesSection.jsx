@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import {
   Box,
@@ -22,52 +23,49 @@ import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 
 import { motion } from "framer-motion";
 
-const features = [
-  {
-    icon: <WaterDropRoundedIcon />,
-    title: "Real-Time Monitoring",
-    description:
-      "Track apartment water usage instantly with live meter readings and intelligent consumption insights.",
-    color: "#2196F3",
-  },
-  {
-    icon: <ReceiptLongRoundedIcon />,
-    title: "Automatic Billing",
-    description:
-      "Generate accurate monthly bills automatically using configurable tariff plans.",
-    color: "#3B82F6",
-  },
-  {
-    icon: <AnalyticsRoundedIcon />,
-    title: "Analytics Dashboard",
-    description:
-      "Interactive reports and visual dashboards help understand usage patterns and costs.",
-    color: "#2563EB",
-  },
-  {
-    icon: <ApartmentRoundedIcon />,
-    title: "Apartment Management",
-    description:
-      "Manage apartments, households, residents and water meters from one platform.",
-    color: "#1976D2",
-  },
-  {
-    icon: <NotificationsActiveRoundedIcon />,
-    title: "Leak Detection",
-    description:
-      "Receive instant notifications whenever abnormal water consumption is detected.",
-    color: "#0EA5E9",
-  },
-  {
-    icon: <SecurityRoundedIcon />,
-    title: "Secure Platform",
-    description:
-      "Role-based authentication with secure access for administrators and residents.",
-    color: "#2563EB",
-  },
-];
-
 export default function FeaturesSection() {
+
+  const { t } = useTranslation();
+
+  const features = [
+    {
+      icon: <WaterDropRoundedIcon />,
+      title: t("feature1Title"),
+      description: t("feature1Desc"),
+      color: "#2196F3",
+    },
+    {
+      icon: <ReceiptLongRoundedIcon />,
+      title: t("feature2Title"),
+      description: t("feature2Desc"),
+      color: "#3B82F6",
+    },
+    {
+      icon: <AnalyticsRoundedIcon />,
+      title: t("feature3Title"),
+      description: t("feature3Desc"),
+      color: "#2563EB",
+    },
+    {
+      icon: <ApartmentRoundedIcon />,
+      title: t("feature4Title"),
+      description: t("feature4Desc"),
+      color: "#1976D2",
+    },
+    {
+      icon: <NotificationsActiveRoundedIcon />,
+      title: t("feature5Title"),
+      description: t("feature5Desc"),
+      color: "#0EA5E9",
+    },
+    {
+      icon: <SecurityRoundedIcon />,
+      title: t("feature6Title"),
+      description: t("feature6Desc"),
+      color: "#2563EB",
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -81,7 +79,7 @@ export default function FeaturesSection() {
           "linear-gradient(180deg,#F8FBFF 0%,#FFFFFF 45%,#F5FAFF 100%)",
       }}
     >
-      {/* Background Blur */}
+            {/* ================= Background Blur ================= */}
 
       <Box
         sx={{
@@ -109,7 +107,7 @@ export default function FeaturesSection() {
         }}
       />
 
-      {/* Floating Bubble */}
+      {/* ================= Floating Bubble ================= */}
 
       <motion.div
         animate={{
@@ -145,7 +143,7 @@ export default function FeaturesSection() {
           zIndex: 2,
         }}
       >
-        {/* Header */}
+        {/* ================= Header ================= */}
 
         <motion.div
           initial={{
@@ -169,7 +167,7 @@ export default function FeaturesSection() {
             mb={10}
           >
             <Chip
-              label="✨ SMART FEATURES"
+              label={t("featuresChip")}
               sx={{
                 fontWeight: 700,
                 fontSize: 14,
@@ -196,7 +194,7 @@ export default function FeaturesSection() {
                 },
               }}
             >
-              Everything You Need
+              {t("featuresTitle")}
             </Typography>
 
             <Typography
@@ -208,11 +206,7 @@ export default function FeaturesSection() {
                 lineHeight: 1.9,
               }}
             >
-              AquaTrack combines intelligent monitoring,
-              automated billing, real-time analytics,
-              apartment management, secure authentication
-              and leak detection into one powerful
-              platform.
+              {t("featuresDescription")}
             </Typography>
 
             <Box
@@ -226,7 +220,8 @@ export default function FeaturesSection() {
             />
           </Stack>
         </motion.div>
-                {/* ================= FEATURES GRID ================= */}
+
+        {/* ================= FEATURES GRID ================= */}
 
         <Box
           sx={{
@@ -239,7 +234,7 @@ export default function FeaturesSection() {
             gap: 4,
           }}
         >
-          {features.map((feature, index) => (
+                    {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{
@@ -293,8 +288,6 @@ export default function FeaturesSection() {
                   },
                 }}
               >
-                {/* Background Glow */}
-
                 <Box
                   sx={{
                     position: "absolute",
@@ -330,8 +323,7 @@ export default function FeaturesSection() {
                         height: 74,
                         bgcolor: feature.color,
                         mb: 3,
-                        boxShadow:
-                          `0 18px 35px ${feature.color}55`,
+                        boxShadow: `0 18px 35px ${feature.color}55`,
 
                         "& svg": {
                           fontSize: 36,
@@ -381,7 +373,7 @@ export default function FeaturesSection() {
                         fontWeight: 700,
                       }}
                     >
-                      Learn More
+                      {t("learnMore")}
 
                       <ArrowForwardRoundedIcon
                         sx={{
@@ -394,6 +386,7 @@ export default function FeaturesSection() {
               </Card>
             </motion.div>
           ))}
+
         </Box>
                 {/* ====================== PREMIUM CTA ====================== */}
 
@@ -483,7 +476,7 @@ export default function FeaturesSection() {
                 zIndex: 2,
               }}
             >
-              Ready to Modernize Water Management?
+              {t("ctaTitle")}
             </Typography>
 
             <Typography
@@ -497,10 +490,7 @@ export default function FeaturesSection() {
                 zIndex: 2,
               }}
             >
-              Join apartments using AquaTrack to automate billing,
-              monitor water consumption in real time,
-              detect leaks early and simplify
-              apartment water management.
+              {t("ctaDescription")}
             </Typography>
 
             <Stack
@@ -517,12 +507,8 @@ export default function FeaturesSection() {
               }}
             >
               <motion.div
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Button
                   variant="contained"
@@ -541,17 +527,13 @@ export default function FeaturesSection() {
                     },
                   }}
                 >
-                  Get Started
+                  {t("getStarted")}
                 </Button>
               </motion.div>
 
               <motion.div
-                whileHover={{
-                  scale: 1.05,
-                }}
-                whileTap={{
-                  scale: 0.95,
-                }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 <Button
                   variant="outlined"
@@ -570,7 +552,7 @@ export default function FeaturesSection() {
                     },
                   }}
                 >
-                  Contact Sales
+                  {t("contactSales")}
                 </Button>
               </motion.div>
             </Stack>

@@ -1,0 +1,172 @@
+{
+  "appName": "AquaTrack",
+
+  "welcome": "Welcome",
+  "welcomeMessage": "Smart Water Management System",
+  "getStarted": "Get Started",
+  "learnMore": "Learn More",
+
+  "login": "Login",
+  "logout": "Logout",
+  "createAccount": "Create Account",
+  "forgotPassword": "Forgot Password",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "rememberMe": "Remember Me",
+  "continueWithGoogle": "Continue with Google",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "backToLogin": "Back to Login",
+
+  "dashboard": "Dashboard",
+  "dashboardTitle": "AquaTrack Dashboard",
+  "adminDashboard": "Admin Dashboard",
+  "residentDashboard": "Resident Dashboard",
+
+  "profile": "Profile",
+  "settings": "Settings",
+  "notifications": "Notifications",
+
+  "apartments": "Apartments",
+  "apartment": "Apartment",
+  "households": "Households",
+  "household": "Household",
+
+  "waterUsage": "Water Usage",
+  "dailyUsage": "Daily Usage",
+  "monthlyUsage": "Monthly Usage",
+  "totalConsumption": "Total Consumption",
+
+  "billing": "Billing",
+  "bill": "Bill",
+  "bills": "Bills",
+  "invoice": "Invoice",
+  "payment": "Payment",
+  "amount": "Amount",
+  "dueDate": "Due Date",
+  "paid": "Paid",
+  "pending": "Pending",
+
+  "alerts": "Alerts",
+  "leakAlert": "Leak Alert",
+  "highUsage": "High Water Usage",
+  "noAlerts": "No Alerts",
+
+  "users": "Users",
+  "residents": "Residents",
+  "admin": "Administrator",
+
+  "search": "Search apartments, households...",
+  "searchPlaceholder": "Search...",
+
+  "save": "Save",
+  "update": "Update",
+  "edit": "Edit",
+  "delete": "Delete",
+  "cancel": "Cancel",
+  "close": "Close",
+  "submit": "Submit",
+  "reset": "Reset",
+  "clear": "Clear",
+  "yes": "Yes",
+  "no": "No",
+
+  "name": "Name",
+  "fullName": "Full Name",
+  "phone": "Phone Number",
+  "address": "Address",
+  "city": "City",
+  "state": "State",
+  "country": "Country",
+
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+
+  "loading": "Loading...",
+  "success": "Success",
+  "error": "Something went wrong",
+  "retry": "Retry",
+
+  "today": "Today",
+  "home": "Home",
+
+  "viewProfile": "View Profile",
+  "changePassword": "Change Password",
+
+  "totalApartments": "Total Apartments",
+  "totalHouseholds": "Total Households",
+  "totalRevenue": "Total Revenue",
+  "totalBills": "Total Bills",
+  "waterConsumption": "Water Consumption",
+
+  "welcomeAdmin": "Welcome, Administrator",
+  "welcomeResident": "Welcome, Resident",
+
+  "language": "Language",
+  "english": "English",
+  "hindi": "Hindi",
+  "telugu": "Telugu",
+  "tamil": "Tamil",
+  "heroChip":"AI Powered Smart Water Management",
+"heroTitle1":"Smart Water",
+"heroTitle2":"Management",
+"heroTitle3":"For Apartments",
+"heroDescription":"Monitor every litre of water, automate apartment billing, detect leakages instantly, analyse consumption trends, and manage your entire residential community through one secure AI-powered platform.",
+"watchDemo":"Watch Demo",
+"analytics":"Analytics",
+"secure":"Secure",
+"leakAlerts":"Leak Alerts",
+"performanceTitle":"Smarter Water Management Starts Here",
+"performanceDescription":"AquaTrack enables apartment communities to reduce water wastage, automate billing, detect leakages instantly and gain valuable insights through one intelligent platform.",
+
+"reductionWater":"Reduction in Water Wastage",
+"realTimeMonitoring":"Real-Time Monitoring",
+"billingAccuracy":"Automated Billing Accuracy",
+"featuresChip":"✨ SMART FEATURES",
+"featuresTitle":"Everything You Need",
+"featuresDescription":"AquaTrack combines intelligent monitoring, automated billing, real-time analytics, apartment management, secure authentication and leak detection into one powerful platform.",
+
+"ctaTitle": "Ready to Modernize Water Management?",
+"ctaDescription": "Join apartments using AquaTrack to automate billing, monitor water consumption in real time, detect leaks early and simplify apartment water management.",
+"contactSales": "Contact Sales",
+"feature1Title":"Real-Time Monitoring",
+"feature1Desc":"Track apartment water usage instantly with live meter readings and intelligent consumption insights.",
+
+"feature2Title":"Automatic Billing",
+"feature2Desc":"Generate accurate monthly bills automatically using configurable tariff plans.",
+
+"feature3Title":"Analytics Dashboard",
+"feature3Desc":"Interactive reports and visual dashboards help understand usage patterns and costs.",
+
+"feature4Title":"Apartment Management",
+"feature4Desc":"Manage apartments, households, residents and water meters from one platform.",
+
+"feature5Title":"Leak Detection",
+"feature5Desc":"Receive instant notifications whenever abnormal water consumption is detected.",
+
+"feature6Title":"Secure Platform",
+"feature6Desc":"Role-based authentication with secure access for administrators and residents.",
+"step1Title":"Register Apartment",
+"step1Desc":"Create your apartment, add households and configure smart water meters within minutes.",
+
+"step2Title":"Track Water Usage",
+"step2Desc":"Monitor live meter readings and understand household water consumption in real time.",
+
+"step3Title":"Automatic Billing",
+"step3Desc":"Generate accurate invoices automatically using configurable tariff plans.",
+
+"step4Title":"Analytics & Alerts",
+"step4Desc":"Receive intelligent leak alerts and powerful analytics for better decisions.",
+"howChip":"⚡ HOW AQUATRACK WORKS",
+
+"howTitle1":"Four Simple Steps",
+
+"howTitle2":"Towards Smart Water Management",
+
+"howDescription":"AquaTrack simplifies apartment water management by combining smart monitoring, automated billing, analytics and leak detection into one intelligent platform.",
+"howCtaTitle1":"Ready to Modernize",
+"howCtaTitle2":"Your Apartment Management?",
+"howCtaDescription":"Join apartment communities using AquaTrack to automate billing, monitor water consumption, receive intelligent leak alerts and make smarter decisions through powerful analytics."
+}

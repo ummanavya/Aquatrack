@@ -398,5 +398,3 @@ export default function ResidentSupport() {
   );
 
 }
-
-export default ResidentSupport;

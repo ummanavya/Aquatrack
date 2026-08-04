@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 import ResidentSidebar from "../components/ResidentSidebar";
@@ -21,6 +21,12 @@ import {
 
 export default function ResidentDashboard() {
 
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
   return (
 
     <Box
@@ -33,31 +39,37 @@ export default function ResidentDashboard() {
     >
 
       {/* ================= Sidebar ================= */}
-
-      <ResidentSidebar />
+<ResidentSidebar
+    mobileOpen={mobileOpen}
+    handleDrawerToggle={handleDrawerToggle}
+/>
 
       {/* ================= Main Content ================= */}
 
-      <Box
-        sx={{
-          flex: 1,
+    <Box
+  sx={{
+    flex: 1,
 
-          ml: {
-            xs: 0,
-            lg: "280px",
-          },
+    ml: {
+      xs: 0,
+      md: 0,
+      lg: "260px",
+    },
 
-          width: {
-            xs: "100%",
-            lg: "calc(100% - 280px)",
-          },
+    width: {
+      xs: "100%",
+      md: "100%",
+      lg: "calc(100% - 260px)",
+    },
 
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+    display: "flex",
+    flexDirection: "column",
+  }}
+>
 
-        <ResidentTopbar />
+       <ResidentTopbar
+    handleDrawerToggle={handleDrawerToggle}
+/>
 
         <motion.div
           initial={{
@@ -73,30 +85,29 @@ export default function ResidentDashboard() {
           }}
         >
 
-          <Container
-            maxWidth={false}
-            sx={{
+<Container
+  maxWidth={false}
+  sx={{
+    mt: {
+      xs: "72px",
+      sm: "80px",
+      md: "92px",
+    },
 
-              mt: {
-                xs: "80px",
-                md: "92px",
-              },
+    pb: 5,
 
-              pb: 5,
+    px: {
+      xs: 1.5,
+      sm: 2,
+      md: 3,
+      lg: 5,
+    },
 
-              px: {
-                xs: 2,
-                sm: 3,
-                md: 4,
-                lg: 5,
-              },
+    maxWidth: "1650px",
 
-              maxWidth: "1650px",
-
-              mx: "auto",
-
-            }}
-          >
+    mx: "auto",
+  }}
+>
                         {/* ================= Hero ================= */}
 
             <ResidentHero />
@@ -117,9 +128,13 @@ export default function ResidentDashboard() {
 
             {/* ================= Dashboard Grid ================= */}
 
-            <Grid
-              container
-              spacing={4}
+        <Grid
+container
+spacing={{
+    xs:2,
+    md:3,
+    lg:4
+}}
               alignItems="stretch"
             >
 
@@ -131,7 +146,13 @@ export default function ResidentDashboard() {
                 lg={8}
               >
 
-                <Stack spacing={4}>
+              <Stack
+spacing={{
+    xs:2,
+    md:3,
+    lg:4
+}}
+>
 
                   <motion.div
                     initial={{ opacity: 0, x: -30 }}
@@ -172,7 +193,13 @@ export default function ResidentDashboard() {
                 lg={4}
               >
 
-                <Stack spacing={4}>
+                <Stack
+spacing={{
+    xs:2,
+    md:3,
+    lg:4
+}}
+>
 
                   <motion.div
                     initial={{ opacity: 0, x: 30 }}

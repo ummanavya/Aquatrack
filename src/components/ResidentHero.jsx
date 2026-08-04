@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import api from "../services/api";
 
 import {
   Box,
@@ -16,6 +17,34 @@ import {
 } from "@mui/icons-material";
 
 export default function ResidentHero() {
+
+  const [profile, setProfile] = useState({
+    username: "",
+  });
+
+  const [dashboard, setDashboard] = useState({
+    todayUsage: 0,
+    billAmount: 0,
+  });
+
+  useEffect(() => {
+    loadResidentData();
+  }, []);
+
+  const loadResidentData = async () => {
+
+    try {
+
+      const profileResponse = await api.get("/api/resident/profile");
+      const dashboardResponse = await api.get("/api/resident/dashboard");
+
+      setProfile(profileResponse.data);
+      setDashboard(dashboardResponse.data);
+
+    } catch (error) {
+      console.error("Error loading resident data:", error);
+    }
+  };
 
   return (
 
@@ -95,7 +124,7 @@ export default function ResidentHero() {
           }}
         />
 
-        {/* ================= Left Side ================= */}
+        {/* Left Side */}
 
         <Box
           sx={{
@@ -135,7 +164,7 @@ export default function ResidentHero() {
             }}
           >
 
-            Good Morning, Navya 👋
+            Good Morning, {profile.username || "Resident"} 👋
 
           </Typography>
 
@@ -258,7 +287,8 @@ export default function ResidentHero() {
           </Stack>
 
         </Box>
-                {/* ================= Right Side ================= */}
+
+        {/* Right Side */}
 
         <motion.div
           animate={{
@@ -345,7 +375,7 @@ export default function ResidentHero() {
                     fontWeight: 900,
                   }}
                 >
-                  320 Litres
+                  {dashboard.todayUsage} Litres
                 </Typography>
 
               </Box>
@@ -374,7 +404,7 @@ export default function ResidentHero() {
                     fontWeight: 900,
                   }}
                 >
-                  ₹850
+                  ₹{dashboard.billAmount}
                 </Typography>
 
               </Box>

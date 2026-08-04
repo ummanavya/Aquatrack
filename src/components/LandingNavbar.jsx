@@ -13,12 +13,19 @@ import {
   ListItemButton,
   ListItemText,
   Container,
+  FormControl,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import WaterDropRoundedIcon from "@mui/icons-material/WaterDropRounded";
+import LanguageIcon from "@mui/icons-material/Language";
 
 import { Link as RouterLink } from "react-router-dom";
+
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 const BLUE = "#1976D2";
 const LIGHT = "#42A5F5";
@@ -27,6 +34,8 @@ const DARK = "#0F172A";
 export default function LandingNavbar() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,33 +47,32 @@ export default function LandingNavbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem("language", lang);
+  };
+
   const menu = [
-    { name: "Home", id: "home" },
-    { name: "Features", id: "features" },
-    { name: "Dashboard", id: "dashboard" },
-    { name: "Testimonials", id: "testimonials" },
-    { name: "FAQ", id: "faq" },
-    { name: "Contact", id: "contact" },
+    { name: t("home"), id: "home" },
+    { name: t("features"), id: "features" },
+    { name: t("dashboard"), id: "dashboard" },
+    { name: t("testimonials"), id: "testimonials" },
+    { name: t("faq"), id: "faq" },
+    { name: t("contact"), id: "contact" },
   ];
 
   const scrollToSection = (id) => {
+    const section = document.getElementById(id);
 
-  const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
 
-
-  if (section) {
-
-    section.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-  }
-
-  setDrawerOpen(false);
-
-};
-
+    setDrawerOpen(false);
+  };
 
   return (
     <>
@@ -90,13 +98,11 @@ export default function LandingNavbar() {
             disableGutters
             sx={{
               justifyContent: "space-between",
-
               minHeight: scrolled ? 72 : 82,
-
               transition: ".35s",
             }}
           >
-                        {/* ================= Logo ================= */}
+            {/* Logo */}
 
             <Box
               display="flex"
@@ -126,7 +132,7 @@ export default function LandingNavbar() {
               </Typography>
             </Box>
 
-            {/* ================= Desktop Menu ================= */}
+            {/* Desktop Menu */}
 
             <Box
               sx={{
@@ -135,13 +141,13 @@ export default function LandingNavbar() {
                   md: "flex",
                 },
                 alignItems: "center",
-                gap: 4,
+                gap: 3,
               }}
             >
               {menu.map((item) => (
                 <Typography
-  key={item.name}
-  onClick={() => scrollToSection(item.id)}
+                  key={item.name}
+                  onClick={() => scrollToSection(item.id)}
                   sx={{
                     cursor: "pointer",
                     color: DARK,
@@ -172,6 +178,50 @@ export default function LandingNavbar() {
                   {item.name}
                 </Typography>
               ))}
+                            {/* Language Selector */}
+
+              <FormControl
+                size="small"
+                sx={{
+                  minWidth: 150,
+                  "& .MuiOutlinedInput-root": {
+                    borderRadius: "10px",
+                    bgcolor: "#fff",
+                  },
+                }}
+              >
+                <Select
+                  value={i18n.language}
+                  onChange={(e) => changeLanguage(e.target.value)}
+                  displayEmpty
+                  startAdornment={
+                    <LanguageIcon
+                      sx={{
+                        color: BLUE,
+                        mr: 1,
+                      }}
+                    />
+                  }
+                >
+                  <MenuItem value="en">
+                    {t("english")}
+                  </MenuItem>
+
+                  <MenuItem value="hi">
+                    {t("hindi")}
+                  </MenuItem>
+
+                  <MenuItem value="te">
+                    {t("telugu")}
+                  </MenuItem>
+
+                  <MenuItem value="ta">
+                    {t("tamil")}
+                  </MenuItem>
+                </Select>
+              </FormControl>
+
+              {/* Login Button */}
 
               <Button
                 component={RouterLink}
@@ -193,11 +243,11 @@ export default function LandingNavbar() {
                   },
                 }}
               >
-                Login
+                {t("login")}
               </Button>
             </Box>
 
-            {/* ================= Mobile Menu Button ================= */}
+            {/* Mobile Menu Button */}
 
             <IconButton
               onClick={() => setDrawerOpen(true)}
@@ -215,16 +265,17 @@ export default function LandingNavbar() {
           </Toolbar>
         </Container>
       </AppBar>
-            {/* ================= Mobile Drawer ================= */}
+
+      {/* Mobile Drawer */}
 
       <Drawer
-  anchor="right"
-  open={drawerOpen}
-  onClose={() => setDrawerOpen(false)}
-  ModalProps={{
-    disableScrollLock: true,
-  }}
->
+        anchor="right"
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        ModalProps={{
+          disableScrollLock: true,
+        }}
+      >
         <Box
           sx={{
             width: 280,
@@ -259,22 +310,45 @@ export default function LandingNavbar() {
             </Typography>
           </Box>
 
+          {/* Language Selector */}
+
+          <FormControl
+            fullWidth
+            size="small"
+            sx={{ mb: 3 }}
+          >
+            <Select
+              value={i18n.language}
+              onChange={(e) => changeLanguage(e.target.value)}
+            >
+              <MenuItem value="en">
+                {t("english")}
+              </MenuItem>
+
+              <MenuItem value="hi">
+                {t("hindi")}
+              </MenuItem>
+
+              <MenuItem value="te">
+                {t("telugu")}
+              </MenuItem>
+
+              <MenuItem value="ta">
+                {t("tamil")}
+              </MenuItem>
+            </Select>
+          </FormControl>
+
           {/* Mobile Menu */}
 
           <List>
-
-            {menu.map((item) => (
-
+                        {menu.map((item) => (
               <ListItem
                 key={item.name}
                 disablePadding
               >
-
                 <ListItemButton
-                  onClick={() => {
-  console.log(item.id);
-  scrollToSection(item.id);
-}}
+                  onClick={() => scrollToSection(item.id)}
                   sx={{
                     borderRadius: "12px",
                     mb: 1,
@@ -292,11 +366,8 @@ export default function LandingNavbar() {
                     }}
                   />
                 </ListItemButton>
-
               </ListItem>
-
             ))}
-
           </List>
 
           {/* Login Button */}
@@ -306,6 +377,7 @@ export default function LandingNavbar() {
             to="/login"
             fullWidth
             variant="contained"
+            onClick={() => setDrawerOpen(false)}
             sx={{
               mt: 4,
               py: 1.2,
@@ -321,7 +393,7 @@ export default function LandingNavbar() {
               },
             }}
           >
-            Login
+            {t("login")}
           </Button>
         </Box>
       </Drawer>

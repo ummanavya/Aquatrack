@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import api from "../services/api";
 
 import {
   Paper,
@@ -25,17 +26,81 @@ import {
   CartesianGrid,
 } from "recharts";
 
-const data = [
-  { month: "Jan", usage: 920 },
-  { month: "Feb", usage: 1050 },
-  { month: "Mar", usage: 1180 },
-  { month: "Apr", usage: 990 },
-  { month: "May", usage: 1260 },
-  { month: "Jun", usage: 1370 },
-  { month: "Jul", usage: 1245 },
-];
-
 export default function UsageChart() {
+
+  const [period, setPeriod] = useState("month");
+
+  const [chartData, setChartData] = useState([]);
+
+  const [summary, setSummary] = useState({
+    totalUsage: "0 L",
+    average: "0 L",
+    highest: "-",
+  });
+
+  useEffect(() => {
+    loadChart();
+  }, [period]);
+
+  const loadChart = async () => {
+
+    try {
+
+      const response = await api.get(
+        `/api/resident/water-usage/${period}`
+      );
+
+      const data = response.data || [];
+
+      setChartData(data);
+
+      if (data.length === 0) {
+
+        setSummary({
+          totalUsage: "0 L",
+          average: "0 L",
+          highest: "-",
+        });
+
+        return;
+      }
+
+      const total = data.reduce(
+        (sum, item) => sum + item.usage,
+        0
+      );
+
+      const highestUsage = data.reduce(
+        (a, b) => (a.usage > b.usage ? a : b)
+      );
+
+      setSummary({
+
+        totalUsage: `${total.toLocaleString()} L`,
+
+        average: `${Math.round(
+          total / data.length
+        ).toLocaleString()} L`,
+
+        highest: highestUsage.label,
+
+      });
+
+    } catch (error) {
+
+      console.error("Error loading chart:", error);
+
+      setChartData([]);
+
+      setSummary({
+        totalUsage: "0 L",
+        average: "0 L",
+        highest: "-",
+      });
+
+    }
+
+  };
 
   return (
 
@@ -59,40 +124,27 @@ export default function UsageChart() {
       <Paper
         elevation={0}
         sx={{
-
           borderRadius: "32px",
-
           overflow: "hidden",
-
           p: {
             xs: 2.5,
             md: 4,
           },
-
           bgcolor: "#FFFFFF",
-
           border: "1px solid #E8EEF5",
-
           boxShadow:
             "0 22px 60px rgba(15,23,42,.08)",
         }}
       >
 
-        {/* ================= Header ================= */}
-
         <Stack
-
           direction={{
             xs: "column",
             lg: "row",
           }}
-
           justifyContent="space-between"
-
           spacing={3}
-
           mb={4}
-
         >
 
           <Box>
@@ -142,7 +194,7 @@ export default function UsageChart() {
                     mt: .5,
                   }}
                 >
-                  Monthly household water consumption and performance.
+                  Water consumption analytics
                 </Typography>
 
               </Box>
@@ -162,19 +214,26 @@ export default function UsageChart() {
 
             <ToggleButtonGroup
               exclusive
-              value="monthly"
+              value={period}
+              onChange={(event, value) => {
+
+                if (value) {
+                  setPeriod(value);
+                }
+
+              }}
               size="small"
             >
 
-              <ToggleButton value="weekly">
+              <ToggleButton value="week">
                 Week
               </ToggleButton>
 
-              <ToggleButton value="monthly">
+              <ToggleButton value="month">
                 Month
               </ToggleButton>
 
-              <ToggleButton value="yearly">
+              <ToggleButton value="year">
                 Year
               </ToggleButton>
 
@@ -182,7 +241,7 @@ export default function UsageChart() {
 
             <Chip
               icon={<CalendarMonthRoundedIcon />}
-              label="July 2026"
+              label={period.toUpperCase()}
               sx={{
                 bgcolor: "#EEF6FF",
                 color: "#1976D2",
@@ -192,7 +251,7 @@ export default function UsageChart() {
 
             <Chip
               icon={<TrendingUpRoundedIcon />}
-              label="+12%"
+              label="Live Data"
               sx={{
                 bgcolor: "#ECFDF5",
                 color: "#16A34A",
@@ -224,7 +283,7 @@ export default function UsageChart() {
           >
 
             <AreaChart
-              data={data}
+              data={chartData}
               margin={{
                 top: 20,
                 right: 20,
@@ -266,7 +325,7 @@ export default function UsageChart() {
               />
 
               <XAxis
-                dataKey="month"
+                dataKey="label"
                 axisLine={false}
                 tickLine={false}
                 tick={{
@@ -310,7 +369,7 @@ export default function UsageChart() {
 
         </Box>
 
-        {/* ================= KPI Cards ================= */}
+        {/* ================= Summary Cards ================= */}
 
         <Stack
           direction={{
@@ -324,17 +383,17 @@ export default function UsageChart() {
           {[
             {
               title: "Total Usage",
-              value: "12,450 L",
+              value: summary.totalUsage,
               color: "#1976D2",
             },
             {
-              title: "Average / Day",
-              value: "415 L",
+              title: "Average",
+              value: summary.average,
               color: "#00ACC1",
             },
             {
-              title: "Highest Month",
-              value: "June",
+              title: "Highest",
+              value: summary.highest,
               color: "#43A047",
             },
           ].map((item) => (
