@@ -77,7 +77,7 @@ export default function LandingNavbar() {
   return (
     <>
       <AppBar
-        position="fixed"
+        position="static"
         elevation={0}
         sx={{
           background: scrolled

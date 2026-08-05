@@ -1,0 +1,71 @@
+.system-card{
+
+    background:#FFFFFF;
+
+    border-radius:28px;
+
+    padding:28px;
+
+    box-shadow:0 12px 35px rgba(15,23,42,.06);
+
+    height:100%;
+
+}
+
+.system-title{
+
+    font-size:22px !important;
+
+    font-weight:800 !important;
+
+}
+
+.system-subtitle{
+
+    color:#64748B;
+
+    margin-top:6px !important;
+
+}
+
+.system-item{
+
+    margin-bottom:28px;
+
+}
+
+.system-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.system-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.system-name{
+
+    font-weight:700 !important;
+
+}
+
+.system-percent{
+
+    margin-top:10px !important;
+
+    margin-bottom:10px !important;
+
+    color:#64748B;
+
+}

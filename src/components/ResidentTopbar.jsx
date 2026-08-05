@@ -24,7 +24,7 @@ export default function ResidentTopbar({ handleDrawerToggle }) {
   return (
     <AppBar
       elevation={0}
-      position="fixed"
+      position="static"
       sx={{
         width: {
           xs: "100%",

@@ -22,27 +22,16 @@ import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 
+import { formatNumber, formatDate, formatHouseId } from "../utils/format";
+
 function RecentBills({ bills = [] }) {
-
   return (
-
     <motion.div
-      initial={{
-        opacity: 0,
-        y: 30,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: .6,
-      }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
     >
-
       <Paper
         elevation={0}
         sx={{
@@ -50,13 +39,10 @@ function RecentBills({ bills = [] }) {
           borderRadius: "30px",
           overflow: "hidden",
           border: "1px solid #E8EEF5",
-          boxShadow:
-            "0 18px 45px rgba(15,23,42,.08)",
+          boxShadow: "0 18px 45px rgba(15,23,42,.08)",
         }}
       >
-
         {/* ================= Header ================= */}
-
         <Box
           sx={{
             px: 4,
@@ -65,63 +51,30 @@ function RecentBills({ bills = [] }) {
             bgcolor: "#FFFFFF",
           }}
         >
-
           <Stack
-            direction={{
-              xs: "column",
-              md: "row",
-            }}
+            direction={{ xs: "column", md: "row" }}
             justifyContent="space-between"
-            alignItems={{
-              xs: "flex-start",
-              md: "center",
-            }}
+            alignItems={{ xs: "flex-start", md: "center" }}
             spacing={3}
           >
-
             <Box>
-
-              <Stack
-                direction="row"
-                spacing={1.5}
-                alignItems="center"
-                mb={1}
-              >
-
+              <Stack direction="row" spacing={1.5} alignItems="center" mb={1}>
                 <ReceiptLongRoundedIcon
-                  sx={{
-                    color: "#1976D2",
-                    fontSize: 32,
-                  }}
+                  sx={{ color: "#1976D2", fontSize: 32 }}
                 />
-
                 <Typography
-                  sx={{
-                    fontSize: 30,
-                    fontWeight: 900,
-                    color: "#0F172A",
-                  }}
+                  sx={{ fontSize: 30, fontWeight: 900, color: "#0F172A" }}
                 >
                   Billing History
                 </Typography>
-
               </Stack>
 
-              <Typography
-                sx={{
-                  color: "#64748B",
-                }}
-              >
+              <Typography sx={{ color: "#64748B" }}>
                 Track every invoice and payment made for your household.
               </Typography>
-
             </Box>
 
-            <Stack
-              direction="row"
-              spacing={2}
-            >
-
+            <Stack direction="row" spacing={2}>
               <TextField
                 placeholder="Search bills..."
                 size="small"
@@ -162,150 +115,82 @@ function RecentBills({ bills = [] }) {
               >
                 View All
               </Button>
-
             </Stack>
-
           </Stack>
-
         </Box>
-                <TableContainer>
 
+        <TableContainer>
           <Table>
-
-            <TableHead
-              sx={{
-                bgcolor: "#F8FBFF",
-              }}
-            >
-
+            <TableHead sx={{ bgcolor: "#F8FBFF" }}>
               <TableRow>
-
                 <TableCell sx={{ fontWeight: 800 }}>House</TableCell>
-
-                <TableCell sx={{ fontWeight: 800 }}>
-                  Billing Period
-                </TableCell>
-
-                <TableCell
-                  align="right"
-                  sx={{ fontWeight: 800 }}
-                >
+                <TableCell sx={{ fontWeight: 800 }}>Billing Period</TableCell>
+                <TableCell align="right" sx={{ fontWeight: 800 }}>
                   Usage
                 </TableCell>
-
-                <TableCell
-                  align="right"
-                  sx={{ fontWeight: 800 }}
-                >
+                <TableCell align="right" sx={{ fontWeight: 800 }}>
                   Amount
                 </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: 800 }}
-                >
+                <TableCell align="center" sx={{ fontWeight: 800 }}>
                   Status
                 </TableCell>
-
-                <TableCell
-                  align="center"
-                  sx={{ fontWeight: 800 }}
-                >
+                <TableCell align="center" sx={{ fontWeight: 800 }}>
                   Invoice
                 </TableCell>
-
               </TableRow>
-
             </TableHead>
 
             <TableBody>
-
               {bills.length === 0 ? (
-
                 <TableRow>
-
-                  <TableCell
-                    colSpan={6}
-                    align="center"
-                    sx={{
-                      py: 8,
-                    }}
-                  >
-
+                  <TableCell colSpan={6} align="center" sx={{ py: 8 }}>
                     <Typography
-                      sx={{
-                        fontSize: 18,
-                        fontWeight: 700,
-                        color: "#64748B",
-                      }}
+                      sx={{ fontSize: 18, fontWeight: 700, color: "#64748B" }}
                     >
                       No Billing Records Found
                     </Typography>
 
-                    <Typography
-                      sx={{
-                        mt: 1,
-                        color: "#94A3B8",
-                      }}
-                    >
+                    <Typography sx={{ mt: 1, color: "#94A3B8" }}>
                       Bills generated by AquaTrack will appear here.
                     </Typography>
-
                   </TableCell>
-
                 </TableRow>
-
               ) : (
-
                 bills.map((bill) => (
-
                   <TableRow
                     key={bill.id}
                     hover
                     sx={{
                       transition: ".3s",
-
-                      "&:hover": {
-                        bgcolor: "#F7FBFF",
-                      },
+                      "&:hover": { bgcolor: "#F7FBFF" },
                     }}
                   >
-
-                    <TableCell
-                      sx={{
-                        fontWeight: 700,
-                      }}
-                    >
-                      {bill.household?.householdNumber || "-"}
+                    <TableCell sx={{ fontWeight: 700 }}>
+                      {formatHouseId(
+                        bill.household?.householdNumber
+                      )}
                     </TableCell>
 
                     <TableCell>
-                      {bill.cycleStartDate} - {bill.cycleEndDate}
+                      {formatDate(bill.cycleStartDate)} —{" "}
+                      {formatDate(bill.cycleEndDate)}
                     </TableCell>
 
                     <TableCell
                       align="right"
-                      sx={{
-                        fontWeight: 700,
-                        color: "#1976D2",
-                      }}
+                      sx={{ fontWeight: 700, color: "#1976D2" }}
                     >
-                      {bill.unitsConsumed} L
+                      {formatNumber(bill.unitsConsumed)} L
                     </TableCell>
 
                     <TableCell
                       align="right"
-                      sx={{
-                        fontWeight: 800,
-                        color: "#0F172A",
-                        fontSize: 16,
-                      }}
+                      sx={{ fontWeight: 800, color: "#0F172A", fontSize: 16 }}
                     >
-                      ₹{bill.totalAmount}
+                      ₹{formatNumber(bill.totalAmount, 0)}
                     </TableCell>
 
                     <TableCell align="center">
-
                       <Chip
                         label={bill.status}
                         size="small"
@@ -319,20 +204,13 @@ function RecentBills({ bills = [] }) {
                               : "#F59E0B",
                         }}
                       />
-
                     </TableCell>
 
                     <TableCell align="center">
-
                       <motion.div
-                        whileHover={{
-                          scale: 1.05,
-                        }}
-                        whileTap={{
-                          scale: .95,
-                        }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-
                         <Button
                           variant="contained"
                           size="small"
@@ -342,40 +220,26 @@ function RecentBills({ bills = [] }) {
                             textTransform: "none",
                             fontWeight: 700,
                             boxShadow: "none",
-
                             "&:hover": {
-                              boxShadow:
-                                "0 10px 25px rgba(25,118,210,.25)",
+                              boxShadow: "0 10px 25px rgba(25,118,210,.25)",
                             },
                           }}
                           onClick={() =>
-                            console.log(
-                              "Download Invoice",
-                              bill.id
-                            )
+                            console.log("Download Invoice", bill.id)
                           }
                         >
                           Download
                         </Button>
-
                       </motion.div>
-
                     </TableCell>
-
                   </TableRow>
-
                 ))
-
               )}
-
             </TableBody>
-
           </Table>
-
         </TableContainer>
 
         {/* ================= Footer ================= */}
-
         <Box
           sx={{
             display: "flex",
@@ -387,33 +251,18 @@ function RecentBills({ bills = [] }) {
             borderTop: "1px solid #EEF2F7",
           }}
         >
-
-          <Typography
-            sx={{
-              color: "#64748B",
-              fontWeight: 600,
-            }}
-          >
+          <Typography sx={{ color: "#64748B", fontWeight: 600 }}>
             Showing the latest {Math.min(bills.length, 8)} billing records.
           </Typography>
 
           <Chip
             label="Secure Billing ✔"
-            sx={{
-              bgcolor: "#E8F5E9",
-              color: "#16A34A",
-              fontWeight: 700,
-            }}
+            sx={{ bgcolor: "#E8F5E9", color: "#16A34A", fontWeight: 700 }}
           />
-
         </Box>
-
       </Paper>
-
     </motion.div>
-
   );
-
 }
 
 export default RecentBills;

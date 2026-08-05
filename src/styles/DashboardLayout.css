@@ -1,0 +1,40 @@
+.dashboard-layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* FIXED: was ".dashboard-main" which doesn't exist in the JSX
+   (the component renders className="dashboard-content").
+   That mismatch meant this rule was never applied, so the
+   content column never grew to fill the space next to the
+   sidebar — producing the left/right white gap.
+
+   flex: 1 lets it automatically take all remaining width after
+   the sidebar, regardless of the sidebar's exact px value, so
+   we don't need to hardcode/guess a width here at all.
+
+   min-width: 0 is a standard flexbox fix that allows this
+   column's children (tables, charts, etc.) to shrink properly
+   instead of overflowing and forcing extra width. */
+
+.dashboard-content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  width: 100%;
+  flex: 1;
+  padding: 0;
+  overflow-x: hidden;
+  background: #f4f7fc;
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+}
