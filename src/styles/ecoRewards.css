@@ -1,0 +1,272 @@
+/* ================= PAGE ================= */
+
+.ecoHero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 35px;
+  padding: 50px;
+  border-radius: 34px !important;
+  background: linear-gradient(135deg,#1565C0,#1976D2,#42A5F5);
+  color: #fff;
+  box-shadow: 0 22px 60px rgba(25,118,210,.22);
+}
+
+.heroCircleOne{
+  position:absolute;
+  right:-120px;
+  top:-120px;
+  width:340px;
+  height:340px;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+}
+
+.heroCircleTwo{
+  position:absolute;
+  left:-80px;
+  bottom:-90px;
+  width:220px;
+  height:220px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+}
+
+.heroTitle{
+  font-size:48px !important;
+  font-weight:900 !important;
+}
+
+.heroSubtitle{
+  max-width:760px;
+  font-size:18px !important;
+  line-height:1.8 !important;
+  opacity:.95;
+}
+
+.heroChip{
+  background:rgba(255,255,255,.18) !important;
+  color:#fff !important;
+  font-weight:700 !important;
+}
+
+.heroButton{
+  width:220px;
+  border-radius:14px !important;
+  text-transform:none !important;
+  font-weight:700 !important;
+  margin-top:12px !important;
+}
+
+/* ================= SUMMARY ================= */
+
+.summaryCard{
+  padding:32px;
+  height:220px;
+  border-radius:28px !important;
+  border:1px solid #E8EEF5 !important;
+  background:#fff !important;
+  box-shadow:0 15px 35px rgba(15,23,42,.06) !important;
+  transition:.35s;
+}
+
+.summaryCard:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 45px rgba(25,118,210,.15) !important;
+}
+
+.cardTitle{
+  color:#64748B;
+  font-weight:700 !important;
+}
+
+.cardValue{
+  margin-top:15px !important;
+  font-size:42px !important;
+  font-weight:900 !important;
+}
+
+.cardSubtitle{
+  margin-top:10px !important;
+  color:#64748B;
+}
+
+/* ================= COMMON ================= */
+
+.sectionHeading{
+  font-size:30px !important;
+  font-weight:900 !important;
+  color:#0F172A;
+}
+
+/* ================= REWARD SECTION ================= */
+
+.rewardSection{
+  padding:35px;
+  border-radius:30px !important;
+  border:1px solid #E8EEF5 !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.06) !important;
+}
+
+.rewardCard{
+  padding:28px;
+  text-align:center;
+  border-radius:24px !important;
+  border:1px solid #EEF2F7 !important;
+  transition:.35s;
+}
+
+.rewardCard:hover{
+  transform:translateY(-8px);
+  box-shadow:0 16px 35px rgba(25,118,210,.12) !important;
+}
+
+.rewardEmoji{
+  font-size:58px !important;
+}
+
+.rewardTitle{
+  margin-top:18px !important;
+  font-size:22px !important;
+  font-weight:800 !important;
+}
+
+/* ================= RIGHT ================= */
+
+.progressSection{
+  padding:35px;
+  border-radius:30px !important;
+  border:1px solid #E8EEF5 !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.06) !important;
+}
+
+.progressBar{
+  margin-top:20px;
+  width:100%;
+  height:12px;
+  background:#E8EEF5;
+  border-radius:20px;
+  overflow:hidden;
+}
+
+.progressFill{
+  height:100%;
+  border-radius:20px;
+  background:linear-gradient(90deg,#1976D2,#42A5F5);
+}
+
+.pointsCard{
+  margin-top:35px;
+  padding:25px;
+  border-radius:20px !important;
+  background:#F8FBFF !important;
+}
+
+.pointsValue{
+  margin:12px 0 !important;
+  font-size:42px !important;
+  font-weight:900 !important;
+  color:#1976D2;
+}
+
+/* ================= ACHIEVEMENTS ================= */
+
+.achievementSection{
+  margin-top:35px;
+  padding:35px;
+  border-radius:30px !important;
+  border:1px solid #E8EEF5 !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.06) !important;
+}
+
+.achievementCard{
+  padding:28px;
+  text-align:center;
+  border-radius:24px !important;
+  border:1px solid #EDF2F7 !important;
+  transition:.35s;
+}
+
+.achievementCard:hover{
+  transform:translateY(-8px);
+  box-shadow:0 15px 35px rgba(25,118,210,.12) !important;
+}
+
+.achievementTitle{
+  font-size:18px !important;
+  font-weight:800 !important;
+}
+
+/* ================= MONTH ================= */
+
+.monthlySection{
+  margin-top:35px;
+  padding:35px;
+  border-radius:30px !important;
+  border:1px solid #E8EEF5 !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.06) !important;
+}
+
+.monthCard{
+  padding:25px;
+  border-radius:22px !important;
+  border:1px solid #EEF2F7 !important;
+  text-align:center;
+}
+
+.monthName{
+  font-size:22px !important;
+  font-weight:800 !important;
+}
+
+/* ================= QUICK ================= */
+
+.quickSection{
+  margin-top:35px;
+  padding:35px;
+  margin-bottom:40px;
+  border-radius:30px !important;
+  border:1px solid #E8EEF5 !important;
+  box-shadow:0 18px 45px rgba(15,23,42,.06) !important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+  .ecoHero{
+    padding:30px;
+  }
+
+  .heroTitle{
+    font-size:34px !important;
+  }
+
+  .heroSubtitle{
+    font-size:15px !important;
+  }
+
+  .summaryCard{
+    height:auto;
+    padding:24px;
+  }
+
+  .rewardSection,
+  .progressSection,
+  .achievementSection,
+  .monthlySection,
+  .quickSection{
+    padding:24px;
+  }
+
+  .cardValue{
+    font-size:34px !important;
+  }
+
+  .pointsValue{
+    font-size:34px !important;
+  }
+
+  .sectionHeading{
+    font-size:24px !important;
+  }
+}

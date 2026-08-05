@@ -10,8 +10,17 @@ import {
   Avatar,
   Chip,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
+  Snackbar,
+  Alert,
+  Switch,
 } from "@mui/material";
-
 import {
   NotificationsRounded,
   NotificationsActiveRounded,
@@ -35,7 +44,7 @@ const summaryCards = [
   },
   {
     title: "Unread",
-    value: "3",
+    value: 3,
     subtitle: "Needs Attention",
     color: "#E53935",
     bg: "#FDECEC",
@@ -58,42 +67,105 @@ const summaryCards = [
     icon: <DoneAllRounded />,
   },
 ];
-const notifications = [
+const initialNotifications = [
   {
     id: 1,
     title: "Water Usage Alert",
-    message:
-      "Your water usage increased by 18% compared to last week.",
+    message: "Your water usage increased by 18% compared to last week.",
     type: "warning",
     time: "10 min ago",
+    read: false,
   },
   {
     id: 2,
     title: "Bill Reminder",
-    message:
-      "Your monthly bill is due in 5 days.",
+    message: "Your monthly bill is due in 5 days.",
     type: "billing",
     time: "1 hour ago",
+    read: false,
   },
   {
     id: 3,
     title: "Leak Detection",
-    message:
-      "Possible water leakage detected in your apartment.",
+    message: "Possible water leakage detected in your apartment.",
     type: "danger",
     time: "Yesterday",
+    read: false,
   },
 ];
+
 export default function ResidentNotifications() {
 
-  const [alerts, setAlerts] = useState([]);
+  const [notifications, setNotifications] = useState(initialNotifications);
+  const alerts = notifications;
 
-  useEffect(() => {
-    setAlerts(notifications);
-  }, []);
+  const [openAlerts, setOpenAlerts] = useState(false);
+
+  const [snackbar, setSnackbar] = useState(false);
+
+  const [alertSettings, setAlertSettings] = useState({
+    bill: true,
+    leak: true,
+    usage: true,
+    payment: true,
+    monthly: false,
+  });
+
+  const unreadCount = notifications.filter(
+    (notification) => !notification.read
+  ).length;
+  const downloadReport = () => {
+
+  const report = `
+AquaTrack Notification Report
+
+==============================
+
+${notifications.map((n, index) => `
+${index + 1}. ${n.title}
+
+Status : ${n.read ? "Read" : "Unread"}
+
+---------------------------------------
+`).join("")}
+
+Generated on:
+${new Date().toLocaleString()}
+`;
+
+  const blob = new Blob([report], {
+    type: "text/plain",
+  });
+
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "Notification_Report.txt";
+
+  link.click();
+
+  window.URL.revokeObjectURL(url);
+
+};
+const markAllRead = () => {
+
+  setNotifications(
+
+    notifications.map((item) => ({
+      ...item,
+      read: true,
+    }))
+
+  );
+
+  setSnackbar(true);
+
+};
+const [openSettings, setOpenSettings] = useState(false);
 
   return (
-
     <Box
       sx={{
         display: "flex",
@@ -487,7 +559,8 @@ export default function ResidentNotifications() {
 
                 <Stack spacing={3}>
 
-                  {alerts.map((item) => (
+                  {notifications.map((item) => (
+                    
 
                     <motion.div
                       key={item.id}
@@ -495,6 +568,11 @@ export default function ResidentNotifications() {
                         x: 10,
                       }}
                     >
+                      <Chip
+  label={item.read ? "Read" : "Unread"}
+  color={item.read ? "success" : "error"}
+  size="small"
+/>
 
                       <Paper
                         elevation={0}
@@ -628,57 +706,68 @@ export default function ResidentNotifications() {
                 <Stack spacing={2.5} sx={{ mt: 2 }}>
 
   <Button
-    variant="contained"
-    fullWidth
-    sx={{
-      py: 1.8,
-      borderRadius: 3,
-    }}
-  >
-    Mark All Read
-  </Button>
+  fullWidth
+  variant="contained"
+  onClick={markAllRead}
+>
+  Mark All Read
+</Button>
 
   <Paper
-    sx={{
-      p: 2,
-      border: "2px solid #1976D2",
-      borderRadius: 3,
-      textAlign: "center",
-      cursor: "pointer",
-    }}
-  >
+  onClick={() => setOpenAlerts(true)}
+  sx={{
+    p:2,
+    border:"2px solid #1976D2",
+    borderRadius:3,
+    textAlign:"center",
+    cursor:"pointer",
+    "&:hover":{
+      bgcolor:"#EEF6FF"
+    }
+  }}
+>
     <Typography fontWeight={700}>
       Enable Alerts
     </Typography>
   </Paper>
 
-  <Paper
-    sx={{
-      p: 2,
-      border: "2px solid #1976D2",
-      borderRadius: 3,
-      textAlign: "center",
-      cursor: "pointer",
-    }}
-  >
-    <Typography fontWeight={700}>
-      Download Report
-    </Typography>
-  </Paper>
+<Paper
+  onClick={downloadReport}
+  sx={{
+    p: 2,
+    border: "2px solid #1976D2",
+    borderRadius: 3,
+    textAlign: "center",
+    cursor: "pointer",
+    transition: ".3s",
+    "&:hover": {
+      bgcolor: "#EEF6FF",
+    },
+  }}
+>
+  <Typography fontWeight={700}>
+    Download Report
+  </Typography>
+</Paper>
 
   <Paper
-    sx={{
-      p: 2,
-      border: "2px solid #1976D2",
-      borderRadius: 3,
-      textAlign: "center",
-      cursor: "pointer",
-    }}
-  >
-    <Typography fontWeight={700}>
-      Notification Settings
-    </Typography>
-  </Paper>
+  onClick={() => setOpenSettings(true)}
+  sx={{
+    p: 2,
+    border: "2px solid #1976D2",
+    borderRadius: 3,
+    textAlign: "center",
+    cursor: "pointer",
+    transition: ".3s",
+    "&:hover": {
+      bgcolor: "#EEF6FF",
+    },
+  }}
+>
+  <Typography fontWeight={700}>
+    Notification Settings
+  </Typography>
+</Paper>
 
 </Stack>
 
@@ -1084,8 +1173,303 @@ export default function ResidentNotifications() {
             </Grid>
 
           </Paper>
+          <Dialog
+  open={openAlerts}
+  onClose={() => setOpenAlerts(false)}
+  maxWidth="xs"
+  fullWidth
+  PaperProps={{
+    sx: {
+      borderRadius: "20px",
+      p: 1,
+    },
+  }}
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      fontSize: 28,
+      color: "#0F172A",
+      pb: 1,
+    }}
+  >
+    Enable Notifications
+  </DialogTitle>
+
+  <DialogContent
+    sx={{
+      pt: 2,
+
+      "& .MuiFormControlLabel-root": {
+        my: 1,
+      },
+
+      "& .MuiFormControlLabel-label": {
+        color: "#0F172A",
+        fontSize: "17px",
+        fontWeight: 600,
+      },
+
+      "& .MuiCheckbox-root": {
+        color: "#1976D2",
+      },
+
+      "& .MuiCheckbox-root.Mui-checked": {
+        color: "#1976D2",
+      },
+    }}
+  >
+    <FormGroup>
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={alertSettings.bill}
+            onChange={(e) =>
+              setAlertSettings({
+                ...alertSettings,
+                bill: e.target.checked,
+              })
+            }
+          />
+        }
+        label="Bill Generated"
+      />
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={alertSettings.leak}
+            onChange={(e) =>
+              setAlertSettings({
+                ...alertSettings,
+                leak: e.target.checked,
+              })
+            }
+          />
+        }
+        label="Leak Detection"
+      />
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={alertSettings.usage}
+            onChange={(e) =>
+              setAlertSettings({
+                ...alertSettings,
+                usage: e.target.checked,
+              })
+            }
+          />
+        }
+        label="High Water Usage"
+      />
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={alertSettings.payment}
+            onChange={(e) =>
+              setAlertSettings({
+                ...alertSettings,
+                payment: e.target.checked,
+              })
+            }
+          />
+        }
+        label="Payment Reminder"
+      />
+
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={alertSettings.monthly}
+            onChange={(e) =>
+              setAlertSettings({
+                ...alertSettings,
+                monthly: e.target.checked,
+              })
+            }
+          />
+        }
+        label="Monthly Report"
+      />
+
+    </FormGroup>
+  </DialogContent>
+
+  <DialogActions
+    sx={{
+      px: 3,
+      pb: 2,
+      pt: 1,
+    }}
+  >
+    <Button
+      onClick={() => setOpenAlerts(false)}
+      sx={{
+        textTransform: "none",
+        fontWeight: 700,
+      }}
+    >
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={() => {
+  setNotifications(
+    notifications.map((n) => ({
+      ...n,
+      read: true,
+    }))
+  );
+
+  setSnackbar(true);
+}}
+      sx={{
+        textTransform: "none",
+        fontWeight: 700,
+        px: 4,
+        borderRadius: "12px",
+      }}
+    >
+      Save
+    </Button>
+  </DialogActions>
+</Dialog>
+
+<Snackbar
+  open={snackbar}
+  autoHideDuration={3000}
+  onClose={() => setSnackbar(false)}
+  anchorOrigin={{
+    vertical: "bottom",
+    horizontal: "right",
+  }}
+>
+  <Alert
+  severity="success"
+  variant="filled"
+>
+  All notifications marked as read.
+</Alert>
+</Snackbar>
 
         </Container>
+        <Dialog
+  open={openSettings}
+  onClose={() => setOpenSettings(false)}
+  maxWidth="xs"
+  fullWidth
+>
+  <DialogTitle>
+    Notification Settings
+  </DialogTitle>
+
+  <DialogContent>
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={alertSettings.bill}
+          onChange={(e) =>
+            setAlertSettings({
+              ...alertSettings,
+              bill: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Bill Notifications"
+    />
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={alertSettings.leak}
+          onChange={(e) =>
+            setAlertSettings({
+              ...alertSettings,
+              leak: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Leak Alerts"
+    />
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={alertSettings.usage}
+          onChange={(e) =>
+            setAlertSettings({
+              ...alertSettings,
+              usage: e.target.checked,
+            })
+          }
+        />
+      }
+      label="High Water Usage"
+    />
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={alertSettings.payment}
+          onChange={(e) =>
+            setAlertSettings({
+              ...alertSettings,
+              payment: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Payment Reminder"
+    />
+
+    <FormControlLabel
+      control={
+        <Switch
+          checked={alertSettings.monthly}
+          onChange={(e) =>
+            setAlertSettings({
+              ...alertSettings,
+              monthly: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Monthly Report"
+    />
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button onClick={() => setOpenSettings(false)}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={() => {
+        localStorage.setItem(
+          "notificationSettings",
+          JSON.stringify(alertSettings)
+        );
+
+        setOpenSettings(false);
+        setSnackbar(true);
+      }}
+    >
+      Save
+    </Button>
+
+  </DialogActions>
+</Dialog>
 
       </Box>
 

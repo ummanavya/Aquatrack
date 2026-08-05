@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -12,19 +13,43 @@ import {
   Typography,
   Box,
   Button,
-  Stack,
-  TextField,
-  InputAdornment,
+  Stack
 } from "@mui/material";
 
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Divider,
+} from "@mui/material";
 import { formatNumber, formatDate, formatHouseId } from "../utils/format";
+import api from "../services/api";
+import VisibilityRoundedIcon from "@mui/icons-material/VisibilityRounded";
 
-function RecentBills({ bills = [] }) {
+function RecentBills({
+  
+  bills = [],
+  onViewBill,
+}) {
+  const [search, setSearch] = useState("");
+  const filteredBills = bills.filter((bill) => {
+
+  const house =
+    bill.household?.householdNumber?.toLowerCase() || "";
+
+  const status =
+    bill.status?.toLowerCase() || "";
+
+  return (
+    house.includes(search.toLowerCase()) ||
+    status.includes(search.toLowerCase())
+  );
+});
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -75,22 +100,7 @@ function RecentBills({ bills = [] }) {
             </Box>
 
             <Stack direction="row" spacing={2}>
-              <TextField
-                placeholder="Search bills..."
-                size="small"
-                sx={{
-                  width: 220,
-                  bgcolor: "#F8FBFF",
-                  borderRadius: "14px",
-                }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchRoundedIcon />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              
 
               <Button
                 startIcon={<FilterListRoundedIcon />}
@@ -141,7 +151,7 @@ function RecentBills({ bills = [] }) {
             </TableHead>
 
             <TableBody>
-              {bills.length === 0 ? (
+              {filteredBills.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={6} align="center" sx={{ py: 8 }}>
                     <Typography
@@ -156,7 +166,7 @@ function RecentBills({ bills = [] }) {
                   </TableCell>
                 </TableRow>
               ) : (
-                bills.map((bill) => (
+                filteredBills.map((bill) => (
                   <TableRow
                     key={bill.id}
                     hover
@@ -207,31 +217,82 @@ function RecentBills({ bills = [] }) {
                     </TableCell>
 
                     <TableCell align="center">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Button
-                          variant="contained"
-                          size="small"
-                          startIcon={<DownloadRoundedIcon />}
-                          sx={{
-                            borderRadius: "12px",
-                            textTransform: "none",
-                            fontWeight: 700,
-                            boxShadow: "none",
-                            "&:hover": {
-                              boxShadow: "0 10px 25px rgba(25,118,210,.25)",
-                            },
-                          }}
-                          onClick={() =>
-                            console.log("Download Invoice", bill.id)
-                          }
-                        >
-                          Download
-                        </Button>
-                      </motion.div>
-                    </TableCell>
+  <Stack
+    direction="row"
+    spacing={1}
+    justifyContent="center"
+  >
+    <Button
+  variant="outlined"
+  size="small"
+  startIcon={<VisibilityRoundedIcon />}
+  onClick={() => onViewBill(bill)}
+  sx={{
+    borderRadius: "10px",
+    textTransform: "none",
+    fontWeight: 700,
+    color: "#1976D2",
+    border: "2px solid #1976D2",
+    backgroundColor: "#FFFFFF",
+
+    "& .MuiButton-startIcon": {
+      color: "#1976D2",
+    },
+
+    "&:hover": {
+      backgroundColor: "#E3F2FD",
+      borderColor: "#1565C0",
+    },
+  }}
+>
+  View
+</Button>
+
+    <Button
+      variant="contained"
+      size="small"
+      startIcon={<DownloadRoundedIcon />}
+      onClick={async () => {
+        try {
+          const response = await api.get(
+            `/api/invoices/${bill.id}`,
+            {
+              responseType: "blob",
+            }
+          );
+
+          const file = new Blob([response.data], {
+            type: "application/pdf",
+          });
+
+          const url = window.URL.createObjectURL(file);
+
+          const link = document.createElement("a");
+
+          link.href = url;
+          link.download = `Invoice_${bill.id}.pdf`;
+
+          document.body.appendChild(link);
+
+          link.click();
+
+          link.remove();
+
+          window.URL.revokeObjectURL(url);
+
+        } catch (error) {
+          alert("Download failed");
+        }
+      }}
+      sx={{
+        borderRadius: "10px",
+        textTransform: "none",
+      }}
+    >
+      Download
+    </Button>
+  </Stack>
+</TableCell>
                   </TableRow>
                 ))
               )}

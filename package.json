@@ -25,6 +25,7 @@
     "react": "^19.2.7",
     "react-bootstrap": "^2.10.10",
     "react-chartjs-2": "^5.3.1",
+    "react-circular-progressbar": "^2.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.7",
     "react-i18next": "^17.0.11",

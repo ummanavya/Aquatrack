@@ -23,57 +23,140 @@ import RecentBills from "../components/RecentBills";
 
 import api from "../services/api";
 
-const summaryCards = [
-  {
-    title: "Outstanding Bill",
-    value: "₹1,245",
-    subtitle: "Due in 5 Days",
-    color: "#E53935",
-    bg: "#FDECEC",
-    icon: <ReceiptLongRoundedIcon />,
-  },
-  {
-    title: "Paid This Month",
-    value: "₹980",
-    subtitle: "July Payment",
-    color: "#16A34A",
-    bg: "#ECFDF5",
-    icon: <PaymentsRoundedIcon />,
-  },
-  {
-    title: "Next Due Date",
-    value: "10 Aug",
-    subtitle: "Billing Cycle",
-    color: "#FB8C00",
-    bg: "#FFF4E5",
-    icon: <CalendarMonthRoundedIcon />,
-  },
-  {
-    title: "Payment Status",
-    value: "Pending",
-    subtitle: "Awaiting Payment",
-    color: "#1976D2",
-    bg: "#EAF4FF",
-    icon: <CheckCircleRoundedIcon />,
-  },
-];
+
 
 export default function ResidentBills() {
 
-  const [bills, setBills] = useState([]);
+  
+const [currentBill, setCurrentBill] = useState(null);
+const [summary, setSummary] = useState({
+  outstandingBill: 0,
+  paidThisMonth: 0,
+  nextDueDate: "--",
+  paymentStatus: "OPEN",
+});
+const [loading, setLoading] = useState(true);
+const [bills, setBills] = useState([]);
+
+const summaryCards = currentBill
+  ? [
+      {
+        title: "Outstanding Bill",
+        value: `₹${summary.outstandingBill}`,
+        subtitle: "Current Bill",
+        color: "#E53935",
+        bg: "#FDECEC",
+        icon: <ReceiptLongRoundedIcon />,
+      },
+      {
+        title: "Paid This Month",
+        value: `₹${summary.paidThisMonth}`,
+        subtitle: "Current Cycle",
+        color: "#16A34A",
+        bg: "#ECFDF5",
+        icon: <PaymentsRoundedIcon />,
+      },
+      {
+        title: "Next Due Date",
+        value: summary.nextDueDate,
+        subtitle: "Billing Cycle",
+        color: "#FB8C00",
+        bg: "#FFF4E5",
+        icon: <CalendarMonthRoundedIcon />,
+      },
+      {
+        title: "Payment Status",
+        value: summary.paymentStatus,
+        subtitle: "Current Status",
+        color: "#1976D2",
+        bg: "#EAF4FF",
+        icon: <CheckCircleRoundedIcon />,
+      },
+    ]
+  : [];
 
   useEffect(() => {
     fetchBills();
   }, []);
+const fetchBills = async () => {
+  console.log("fetchBills() STARTED");
 
-  const fetchBills = async () => {
-    try {
-      const response = await api.get("/billing-cycles");
-      setBills(response.data);
-    } catch (err) {
-      console.log(err);
+  try {
+    setLoading(true);
+
+    const response = await api.get("/api/billing-cycles/household/1");
+
+    console.log("SUCCESS");
+    console.log(response.data);
+
+    setBills(response.data);
+
+    if (response.data.length > 0) {
+      const latestBill = response.data[0];
+
+      setCurrentBill(latestBill);
+
+      setSummary({
+        outstandingBill: latestBill.totalAmount,
+        paidThisMonth:
+          latestBill.status === "FINALIZED"
+            ? latestBill.totalAmount
+            : 0,
+        nextDueDate: latestBill.cycleEndDate,
+        paymentStatus: latestBill.status,
+      });
     }
-  };
+  } catch (err) {
+    console.error("ERROR");
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
+const downloadInvoice = async () => {
+
+  if (!currentBill) {
+    alert("No invoice available.");
+    return;
+  }
+
+  try {
+
+    const response = await api.get(
+      `/api/invoices/${currentBill.id}`,
+      {
+        responseType: "blob",
+      }
+    );
+
+    const file = new Blob([response.data], {
+      type: "application/pdf",
+    });
+
+    const url = window.URL.createObjectURL(file);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = `Invoice_${currentBill.id}.pdf`;
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    window.URL.revokeObjectURL(url);
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Failed to download invoice.");
+
+  }
+
+};
 
   return (
 
@@ -114,6 +197,7 @@ export default function ResidentBills() {
             pb: 5,
           }}
         >
+          
                     {/* ================= HERO ================= */}
 
           <Paper
@@ -378,7 +462,9 @@ export default function ResidentBills() {
                       fontSize={22}
                       mt={1}
                     >
-                      Jul 2026
+                      {currentBill
+  ? `${currentBill.cycleStartDate} - ${currentBill.cycleEndDate}`
+  : "--"}
                     </Typography>
 
                   </Grid>
@@ -397,7 +483,9 @@ export default function ResidentBills() {
                       fontSize={22}
                       mt={1}
                     >
-                      12.45 KL
+                      {currentBill
+  ? `${currentBill.unitsConsumed} Units`
+  : "--"}
                     </Typography>
 
                   </Grid>
@@ -419,7 +507,9 @@ export default function ResidentBills() {
                         color: "#1976D2",
                       }}
                     >
-                      ₹1,245
+                      {currentBill
+  ? `₹${currentBill.totalAmount}`
+  : "₹0"}
                     </Typography>
 
                   </Grid>
@@ -441,7 +531,9 @@ export default function ResidentBills() {
                         color: "#E53935",
                       }}
                     >
-                      10 Aug 2026
+                     {currentBill
+  ? currentBill.cycleEndDate
+  : "--"}
                     </Typography>
 
                   </Grid>
@@ -570,7 +662,9 @@ export default function ResidentBills() {
                           color: "#1976D2",
                         }}
                       >
-                        ₹1,245
+                        {currentBill
+  ? `₹${currentBill.totalAmount}`
+  : "₹0"}
                       </Typography>
 
                     </Stack>
@@ -579,7 +673,7 @@ export default function ResidentBills() {
 
                   <Chip
                     color="success"
-                    label="Payment Pending"
+                    label={currentBill?.status ?? "OPEN"}
                     sx={{
                       mt: 3,
                       width: "fit-content",
@@ -838,17 +932,18 @@ export default function ResidentBills() {
                 <Stack spacing={2}>
 
                   <Button
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      py: 1.5,
-                      borderRadius: "14px",
-                      textTransform: "none",
-                      fontWeight: 700,
-                    }}
-                  >
-                    Download Latest Invoice
-                  </Button>
+  variant="contained"
+  fullWidth
+  onClick={downloadInvoice}
+  sx={{
+    py: 1.5,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 700,
+  }}
+>
+  Download Latest Invoice
+</Button>
 
                   <Button
                     variant="outlined"

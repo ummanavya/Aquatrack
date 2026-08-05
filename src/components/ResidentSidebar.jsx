@@ -67,7 +67,7 @@ export default function ResidentSidebar({
     {
       title: "Eco Rewards",
       icon: <EmojiEventsRounded />,
-      path: "/resident-rewards",
+      path: "/eco-rewards",
       chip: "NEW",
     },
     {

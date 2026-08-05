@@ -724,10 +724,15 @@ export default function DashboardSection() {
               {/* ================= Bottom Statistics ================= */}
 
               <Grid
-                container
-                spacing={3}
-                sx={{ mt: 4 }}
-              >
+  container
+  spacing={3}
+  sx={{
+    mt: 4,
+    width: "100%",
+    display: "flex",
+    flexWrap: "nowrap",
+  }}
+>
                 {[
                   {
                     value: "520+",

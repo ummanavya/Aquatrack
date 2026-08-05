@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 import {
@@ -11,7 +11,18 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
 
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import {
   LockRounded,
   SecurityRounded,
@@ -49,6 +60,7 @@ const security = [
 ];
 
 export default function SecurityCard() {
+  const [openSecurityDialog, setOpenSecurityDialog] = useState(false);
 
   return (
 
@@ -215,21 +227,123 @@ export default function SecurityCard() {
         >
 
           <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              py: 1.4,
-              borderRadius: "14px",
-              textTransform: "none",
-              fontWeight: 700,
-            }}
-          >
-            Manage Security
-          </Button>
+  fullWidth
+  variant="contained"
+  onClick={() => setOpenSecurityDialog(true)}
+  sx={{
+    py: 1.4,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 700,
+  }}
+>
+  Manage Security
+</Button>
 
         </Box>
 
       </Paper>
+      <Dialog
+  open={openSecurityDialog}
+  onClose={() => setOpenSecurityDialog(false)}
+  maxWidth="sm"
+  fullWidth
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      fontSize: 24,
+      color: "#1976D2",
+    }}
+  >
+    Security Settings
+  </DialogTitle>
+
+  <DialogContent dividers>
+
+    <List>
+
+      <ListItem>
+        <ListItemIcon>
+          <LockRounded color="primary" />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Password"
+          secondary="Updated 12 days ago"
+        />
+
+        <Button variant="outlined">
+          Change
+        </Button>
+      </ListItem>
+
+      <Divider />
+
+      <ListItem>
+        <ListItemIcon>
+          <SecurityRounded color="success" />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Two-Factor Authentication"
+          secondary="Enabled"
+        />
+      </ListItem>
+
+      <Divider />
+
+      <ListItem>
+        <ListItemIcon>
+          <DevicesRounded color="warning" />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Trusted Devices"
+          secondary="3 Active Devices"
+        />
+      </ListItem>
+
+      <Divider />
+
+      <ListItem>
+        <ListItemIcon>
+          <HistoryRounded color="secondary" />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Recent Login"
+          secondary="Today • 09:15 AM"
+        />
+      </ListItem>
+
+      <Divider />
+
+      <ListItem>
+        <ListItemIcon>
+          <LogoutRoundedIcon color="error" />
+        </ListItemIcon>
+
+        <ListItemText
+          primary="Logout From All Devices"
+          secondary="Feature coming soon"
+        />
+      </ListItem>
+
+    </List>
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button
+      onClick={() => setOpenSecurityDialog(false)}
+    >
+      Close
+    </Button>
+
+  </DialogActions>
+</Dialog>
 
     </motion.div>
 

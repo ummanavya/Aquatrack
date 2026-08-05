@@ -9,66 +9,51 @@ import {
   IconButton,
   Avatar,
   Badge,
-  TextField,
-  InputAdornment,
+  Chip,
 } from "@mui/material";
 
 import {
   NotificationsRounded,
-  SearchRounded,
-  WbSunnyRounded,
+  WaterDropRounded,
   MenuRounded,
+  KeyboardArrowDownRounded,
 } from "@mui/icons-material";
 
 export default function ResidentTopbar({ handleDrawerToggle }) {
   return (
     <AppBar
       elevation={0}
-      position="static"
+      position="fixed"
       sx={{
         width: {
           xs: "100%",
           lg: "calc(100% - 280px)",
         },
-
         ml: {
           xs: 0,
           lg: "280px",
         },
-
-        bgcolor: "rgba(255,255,255,.90)",
-        backdropFilter: "blur(20px)",
-
+        bgcolor: "rgba(255,255,255,0.92)",
+        backdropFilter: "blur(18px)",
         borderBottom: "1px solid #E8EEF5",
-
-        boxShadow: "0 8px 25px rgba(15,23,42,.05)",
+        boxShadow: "0 6px 20px rgba(15,23,42,.06)",
+        zIndex: 1200,
       }}
     >
       <Toolbar
         sx={{
-          minHeight: {
-            xs: 70,
-            md: 82,
-          },
-
+          minHeight: "72px !important",
           px: {
             xs: 2,
             md: 4,
           },
-
           display: "flex",
           justifyContent: "space-between",
         }}
       >
         {/* LEFT */}
 
-        <Box
-          display="flex"
-          alignItems="center"
-          gap={2}
-        >
-          {/* Hamburger */}
-
+        <Box display="flex" alignItems="center" gap={2}>
           <IconButton
             onClick={handleDrawerToggle}
             sx={{
@@ -82,158 +67,80 @@ export default function ResidentTopbar({ handleDrawerToggle }) {
           </IconButton>
 
           <motion.div
-            initial={{
-              opacity: 0,
-              x: -20,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            transition={{
-              duration: 0.6,
-            }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <Typography
               sx={{
-                fontWeight: 900,
-
+                fontWeight: 800,
                 color: "#0F172A",
-
                 fontSize: {
-                  xs: 20,
-                  sm: 24,
-                  md: 30,
+                  xs: 22,
+                  md: 28,
                 },
+                lineHeight: 1.2,
               }}
             >
-              Welcome Back, Navya 👋
+              Good Morning, Navya 👋
             </Typography>
 
             <Typography
               sx={{
-                mt: 0.5,
-
                 color: "#64748B",
-
+                fontSize: 14,
+                mt: 0.4,
                 display: {
                   xs: "none",
-                  sm: "block",
-                },
-
-                fontSize: {
-                  sm: 13,
-                  md: 15,
+                  md: "block",
                 },
               }}
             >
-              Monitor your water usage and manage everything from one place.
+              Here's your water usage overview.
             </Typography>
           </motion.div>
         </Box>
 
         {/* RIGHT */}
 
-        <Box
-          display="flex"
-          alignItems="center"
-          gap={{
-            xs: 1,
-            md: 2,
-          }}
-        >
-          {/* Search */}
+        <Box display="flex" alignItems="center" gap={2}>
+          {/* Today's Usage */}
 
-          <TextField
-            placeholder="Search..."
-            size="small"
-            sx={{
-              display: {
-                xs: "none",
-                md: "block",
-              },
-
-              width: 260,
-
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "16px",
-
-                bgcolor: "#F8FBFF",
-
-                "& fieldset": {
-                  borderColor: "#E8EEF5",
-                },
-
-                "&:hover fieldset": {
-                  borderColor: "#1976D2",
-                },
-
-                "&.Mui-focused fieldset": {
-                  borderColor: "#1976D2",
-                },
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <SearchRounded
-                    sx={{
-                      color: "#64748B",
-                    }}
-                  />
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          {/* Weather */}
-
-          <Box
+          <Chip
+            icon={<WaterDropRounded />}
+            label="320 L Today"
             sx={{
               display: {
                 xs: "none",
                 sm: "flex",
               },
-
-              alignItems: "center",
-
-              gap: 1,
-
-              px: 2,
-
-              py: 1,
-
-              bgcolor: "#FFF8E1",
-
+              bgcolor: "#E8F4FF",
+              color: "#1976D2",
+              fontWeight: 700,
+              px: 1,
+              height: 42,
               borderRadius: "14px",
-            }}
-          >
-            <WbSunnyRounded
-              sx={{
-                color: "#F59E0B",
-              }}
-            />
 
-            <Typography fontWeight={700}>
-              29°C
-            </Typography>
-          </Box>
+              "& .MuiChip-icon": {
+                color: "#1976D2",
+              },
+            }}
+          />
 
           {/* Notification */}
 
           <IconButton
             sx={{
-              bgcolor: "#F4F8FF",
+              width: 46,
+              height: 46,
+              bgcolor: "#F5F9FF",
 
               "&:hover": {
                 bgcolor: "#E3F2FD",
               },
             }}
           >
-            <Badge
-              badgeContent={3}
-              color="error"
-            >
+            <Badge badgeContent={3} color="error">
               <NotificationsRounded
                 sx={{
                   color: "#1976D2",
@@ -247,23 +154,27 @@ export default function ResidentTopbar({ handleDrawerToggle }) {
           <Box
             display="flex"
             alignItems="center"
-            gap={1}
+            gap={1.5}
+            sx={{
+              cursor: "pointer",
+              px: 1,
+              py: 0.6,
+              borderRadius: "14px",
+
+              transition: ".3s",
+
+              "&:hover": {
+                bgcolor: "#F7FAFF",
+              },
+            }}
           >
             <Avatar
               sx={{
                 bgcolor: "#1976D2",
-
-                width: {
-                  xs: 38,
-                  md: 42,
-                },
-
-                height: {
-                  xs: 38,
-                  md: 42,
-                },
-
+                width: 44,
+                height: 44,
                 fontWeight: 800,
+                boxShadow: "0 6px 16px rgba(25,118,210,.25)",
               }}
             >
               N
@@ -279,11 +190,13 @@ export default function ResidentTopbar({ handleDrawerToggle }) {
             >
               <Typography
                 sx={{
-                  fontWeight: 800,
+                  fontWeight: 700,
                   fontSize: 15,
+                  color: "#0F172A",
+                  lineHeight: 1.1,
                 }}
               >
-                Madhan
+                Navya
               </Typography>
 
               <Typography
@@ -295,6 +208,16 @@ export default function ResidentTopbar({ handleDrawerToggle }) {
                 Resident
               </Typography>
             </Box>
+
+            <KeyboardArrowDownRounded
+              sx={{
+                color: "#64748B",
+                display: {
+                  xs: "none",
+                  md: "block",
+                },
+              }}
+            />
           </Box>
         </Box>
       </Toolbar>
