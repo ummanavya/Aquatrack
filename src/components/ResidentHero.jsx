@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import api from "../services/api";
-
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -17,6 +17,7 @@ import {
 } from "@mui/icons-material";
 
 export default function ResidentHero() {
+  const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
     username: "",
@@ -205,6 +206,7 @@ export default function ResidentHero() {
 
             <Button
               variant="contained"
+              onClick={() => navigate("/resident-water-usage")}
 
               startIcon={<WaterDropRounded />}
 
@@ -247,6 +249,7 @@ export default function ResidentHero() {
 
             <Button
               variant="outlined"
+              onClick={() => navigate("/resident-bills")}
 
               startIcon={<ReceiptLongRounded />}
 

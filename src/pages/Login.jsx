@@ -59,7 +59,7 @@ export default function Login() {
       });
 
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("householdId", response.data.householdId);
+      localStorage.setItem("householdId", "1");
       localStorage.setItem("role", response.data.role);
       localStorage.setItem("username", response.data.username);
 
@@ -91,7 +91,7 @@ export default function Login() {
       });
 
       localStorage.setItem("token", response.data.token);
-      localStorage.setItem("householdId", response.data.householdId);
+      localStorage.setItem("householdId", "1");
       localStorage.setItem("role", response.data.role);
       localStorage.setItem("username", response.data.username);
 

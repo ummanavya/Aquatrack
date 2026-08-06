@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Box,
@@ -10,6 +10,11 @@ import {
   Avatar,
   Button,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
 } from "@mui/material";
 import {
   GroupsRounded,
@@ -24,12 +29,97 @@ import {
   PhoneRounded,
 } from "@mui/icons-material";
 
+import api from "../services/api";
+
+import Swal from "sweetalert2";
 import ResidentSidebar from "../components/ResidentSidebar";
 import ResidentTopbar from "../components/ResidentTopbar";
 
 import "../styles/community.css";
 
 export default function Community() {
+
+  const [posts, setPosts] = useState([]);
+
+const [openPostDialog, setOpenPostDialog] = useState(false);
+
+const [newPost, setNewPost] = useState({
+  title: "",
+  content: "",
+  authorName: localStorage.getItem("username") || "Resident",
+});
+useEffect(() => {
+  loadPosts();
+}, []);
+
+const loadPosts = async () => {
+  try {
+    const res = await api.get("/api/community/posts");
+    setPosts(res.data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+const createPost = async () => {
+  const likePost = async (id) => {
+
+  try {
+
+    await api.put(`/api/community/posts/${id}/like`);
+
+    loadPosts();
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
+
+};
+
+  try {
+
+    await api.post(
+      "/api/community/posts",
+      newPost
+    );
+
+    setOpenPostDialog(false);
+
+    setNewPost({
+      title: "",
+      content: "",
+      authorName:
+        localStorage.getItem("username") || "Resident",
+    });
+
+    loadPosts();
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Unable to create post");
+
+  }
+
+};
+const likePost = async (id) => {
+
+  try {
+
+    await api.put(`/api/community/posts/${id}/like`);
+
+    loadPosts();
+
+  } catch (err) {
+
+    console.error(err);
+
+  }
+
+};
+
 
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -72,7 +162,28 @@ export default function Community() {
     },
 
   ];
+  
+const joinCommunity = () => {
 
+  Swal.fire({
+    icon: "success",
+    title: "🎉 Welcome!",
+    text: "You have successfully joined the AquaTrack Community.",
+    confirmButtonText: "Awesome!",
+    confirmButtonColor: "#1976D2",
+    background: "#ffffff",
+    color: "#1e293b",
+    timer: 2500,
+    timerProgressBar: true,
+    showClass: {
+      popup: "animate__animated animate__zoomIn"
+    },
+    hideClass: {
+      popup: "animate__animated animate__zoomOut"
+    }
+  });
+
+};
   return (
 
     <Box className="community">
@@ -162,6 +273,7 @@ export default function Community() {
 
                 <Button
                   variant="contained"
+                  onClick={joinCommunity}
                   className="joinBtn"
                   endIcon={<ArrowForwardRounded/>}
                 >
@@ -170,14 +282,31 @@ export default function Community() {
 
                 </Button>
 
-                <Button
-                  variant="outlined"
-                  className="exploreBtn"
-                >
-
-                  Explore Discussions
-
-                </Button>
+               <Button
+    variant="outlined"
+    sx={{
+        color: "#FFFFFF",
+        borderColor: "#FFFFFF",
+        px: 4,
+        py: 1.5,
+        borderRadius: "14px",
+        fontWeight: 700,
+        textTransform: "none",
+        "&:hover": {
+            borderColor: "#FFFFFF",
+            backgroundColor: "rgba(255,255,255,0.15)",
+        },
+    }}
+    onClick={() => {
+        document
+            .getElementById("discussionSection")
+            ?.scrollIntoView({
+                behavior: "smooth",
+            });
+    }}
+>
+    Explore Discussions
+</Button>
 
               </Stack>
 
@@ -433,64 +562,71 @@ export default function Community() {
                   />
 
                 </Stack>
-                                {/* ================= DISCUSSION 1 ================= */}
+                                <Box
+    id="discussionSection"
+    sx={{ mt: 2 }}
+>
 
-                <Paper
-                  elevation={0}
-                  className="discussionCard"
+    <Stack spacing={3}>
+
+        {posts.map((post) => (
+
+            <Paper
+                key={post.id}
+                elevation={0}
+                className="discussionCard"
+            >
+
+                <Typography
+                    variant="h6"
+                    fontWeight={700}
+                >
+                    {post.title}
+                </Typography>
+
+                <Typography
+                    sx={{
+                        mt: 1,
+                        color: "text.secondary",
+                    }}
+                >
+                    {post.content}
+                </Typography>
+
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    sx={{ mt: 3 }}
                 >
 
-                  <Stack direction="row" spacing={2}>
+                    <Typography>
 
-                    <Avatar
-                      sx={{
-                        bgcolor: "#1976D2",
-                        width: 56,
-                        height: 56,
-                        fontWeight: 700,
-                      }}
+                        Posted by
+
+                        <strong>
+                            {" "}
+                            {post.authorName}
+                        </strong>
+
+                    </Typography>
+
+                    <Button
+                        variant="outlined"
+                        onClick={() => likePost(post.id)}
                     >
-                      N
-                    </Avatar>
+                        ❤️ {post.likes}
+                    </Button>
 
-                    <Box flex={1}>
+                </Stack>
 
-                      <Typography className="discussionName">
-                        Navya
-                      </Typography>
+            </Paper>
 
-                      <Typography className="discussionTopic">
-                        Smart Water Conservation
-                      </Typography>
+        ))}
 
-                      <Typography className="discussionText">
-                        We should encourage every resident to reduce
-                        unnecessary water usage by adopting smart
-                        conservation practices and reporting leaks
-                        immediately.
-                      </Typography>
+    </Stack>
 
-                      <Stack direction="row" spacing={2} mt={2}>
-
-                        <Chip
-                          icon={<ThumbUpRounded />}
-                          label="54 Likes"
-                          size="small"
-                        />
-
-                        <Chip
-                          icon={<ChatBubbleOutlineRounded />}
-                          label="18 Replies"
-                          size="small"
-                        />
-
-                      </Stack>
-
-                    </Box>
-
-                  </Stack>
-
-                </Paper>
+</Box>
 
                 {/* ================= DISCUSSION 2 ================= */}
 
@@ -1033,6 +1169,7 @@ export default function Community() {
                 <Button
                   fullWidth
                   variant="contained"
+                  onClick={() => setOpenPostDialog(true)}
                   sx={{
                     mt: 3,
                     py: 1.4,
@@ -1043,6 +1180,7 @@ export default function Community() {
                 >
                   Create Post
                 </Button>
+                
 
               </Paper>
 
@@ -1211,6 +1349,7 @@ export default function Community() {
 
             <Button
               variant="contained"
+               onClick={joinCommunity}
               className="joinBtn"
             >
               Join Community
@@ -1226,6 +1365,89 @@ export default function Community() {
           </Stack>
 
         </Paper>
+        <Dialog
+    open={openPostDialog}
+    onClose={() => setOpenPostDialog(false)}
+    fullWidth
+    maxWidth="sm"
+>
+
+    <DialogTitle>
+        Create Community Post
+    </DialogTitle>
+
+    <DialogContent>
+
+        <Stack spacing={2} sx={{ mt: 1 }}>
+
+            <TextField
+  label="Title"
+  fullWidth
+  value={newPost.title}
+  onChange={(e) =>
+    setNewPost({
+      ...newPost,
+      title: e.target.value,
+    })
+  }
+  InputProps={{
+  sx: {
+    color: "#000000",
+
+    "& input": {
+      color: "#000000",
+      WebkitTextFillColor: "#000000",
+    },
+  },
+}}
+/>
+
+            <TextField
+  label="Content"
+  multiline
+  rows={6}
+  fullWidth
+  value={newPost.content}
+  onChange={(e) =>
+    setNewPost({
+      ...newPost,
+      content: e.target.value,
+    })
+  }
+  InputProps={{
+  sx: {
+    color: "#000000",
+
+    "& textarea": {
+      color: "#000000",
+      WebkitTextFillColor: "#000000",
+    },
+  },
+}}
+/>
+
+        </Stack>
+
+    </DialogContent>
+
+    <DialogActions>
+
+        <Button
+            onClick={() => setOpenPostDialog(false)}
+        >
+            Cancel
+        </Button>
+
+        <Button
+            variant="contained"
+            onClick={createPost}
+        >
+            Post
+        </Button>
+
+    </DialogActions>
+
+</Dialog>
 
       </Container>
 

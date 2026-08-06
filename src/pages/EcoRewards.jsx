@@ -11,6 +11,10 @@ import {
   Avatar,
   Chip,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 
 import {
@@ -21,9 +25,11 @@ import {
   TrendingUpRounded,
 } from "@mui/icons-material";
 
+
 import ResidentSidebar from "../components/ResidentSidebar";
 import ResidentTopbar from "../components/ResidentTopbar";
-
+import Zoom from "@mui/material/Zoom";
+import CelebrationRoundedIcon from "@mui/icons-material/CelebrationRounded";
 import "../styles/ecoRewards.css";
 
 const summaryCards = [
@@ -63,10 +69,20 @@ const summaryCards = [
 
 export default function EcoRewards() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [rewardDialog, setRewardDialog] = useState(false);
+const [selectedReward, setSelectedReward] = useState("");
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  const claimReward = (reward) => {
+  setSelectedReward(reward.title);
+  setRewardDialog(true);
+};
+
+const closeRewardDialog = () => {
+  setRewardDialog(false);
+};
 
   return (
     <Box
@@ -460,18 +476,19 @@ export default function EcoRewards() {
             />
 
             <Button
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 3,
-                py: 1.2,
-                borderRadius: "14px",
-                textTransform: "none",
-                fontWeight: 700,
-              }}
-            >
-              Redeem Reward
-            </Button>
+  fullWidth
+  variant="contained"
+  onClick={() => claimReward(reward)}
+  sx={{
+    mt: 3,
+    py: 1.2,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 700,
+  }}
+>
+  Redeem Reward
+</Button>
 
           </Paper>
 
@@ -955,6 +972,93 @@ export default function EcoRewards() {
 
         </Container>
       </Box>
+      <Dialog
+  open={rewardDialog}
+  onClose={closeRewardDialog}
+  TransitionComponent={Zoom}
+  maxWidth="xs"
+  fullWidth
+  PaperProps={{
+    sx: {
+      borderRadius: "24px",
+      p: 2,
+      textAlign: "center",
+      overflow: "hidden",
+    },
+  }}
+>
+  <DialogContent sx={{ py: 4 }}>
+
+    <CelebrationRoundedIcon
+      sx={{
+        fontSize: 80,
+        color: "#FFC107",
+        mb: 2,
+      }}
+    />
+
+    <Typography
+      variant="h4"
+      fontWeight={800}
+      color="#1976D2"
+      gutterBottom
+    >
+      Reward Claimed!
+    </Typography>
+
+    <Typography
+      sx={{
+        color: "#555",
+        fontSize: 17,
+        mb: 1,
+      }}
+    >
+      Congratulations 🎉
+    </Typography>
+
+    <Typography
+      sx={{
+        color: "#666",
+        mb: 3,
+      }}
+    >
+      Your <b>{selectedReward}</b> has been successfully claimed.
+    </Typography>
+
+    <Box
+      sx={{
+        bgcolor: "#E8F5E9",
+        borderRadius: "16px",
+        p: 2,
+        mb: 3,
+      }}
+    >
+      <Typography
+        sx={{
+          color: "#2E7D32",
+          fontWeight: 700,
+        }}
+      >
+        Your reward voucher will be available in your account shortly.
+      </Typography>
+    </Box>
+
+    <Button
+      variant="contained"
+      onClick={closeRewardDialog}
+      sx={{
+        px: 5,
+        py: 1.3,
+        borderRadius: "14px",
+        textTransform: "none",
+        fontWeight: 700,
+      }}
+    >
+      Awesome!
+    </Button>
+
+  </DialogContent>
+</Dialog>
     </Box>
   );
 }

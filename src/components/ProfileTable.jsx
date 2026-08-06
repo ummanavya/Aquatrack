@@ -61,7 +61,7 @@ const profile = [
   },
 ];
 
-export default function ProfileTable() {
+export default function ProfileTable({ onEditProfile }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -101,18 +101,19 @@ export default function ProfileTable() {
           </Box>
 
           <Button
-            variant="contained"
-            startIcon={<EditRounded />}
-            sx={{
-              borderRadius: "14px",
-              px: 3,
-              py: 1.3,
-              textTransform: "none",
-              fontWeight: 700,
-            }}
-          >
-            Edit
-          </Button>
+  variant="contained"
+  startIcon={<EditRounded />}
+  onClick={onEditProfile}
+  sx={{
+    borderRadius: "14px",
+    px: 3,
+    py: 1.3,
+    textTransform: "none",
+    fontWeight: 700,
+  }}
+>
+  Edit
+</Button>
         </Stack>
 
         <Divider />

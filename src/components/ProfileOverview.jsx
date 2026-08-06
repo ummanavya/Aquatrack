@@ -19,7 +19,7 @@ import {
   VerifiedRounded,
 } from "@mui/icons-material";
 
-export default function ProfileOverview() {
+export default function ProfileOverview({ onEditProfile }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -181,43 +181,25 @@ export default function ProfileOverview() {
             }}
           >
             <Button
-              variant="contained"
-              startIcon={<EditRounded />}
-              fullWidth
-              sx={{
-                bgcolor: "#fff",
-                color: "#1565C0",
-                py: 1.4,
-                fontWeight: 700,
-                borderRadius: "14px",
-                textTransform: "none",
-                "&:hover": {
-                  bgcolor: "#F5F9FF",
-                },
-              }}
-            >
-              Edit Profile
-            </Button>
+  variant="contained"
+  startIcon={<EditRounded />}
+  onClick={onEditProfile}
+  fullWidth
+  sx={{
+    bgcolor: "#fff",
+    color: "#1565C0",
+    py: 1.4,
+    fontWeight: 700,
+    borderRadius: "14px",
+    textTransform: "none",
+    "&:hover": {
+      bgcolor: "#F5F9FF",
+    },
+  }}
+>
+  Edit Profile
+</Button>
 
-            <Button
-              variant="outlined"
-              startIcon={<DownloadRounded />}
-              fullWidth
-              sx={{
-                color: "#fff",
-                borderColor: "#fff",
-                py: 1.4,
-                borderRadius: "14px",
-                textTransform: "none",
-                fontWeight: 700,
-                "&:hover": {
-                  bgcolor: "rgba(255,255,255,.08)",
-                  borderColor: "#fff",
-                },
-              }}
-            >
-              Download Profile
-            </Button>
 
             <Paper
               elevation={0}

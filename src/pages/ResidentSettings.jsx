@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   Box,
@@ -12,6 +12,11 @@ import {
   Chip,
   Stack,
   Avatar,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
 } from "@mui/material";
 
 import {
@@ -23,8 +28,33 @@ import {
 
 import ResidentSidebar from "../components/ResidentSidebar";
 import ResidentTopbar from "../components/ResidentTopbar";
+import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 export default function ResidentSettings() {
+  const navigate = useNavigate();
+  const [openThresholdDialog, setOpenThresholdDialog] = useState(false);
+
+const [newThreshold, setNewThreshold] = useState(500);
+const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
+const [openProfileDialog, setOpenProfileDialog] = useState(false);
+const [openSupportDialog, setOpenSupportDialog] = useState(false);
+
+const [supportData, setSupportData] = useState({
+  subject: "",
+  message: "",
+});
+
+const [profileData, setProfileData] = useState({
+  username: "",
+  email: "",
+  phoneNumber: "",
+});
+const [passwordData, setPasswordData] = useState({
+  currentPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+});
 
   const summaryCards = [
     {
@@ -60,6 +90,229 @@ export default function ResidentSettings() {
       bg: "#E6FAFD",
     },
   ];
+const [settings, setSettings] = useState({
+    theme: "Light",
+    language: "English",
+    emailNotifications: true,
+    billingAlerts: true,
+    waterUsageAlerts: true,
+    leakAlerts: true,
+    dailyThreshold: 500,
+    twoFactorEnabled: false,
+});
+useEffect(() => {
+
+    loadSettings();
+
+}, []);
+
+const loadSettings = async () => {
+
+    try {
+
+        const username = localStorage.getItem("username");
+        console.log("Username =", username);
+
+        const response = await api.get(
+            `/api/resident-settings/${username}`
+        );
+
+        setSettings(response.data);
+
+    } catch (err) {
+
+        console.error(err);
+
+    }
+
+};
+const saveSettings = async () => {
+
+    try {
+
+        const username = localStorage.getItem("username");
+        console.log("Username =", username);
+
+        await api.put(
+            `/api/resident-settings/${username}`,
+            settings
+        );
+
+        alert("✅ Settings Saved Successfully!");
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert("Unable to save settings.");
+
+    }
+
+};
+const openThreshold = () => {
+  setNewThreshold(settings.dailyThreshold);
+  setOpenThresholdDialog(true);
+};
+
+const closeThreshold = () => {
+  setOpenThresholdDialog(false);
+};
+
+const saveThreshold = async () => {
+  try {
+    const username = localStorage.getItem("username");
+
+    const updatedSettings = {
+      ...settings,
+      dailyThreshold: Number(newThreshold),
+    };
+
+    await api.put(
+      `/api/resident-settings/${username}`,
+      updatedSettings
+    );
+
+    setSettings(updatedSettings);
+
+    setOpenThresholdDialog(false);
+
+    alert("Threshold Updated Successfully!");
+
+  } catch (err) {
+    console.error(err);
+    alert("Unable to update threshold.");
+  }
+};
+const openPassword = () => {
+  setOpenPasswordDialog(true);
+};
+
+const closePassword = () => {
+  setOpenPasswordDialog(false);
+
+  setPasswordData({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+};
+
+const updatePassword = async () => {
+
+  if (passwordData.newPassword !== passwordData.confirmPassword) {
+    alert("New password and Confirm password do not match.");
+    return;
+  }
+
+  try {
+
+    const username = localStorage.getItem("username");
+
+    await api.put(
+      `/api/resident-settings/${username}/change-password`,
+      {
+        currentPassword: passwordData.currentPassword,
+        newPassword: passwordData.newPassword,
+      }
+    );
+
+    alert("Password updated successfully!");
+
+    closePassword();
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Unable to update password.");
+
+  }
+
+};
+const openProfile = async () => {
+
+  try {
+
+    const response = await api.get("/api/profile");
+
+    setProfileData(response.data);
+
+    setOpenProfileDialog(true);
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Unable to load profile.");
+
+  }
+
+};
+
+const closeProfile = () => {
+
+  setOpenProfileDialog(false);
+
+};
+
+const saveProfile = async () => {
+
+  try {
+
+    await api.put(
+  "/api/profile",
+  profileData
+);
+
+    alert("Profile Updated Successfully!");
+
+    setOpenProfileDialog(false);
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Unable to update profile.");
+
+  }
+
+};
+const openSupport = () => {
+  setOpenSupportDialog(true);
+};
+
+const closeSupport = () => {
+  setOpenSupportDialog(false);
+
+  setSupportData({
+    subject: "",
+    message: "",
+  });
+};
+
+const sendSupportRequest = async () => {
+  try {
+
+    const username = localStorage.getItem("username");
+
+    await api.post("/api/support", {
+      username,
+      subject: supportData.subject,
+      message: supportData.message,
+    });
+
+    alert("Support request sent successfully!");
+
+    closeSupport();
+
+  } catch (err) {
+
+    console.error(err);
+
+    alert("Unable to send support request.");
+
+  }
+};
 
   return (
 
@@ -310,77 +563,120 @@ export default function ResidentSettings() {
 
   {/* LEFT */}
 
-  <Grid
-    item
-    xs={12}
-    lg={6}
+<Grid
+  item
+  xs={12}
+  lg={6}
+>
+  <Paper
+    elevation={0}
+    sx={{
+      p: 4,
+      borderRadius: "24px",
+      border: "1px solid #E8EEF5",
+      boxShadow: "0 12px 35px rgba(15,23,42,.08)",
+      height: "100%",
+    }}
   >
-
-    <Paper
-      elevation={0}
+    <Typography
       sx={{
-        p: 4,
-        borderRadius: "24px",
-        border: "1px solid #E8EEF5",
-        boxShadow: "0 12px 35px rgba(15,23,42,.08)",
-        height: "100%",
+        fontSize: 26,
+        fontWeight: 800,
+        mb: 3,
       }}
     >
+      👤 Account Preferences
+    </Typography>
 
-      <Typography
-        sx={{
-          fontSize: 26,
-          fontWeight: 800,
-          mb: 3,
-        }}
-      >
-        👤 Account Preferences
-      </Typography>
+    {/* Email Notifications */}
+    <FormControlLabel
+      control={
+        <Switch
+          checked={settings.emailNotifications}
+          onChange={(e) =>
+            setSettings({
+              ...settings,
+              emailNotifications: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Email Notifications"
+    />
 
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        label="Email Notifications"
-      />
+    <Divider sx={{ my: 2 }} />
 
-      <Divider sx={{ my: 2 }} />
+    {/* Billing Alerts */}
+    <FormControlLabel
+      control={
+        <Switch
+          checked={settings.billingAlerts}
+          onChange={(e) =>
+            setSettings({
+              ...settings,
+              billingAlerts: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Billing Alerts"
+    />
 
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        label="SMS Notifications"
-      />
+    <Divider sx={{ my: 2 }} />
 
-      <Divider sx={{ my: 2 }} />
+    {/* Leak Alerts */}
+    <FormControlLabel
+      control={
+        <Switch
+          checked={settings.leakAlerts}
+          onChange={(e) =>
+            setSettings({
+              ...settings,
+              leakAlerts: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Leak Alerts"
+    />
 
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        label="Billing Alerts"
-      />
+    <Divider sx={{ my: 2 }} />
 
-      <Divider sx={{ my: 2 }} />
+    {/* Dark Mode */}
+    <FormControlLabel
+      control={
+        <Switch
+          checked={settings.theme === "Dark"}
+          onChange={(e) =>
+            setSettings({
+              ...settings,
+              theme: e.target.checked ? "Dark" : "Light",
+            })
+          }
+        />
+      }
+      label="Dark Mode"
+    />
 
-      <FormControlLabel
-        control={<Switch defaultChecked />}
-        label="Leak Alerts"
-      />
+    <Divider sx={{ my: 2 }} />
 
-      <Divider sx={{ my: 2 }} />
-
-      <FormControlLabel
-        control={<Switch />}
-        label="Dark Mode"
-      />
-
-      <Divider sx={{ my: 2 }} />
-
-      <FormControlLabel
-        control={<Switch />}
-        label="Two-Factor Authentication"
-      />
-
-    </Paper>
-
-  </Grid>
-
+    {/* Two Factor Authentication */}
+    <FormControlLabel
+      control={
+        <Switch
+          checked={settings.twoFactorEnabled}
+          onChange={(e) =>
+            setSettings({
+              ...settings,
+              twoFactorEnabled: e.target.checked,
+            })
+          }
+        />
+      }
+      label="Two-Factor Authentication"
+    />
+  </Paper>
+</Grid>
   {/* RIGHT */}
 
   <Grid
@@ -422,7 +718,7 @@ export default function ResidentSettings() {
           color: "#1976D2",
         }}
       >
-        500 Litres
+        {settings.dailyThreshold} Litres
       </Typography>
 
       <Typography
@@ -484,17 +780,19 @@ export default function ResidentSettings() {
       </Typography>
 
       <Button
-        variant="contained"
-        sx={{
-          mt: 4,
-          borderRadius: "14px",
-          textTransform: "none",
-          fontWeight: 700,
-          px: 4,
-        }}
-      >
-        Update Threshold
-      </Button>
+  variant="contained"
+  onClick={openThreshold}
+  sx={{
+    mt: 4,
+    px: 5,
+    py: 1.5,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 800,
+  }}
+>
+  Update Threshold
+</Button>
 
     </Paper>
 
@@ -565,6 +863,7 @@ export default function ResidentSettings() {
             <Button
               fullWidth
               variant="contained"
+              onClick={openPassword}
               sx={{
                 mt: 3,
                 borderRadius: "12px",
@@ -842,6 +1141,7 @@ export default function ResidentSettings() {
         <Button
           fullWidth
           variant="contained"
+          onClick={openProfile}
           sx={{
             mt: 3,
             borderRadius: "12px",
@@ -890,6 +1190,7 @@ export default function ResidentSettings() {
         <Button
           fullWidth
           variant="contained"
+          onClick={openSupport}
           color="success"
           sx={{
             mt: 3,
@@ -937,17 +1238,18 @@ export default function ResidentSettings() {
         </Typography>
 
         <Button
-          fullWidth
-          variant="contained"
-          color="warning"
-          sx={{
-            mt: 3,
-            borderRadius: "12px",
-            textTransform: "none",
-          }}
-        >
-          View Rewards
-        </Button>
+  fullWidth
+  variant="contained"
+  color="warning"
+  onClick={() => navigate("/eco-rewards")}
+  sx={{
+    mt: 3,
+    borderRadius: "12px",
+    textTransform: "none",
+  }}
+>
+  View Rewards
+</Button>
       </Paper>
     </Grid>
   </Grid>
@@ -1002,51 +1304,433 @@ export default function ResidentSettings() {
     }}
   >
     <Button
-      variant="contained"
-      sx={{
-        bgcolor: "#fff",
-        color: "#1976D2",
-        px: 5,
-        py: 1.5,
-        borderRadius: "14px",
-        textTransform: "none",
-        fontWeight: 700,
-        "&:hover": {
-          bgcolor: "#F5F9FF",
-        },
-      }}
-    >
-      Go to Dashboard
-    </Button>
+  variant="contained"
+  onClick={() => navigate("/resident-dashboard")}
+  sx={{
+    bgcolor: "#fff",
+    color: "#1976D2",
+    px: 5,
+    py: 1.5,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 700,
+    "&:hover": {
+      bgcolor: "#F5F9FF",
+    },
+  }}
+>
+  Go to Dashboard
+</Button>
 
     <Button
-      variant="outlined"
-      onClick={() => {
-        localStorage.clear();
-        window.location.href = "/login";
-      }}
-      sx={{
-        color: "#fff",
-        borderColor: "#fff",
-        px: 5,
-        py: 1.5,
-        borderRadius: "14px",
-        textTransform: "none",
-        fontWeight: 700,
-        "&:hover": {
-          borderColor: "#fff",
-          bgcolor: "rgba(255,255,255,.12)",
-        },
-      }}
-    >
-      Logout
-    </Button>
+  variant="contained"
+  onClick={() => navigate("/resident-dashboard")}
+  sx={{
+    bgcolor: "#fff",
+    color: "#1976D2",
+    px: 5,
+    py: 1.5,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 700,
+    "&:hover": {
+      bgcolor: "#F5F9FF",
+    },
+  }}
+>
+  Go to Dashboard
+</Button>
   </Stack>
 </Paper>
 
       </Box>
 
     </Box>
+    <Dialog
+  open={openThresholdDialog}
+  onClose={closeThreshold}
+  maxWidth="xs"
+  fullWidth
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      color: "#1976D2",
+    }}
+  >
+    Update Daily Threshold
+  </DialogTitle>
+
+  <DialogContent>
+  <TextField
+  fullWidth
+  type="number"
+  label="Daily Threshold (Litres)"
+  value={newThreshold}
+  onChange={(e) => setNewThreshold(e.target.value)}
+  variant="outlined"
+  InputProps={{
+    sx: {
+      color: "#000000",
+      fontSize: "18px",
+      fontWeight: 600,
+    },
+  }}
+  inputProps={{
+    style: {
+      color: "#000000",
+    },
+  }}
+  sx={{
+    mt: 2,
+
+    "& input": {
+      color: "#000000 !important",
+      WebkitTextFillColor: "#000000 !important",
+    },
+
+    "& .MuiInputBase-input": {
+      color: "#000000 !important",
+      WebkitTextFillColor: "#000000 !important",
+    },
+
+    "& .MuiInputLabel-root": {
+      color: "#666666",
+    },
+
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#1976D2",
+    },
+  }}
+/>
+</DialogContent>
+
+  <DialogActions>
+    <Button onClick={closeThreshold}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={saveThreshold}
+    >
+      Save
+    </Button>
+  </DialogActions>
+</Dialog>
+<Dialog
+  open={openPasswordDialog}
+  onClose={closePassword}
+  maxWidth="sm"
+  fullWidth
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      color: "#1976D2",
+    }}
+  >
+    Change Password
+  </DialogTitle>
+
+  <DialogContent>
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="Current Password"
+      type="password"
+      value={passwordData.currentPassword}
+      onChange={(e) =>
+        setPasswordData({
+          ...passwordData,
+          currentPassword: e.target.value,
+        })
+      }
+      InputLabelProps={{
+        sx: {
+          color: "#666",
+          "&.Mui-focused": {
+            color: "#1976D2",
+          },
+        },
+      }}
+      InputProps={{
+        sx: {
+          color: "#000",
+          "& input": {
+            color: "#000 !important",
+            WebkitTextFillColor: "#000 !important",
+          },
+        },
+      }}
+    />
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="New Password"
+      type="password"
+      value={passwordData.newPassword}
+      onChange={(e) =>
+        setPasswordData({
+          ...passwordData,
+          newPassword: e.target.value,
+        })
+      }
+      InputLabelProps={{
+        sx: {
+          color: "#666",
+          "&.Mui-focused": {
+            color: "#1976D2",
+          },
+        },
+      }}
+      InputProps={{
+        sx: {
+          color: "#000",
+          "& input": {
+            color: "#000 !important",
+            WebkitTextFillColor: "#000 !important",
+          },
+        },
+      }}
+    />
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="Confirm Password"
+      type="password"
+      value={passwordData.confirmPassword}
+      onChange={(e) =>
+        setPasswordData({
+          ...passwordData,
+          confirmPassword: e.target.value,
+        })
+      }
+      InputLabelProps={{
+        sx: {
+          color: "#666",
+          "&.Mui-focused": {
+            color: "#1976D2",
+          },
+        },
+      }}
+      InputProps={{
+        sx: {
+          color: "#000",
+          "& input": {
+            color: "#000 !important",
+            WebkitTextFillColor: "#000 !important",
+          },
+        },
+      }}
+    />
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button onClick={closePassword}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={updatePassword}
+    >
+      Update
+    </Button>
+
+  </DialogActions>
+
+
+</Dialog>
+<Dialog
+  open={openProfileDialog}
+  onClose={closeProfile}
+  maxWidth="sm"
+  fullWidth
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      color: "#1976D2",
+    }}
+  >
+    Edit Profile
+  </DialogTitle>
+
+  <DialogContent>
+
+    <TextField
+  fullWidth
+  margin="normal"
+  label="Username"
+  value={profileData.username}
+  onChange={(e) =>
+    setProfileData({
+      ...profileData,
+      username: e.target.value,
+    })
+  }
+  InputLabelProps={{
+    sx: {
+      color: "#666",
+      "&.Mui-focused": {
+        color: "#1976D2",
+      },
+    },
+  }}
+  sx={{
+    "& .MuiInputBase-input": {
+      color: "#000 !important",
+      WebkitTextFillColor: "#000 !important",
+    },
+  }}
+/>
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="Email"
+      value={profileData.email}
+      onChange={(e) =>
+        setProfileData({
+          ...profileData,
+          email: e.target.value,
+        })
+      }
+    />
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="Phone Number"
+      value={profileData.phoneNumber}
+      onChange={(e) =>
+        setProfileData({
+          ...profileData,
+          phoneNumber: e.target.value,
+        })
+      }
+    />
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button onClick={closeProfile}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={saveProfile}
+    >
+      Save
+    </Button>
+
+  </DialogActions>
+
+</Dialog>
+<Dialog
+  open={openSupportDialog}
+  onClose={closeSupport}
+  maxWidth="sm"
+  fullWidth
+>
+  <DialogTitle
+    sx={{
+      fontWeight: 800,
+      color: "#1976D2",
+    }}
+  >
+    Contact Support
+  </DialogTitle>
+
+  <DialogContent>
+
+    <TextField
+      fullWidth
+      margin="normal"
+      label="Subject"
+      value={supportData.subject}
+      onChange={(e) =>
+        setSupportData({
+          ...supportData,
+          subject: e.target.value,
+        })
+      }
+      InputLabelProps={{
+        sx: {
+          color: "#666",
+          "&.Mui-focused": {
+            color: "#1976D2",
+          },
+        },
+      }}
+      InputProps={{
+        sx: {
+          color: "#000",
+          "& input": {
+            color: "#000 !important",
+            WebkitTextFillColor: "#000 !important",
+          },
+        },
+      }}
+    />
+
+    <TextField
+      fullWidth
+      multiline
+      rows={5}
+      margin="normal"
+      label="Describe your issue"
+      value={supportData.message}
+      onChange={(e) =>
+        setSupportData({
+          ...supportData,
+          message: e.target.value,
+        })
+      }
+      InputLabelProps={{
+        sx: {
+          color: "#666",
+          "&.Mui-focused": {
+            color: "#1976D2",
+          },
+        },
+      }}
+      InputProps={{
+        sx: {
+          color: "#000",
+          "& textarea": {
+            color: "#000 !important",
+            WebkitTextFillColor: "#000 !important",
+          },
+        },
+      }}
+    />
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button onClick={closeSupport}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={sendSupportRequest}
+    >
+      Send
+    </Button>
+
+  </DialogActions>
+</Dialog>
 
   </Box>
 

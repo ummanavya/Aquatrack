@@ -20,7 +20,7 @@ import {
 const leaders = [
 
   {
-    name: "Rahul Sharma",
+    name: "Anu",
     house: "A-101",
     saved: "520 L",
     rank: 1,

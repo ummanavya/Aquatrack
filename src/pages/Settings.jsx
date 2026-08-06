@@ -1,122 +1,179 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "../styles/settings.css";
+import api from "../services/api";
+import Swal from "sweetalert2";
 
 function Settings({ mode, setMode }) {
 
+    const username = localStorage.getItem("username");
+
     const [settings, setSettings] = useState({
 
-    theme: localStorage.getItem("theme") || "light",
+        theme: "light",
 
-    emailNotifications: true,
+        language: "English",
 
-    leakAlerts: true,
+        emailNotifications: true,
 
-    billingAlerts: true,
+        billingAlerts: true,
 
-    waterUsageAlerts: true,
+        waterUsageAlerts: true,
 
-    twoFactor: false,
+        leakAlerts: true,
 
-    autoLogout: true,
+        twoFactorEnabled: false,
 
-    sessionTimeout: 30,
+        autoLogout: true,
 
-    tariffPlan: "Standard",
+        sessionTimeout: 30,
 
-    billingCycle: "Monthly",
+        tariffPlan: "Standard",
 
-    waterUnit: "KL",
+        billingCycle: "Monthly",
 
-    currency: "INR"
+        waterUnit: "KL",
 
-});
-useEffect(() => {
+        currency: "INR",
 
-    const body = document.body;
+        dailyThreshold: 500
 
-    body.classList.remove("light-theme", "dark-theme");
+    });
 
-    if (settings.theme === "dark") {
+    useEffect(() => {
 
-        body.classList.add("dark-theme");
+        loadSettings();
 
-    } else {
+    }, []);
 
-        body.classList.add("light-theme");
+    useEffect(() => {
 
-    }
+        document.body.classList.remove(
+            "light-theme",
+            "dark-theme"
+        );
 
-    localStorage.setItem("theme", settings.theme);
+        if (settings.theme === "dark") {
 
-}, [settings.theme]);
+            document.body.classList.add("dark-theme");
+
+        } else {
+
+            document.body.classList.add("light-theme");
+
+        }
+
+        localStorage.setItem(
+            "theme",
+            settings.theme
+        );
+
+        if (setMode) {
+            setMode(settings.theme);
+        }
+
+    }, [settings.theme, setMode]);
+
+    const loadSettings = async () => {
+
+        try {
+
+            const response = await api.get(
+                `/api/resident-settings/${username}`
+            );
+
+            setSettings(prev => ({
+
+                ...prev,
+
+                ...response.data
+
+            }));
+
+        } catch (error) {
+
+            console.log(error);
+
+        }
+
+    };
+
     const handleChange = (e) => {
 
-        const { name, value, type, checked } = e.target;
+        const {
+
+            name,
+
+            value,
+
+            checked,
+
+            type
+
+        } = e.target;
 
         setSettings(prev => ({
 
-    ...prev,
+            ...prev,
 
-    [name]: type === "checkbox" ? checked : value
+            [name]:
+                type === "checkbox"
+                    ? checked
+                    : value
 
-}));
+        }));
 
     };
 
     const saveSettings = async () => {
 
-    try {
+        try {
 
-        // Call your backend here if you're already doing that
-        // await api.put("/api/settings", ...);
+            await api.put(
 
-        localStorage.setItem("theme", settings.theme);
+                `/api/resident-settings/${username}`,
 
-        setMode(settings.theme);
+                settings
 
-        alert("Settings Saved Successfully!");
+            );
 
-    } catch (error) {
+            localStorage.setItem(
+                "theme",
+                settings.theme
+            );
 
-        console.error(error);
+            if (setMode) {
+                setMode(settings.theme);
+            }
 
-        alert("Unable to save settings.");
+            Swal.fire({
 
-    }
+                icon: "success",
 
-};
+                title: "Settings Saved!",
 
-    const resetSettings = () => {
+                text: "Your preferences have been updated successfully.",
 
-        if(window.confirm("Reset all settings to default?")){
+                confirmButtonColor: "#1976D2",
 
-            setSettings({
+                timer: 2200,
 
-                theme: "light",
+                showConfirmButton: false
 
-                emailNotifications: true,
+            });
 
-                leakAlerts: true,
+        } catch (error) {
 
-                billingAlerts: true,
+            console.error(error);
 
-                waterUsageAlerts: true,
+            Swal.fire({
 
-                twoFactor: false,
+                icon: "error",
 
-                autoLogout: true,
+                title: "Unable to Save",
 
-                sessionTimeout: 30,
-
-                tariffPlan: "Standard",
-
-                billingCycle: "Monthly",
-
-                waterUnit: "KL",
-
-                currency: "INR"
+                text: "Please try again later."
 
             });
 
@@ -124,400 +181,550 @@ useEffect(() => {
 
     };
 
-    const backupDatabase = () => {
+    const resetSettings = () => {
 
-        alert("Database Backup Started.");
+        Swal.fire({
+
+            title: "Reset Settings?",
+
+            text: "Restore all settings to default values?",
+
+            icon: "warning",
+
+            showCancelButton: true,
+
+            confirmButtonText: "Reset",
+
+            confirmButtonColor: "#1976D2",
+
+            cancelButtonColor: "#d33"
+
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+
+                setSettings({
+
+                    theme: "light",
+
+                    language: "English",
+
+                    emailNotifications: true,
+
+                    billingAlerts: true,
+
+                    waterUsageAlerts: true,
+
+                    leakAlerts: true,
+
+                    twoFactorEnabled: false,
+
+                    autoLogout: true,
+
+                    sessionTimeout: 30,
+
+                    tariffPlan: "Standard",
+
+                    billingCycle: "Monthly",
+
+                    waterUnit: "KL",
+
+                    currency: "INR",
+
+                    dailyThreshold: 500
+
+                });
+
+                Swal.fire(
+
+                    "Reset Complete",
+
+                    "Default settings restored.",
+
+                    "success"
+
+                );
+
+            }
+
+        });
 
     };
+
+    const backupDatabase = () => {
+
+        Swal.fire({
+
+            icon: "info",
+
+            title: "Backup Started",
+
+            text: "Database backup has been initiated."
+
+        });
+
+    };
+
     return (
+        <>
+    <Navbar />
 
-<>
+    <div className="pageContainer">
 
-<Navbar />
+        <Sidebar />
 
-<div className="pageContainer">
+        <div className="mainContent">
 
-    <Sidebar />
+            {/* ================= Header ================= */}
 
-    <div className="mainContent">
+            <div className="pageHeader">
 
-        {/* ================= Header ================= */}
+                <div>
 
-        <div className="pageHeader">
+                    <h1>⚙️ Settings</h1>
 
-            <div>
+                    <p>
 
-                <h1>⚙️ Settings</h1>
+                        Configure AquaTrack preferences, notifications,
+                        security and water management settings.
 
-                <p>
-                    Configure AquaTrack preferences, security, notifications, and system settings.
-                </p>
-
-            </div>
-
-        </div>
-
-        {/* ================= Appearance ================= */}
-
-        <div className="settingsCard">
-
-            <h2>🌙 Appearance</h2>
-
-            <div className="formGrid">
-
-                <div className="formGroup">
-
-                    <label>Theme</label>
-
-                    <select
-                        name="theme"
-                        value={settings.theme}
-                        onChange={handleChange}
-                    >
-
-                        <option value="light">Light</option>
-
-                        <option value="dark">Dark</option>
-
-                        <option value="system">System Default</option>
-
-                    </select>
+                    </p>
 
                 </div>
 
             </div>
 
-        </div>
+            {/* ================= Appearance ================= */}
 
-        {/* ================= Notifications ================= */}
+            <div className="settingsCard">
 
-        <div className="settingsCard">
+                <h2>🌙 Appearance</h2>
 
-            <h2>🔔 Notifications</h2>
+                <div className="formGrid">
 
-            <div className="toggleGroup">
+                    <div className="formGroup">
 
-                <label>
+                        <label>Theme</label>
 
-                    <input
-                        type="checkbox"
-                        name="emailNotifications"
-                        checked={settings.emailNotifications}
-                        onChange={handleChange}
-                    />
+                        <select
+                            name="theme"
+                            value={settings.theme}
+                            onChange={handleChange}
+                        >
 
-                    Email Notifications
+                            <option value="light">
+                                Light
+                            </option>
 
-                </label>
+                            <option value="dark">
+                                Dark
+                            </option>
 
-                <label>
+                            <option value="system">
+                                System Default
+                            </option>
 
-                    <input
-                        type="checkbox"
-                        name="billingAlerts"
-                        checked={settings.billingAlerts}
-                        onChange={handleChange}
-                    />
+                        </select>
 
-                    Billing Alerts
+                    </div>
 
-                </label>
+                    <div className="formGroup">
 
-                <label>
+                        <label>Language</label>
 
-                    <input
-                        type="checkbox"
-                        name="waterUsageAlerts"
-                        checked={settings.waterUsageAlerts}
-                        onChange={handleChange}
-                    />
+                        <select
+                            name="language"
+                            value={settings.language}
+                            onChange={handleChange}
+                        >
 
-                    Water Usage Alerts
+                            <option value="English">
+                                English
+                            </option>
 
-                </label>
+                            <option value="తెలుగు">
+                                Telugu
+                            </option>
 
-                <label>
+                            <option value="Hindi">
+                                Hindi
+                            </option>
 
-                    <input
-                        type="checkbox"
-                        name="leakAlerts"
-                        checked={settings.leakAlerts}
-                        onChange={handleChange}
-                    />
+                        </select>
 
-                    Leak Detection Alerts
-
-                </label>
-
-            </div>
-
-        </div>
-
-        {/* ================= Security ================= */}
-
-        <div className="settingsCard">
-
-            <h2>🔒 Security</h2>
-
-            <div className="formGrid">
-
-                <label className="checkboxLabel">
-
-                    <input
-                        type="checkbox"
-                        name="twoFactor"
-                        checked={settings.twoFactor}
-                        onChange={handleChange}
-                    />
-
-                    Enable Two-Factor Authentication
-
-                </label>
-
-                <label className="checkboxLabel">
-
-                    <input
-                        type="checkbox"
-                        name="autoLogout"
-                        checked={settings.autoLogout}
-                        onChange={handleChange}
-                    />
-
-                    Enable Auto Logout
-
-                </label>
-
-                <div className="formGroup">
-
-                    <label>Session Timeout (Minutes)</label>
-
-                    <input
-                        type="number"
-                        name="sessionTimeout"
-                        value={settings.sessionTimeout}
-                        onChange={handleChange}
-                        min="5"
-                    />
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+            {/* ================= Notifications ================= */}
 
-        {/* ================= Water Configuration ================= */}
+            <div className="settingsCard">
 
-        <div className="settingsCard">
+                <h2>🔔 Notifications</h2>
 
-            <h2>💧 Water Configuration</h2>
+                <div className="toggleGroup">
 
-            <div className="formGrid">
+                    <label>
 
-                <div className="formGroup">
+                        <input
+                            type="checkbox"
+                            name="emailNotifications"
+                            checked={settings.emailNotifications}
+                            onChange={handleChange}
+                        />
 
-                    <label>Default Tariff Plan</label>
+                        Email Notifications
 
-                    <select
-                        name="tariffPlan"
-                        value={settings.tariffPlan}
-                        onChange={handleChange}
-                    >
+                    </label>
 
-                        <option>Standard</option>
+                    <label>
 
-                        <option>Premium</option>
+                        <input
+                            type="checkbox"
+                            name="billingAlerts"
+                            checked={settings.billingAlerts}
+                            onChange={handleChange}
+                        />
 
-                        <option>Commercial</option>
+                        Billing Alerts
 
-                    </select>
+                    </label>
 
-                </div>
+                    <label>
 
-                <div className="formGroup">
+                        <input
+                            type="checkbox"
+                            name="waterUsageAlerts"
+                            checked={settings.waterUsageAlerts}
+                            onChange={handleChange}
+                        />
 
-                    <label>Billing Cycle</label>
+                        Water Usage Alerts
 
-                    <select
-                        name="billingCycle"
-                        value={settings.billingCycle}
-                        onChange={handleChange}
-                    >
+                    </label>
 
-                        <option>Monthly</option>
+                    <label>
 
-                        <option>Quarterly</option>
+                        <input
+                            type="checkbox"
+                            name="leakAlerts"
+                            checked={settings.leakAlerts}
+                            onChange={handleChange}
+                        />
 
-                        <option>Yearly</option>
+                        Leak Detection Alerts
 
-                    </select>
-
-                </div>
-
-                <div className="formGroup">
-
-                    <label>Water Unit</label>
-
-                    <select
-                        name="waterUnit"
-                        value={settings.waterUnit}
-                        onChange={handleChange}
-                    >
-
-                        <option>KL</option>
-
-                        <option>Litres</option>
-
-                        <option>Cubic Meter</option>
-
-                    </select>
-
-                </div>
-
-                <div className="formGroup">
-
-                    <label>Currency</label>
-
-                    <select
-                        name="currency"
-                        value={settings.currency}
-                        onChange={handleChange}
-                    >
-
-                        <option>INR</option>
-
-                        <option>USD</option>
-
-                        <option>EUR</option>
-
-                    </select>
+                    </label>
 
                 </div>
 
             </div>
 
-        </div>
-                {/* ================= System Information ================= */}
+            {/* ================= Security ================= */}
 
-        <div className="settingsCard">
+            <div className="settingsCard">
 
-            <h2>ℹ️ System Information</h2>
+                <h2>🔒 Security</h2>
 
-            <div className="systemGrid">
+                <div className="formGrid">
 
-                <div className="systemItem">
+                    <label className="checkboxLabel">
 
-                    <span>Application</span>
+                        <input
+                            type="checkbox"
+                            name="twoFactorEnabled"
+                            checked={settings.twoFactorEnabled}
+                            onChange={handleChange}
+                        />
 
-                    <strong>AquaTrack</strong>
+                        Enable Two-Factor Authentication
 
-                </div>
+                    </label>
 
-                <div className="systemItem">
+                    <label className="checkboxLabel">
 
-                    <span>Version</span>
+                        <input
+                            type="checkbox"
+                            name="autoLogout"
+                            checked={settings.autoLogout}
+                            onChange={handleChange}
+                        />
 
-                    <strong>v1.0.0</strong>
+                        Enable Auto Logout
 
-                </div>
+                    </label>
 
-                <div className="systemItem">
+                    <div className="formGroup">
 
-                    <span>Environment</span>
+                        <label>
 
-                    <strong>Production</strong>
+                            Session Timeout (Minutes)
 
-                </div>
+                        </label>
 
-                <div className="systemItem">
+                        <input
+                            type="number"
+                            name="sessionTimeout"
+                            value={settings.sessionTimeout}
+                            onChange={handleChange}
+                        />
 
-                    <span>Database</span>
-
-                    <strong>PostgreSQL</strong>
-
-                </div>
-
-                <div className="systemItem">
-
-                    <span>Backend</span>
-
-                    <strong>Spring Boot</strong>
-
-                </div>
-
-                <div className="systemItem">
-
-                    <span>Frontend</span>
-
-                    <strong>React + Vite</strong>
+                    </div>
 
                 </div>
 
             </div>
 
+            {/* ================= Water Configuration ================= */}
+
+            <div className="settingsCard">
+
+                <h2>💧 Water Configuration</h2>
+
+                <div className="formGrid">
+
+                    <div className="formGroup">
+
+                        <label>
+
+                            Daily Water Threshold
+
+                        </label>
+
+                        <input
+                            type="number"
+                            name="dailyThreshold"
+                            value={settings.dailyThreshold}
+                            onChange={handleChange}
+                        />
+
+                    </div>
+
+                    <div className="formGroup">
+
+                        <label>
+
+                            Tariff Plan
+
+                        </label>
+
+                        <select
+                            name="tariffPlan"
+                            value={settings.tariffPlan}
+                            onChange={handleChange}
+                        >
+
+                            <option>
+                                Standard
+                            </option>
+
+                            <option>
+                                Premium
+                            </option>
+
+                            <option>
+                                Commercial
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div className="formGroup">
+
+                        <label>
+
+                            Billing Cycle
+
+                        </label>
+
+                        <select
+                            name="billingCycle"
+                            value={settings.billingCycle}
+                            onChange={handleChange}
+                        >
+
+                            <option>
+                                Monthly
+                            </option>
+
+                            <option>
+                                Quarterly
+                            </option>
+
+                            <option>
+                                Yearly
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div className="formGroup">
+
+                        <label>
+
+                            Water Unit
+
+                        </label>
+
+                        <select
+                            name="waterUnit"
+                            value={settings.waterUnit}
+                            onChange={handleChange}
+                        >
+
+                            <option>
+                                KL
+                            </option>
+
+                            <option>
+                                Litres
+                            </option>
+
+                            <option>
+                                Cubic Meter
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div className="formGroup">
+
+                        <label>
+
+                            Currency
+
+                        </label>
+
+                        <select
+                            name="currency"
+                            value={settings.currency}
+                            onChange={handleChange}
+                        >
+
+                            <option>
+                                INR
+                            </option>
+
+                            <option>
+                                USD
+                            </option>
+
+                            <option>
+                                EUR
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {/* ================= System Information ================= */}
+            {/* ================= System Information ================= */}
+
+<div className="settingsCard">
+
+    <h2>ℹ️ System Information</h2>
+
+    <div className="systemGrid">
+
+        <div className="systemItem">
+            <span>Application</span>
+            <strong>AquaTrack</strong>
         </div>
 
-        {/* ================= Action Buttons ================= */}
-
-        <div className="settingsActions">
-
-            <button
-                className="primaryBtn"
-                onClick={saveSettings}
-            >
-                💾 Save Settings
-            </button>
-
-            <button
-                className="warningBtn"
-                onClick={resetSettings}
-            >
-                🔄 Reset Defaults
-            </button>
-
-            <button
-                className="successBtn"
-                onClick={backupDatabase}
-            >
-                💽 Backup Database
-            </button>
-
+        <div className="systemItem">
+            <span>Version</span>
+            <strong>v1.0.0</strong>
         </div>
 
-        {/* ================= Footer ================= */}
+        <div className="systemItem">
+            <span>Environment</span>
+            <strong>Production</strong>
+        </div>
 
-        <div className="settingsFooter">
+        <div className="systemItem">
+            <span>Database</span>
+            <strong>PostgreSQL</strong>
+        </div>
 
-            <h2>AquaTrack</h2>
+        <div className="systemItem">
+            <span>Backend</span>
+            <strong>Spring Boot</strong>
+        </div>
 
-            <p>
-
-                Smart Apartment Water Management System
-
-            </p>
-
-            <p>
-
-                Configure • Secure • Manage
-
-            </p>
-
-            <hr />
-
-            <p>
-
-                © 2026 AquaTrack. All Rights Reserved.
-
-            </p>
-
+        <div className="systemItem">
+            <span>Frontend</span>
+            <strong>React + Vite</strong>
         </div>
 
     </div>
 
 </div>
 
+{/* ================= Action Buttons ================= */}
+
+<div className="settingsActions">
+
+    <button
+        className="primaryBtn"
+        onClick={saveSettings}
+    >
+        💾 Save Settings
+    </button>
+
+    <button
+        className="warningBtn"
+        onClick={resetSettings}
+    >
+        🔄 Reset Defaults
+    </button>
+
+    <button
+        className="successBtn"
+        onClick={backupDatabase}
+    >
+        💽 Backup Database
+    </button>
+
+</div>
+
+{/* ================= Footer ================= */}
+
+<div className="settingsFooter">
+
+    <h2>AquaTrack</h2>
+
+    <p>
+        Smart Apartment Water Management System
+    </p>
+
+    <p>
+        Configure • Secure • Manage
+    </p>
+
+    <hr />
+
+    <p>
+        © 2026 AquaTrack. All Rights Reserved.
+    </p>
+
+</div>
+
+        </div>
+
+    </div>
+
 </>
 
-);
+    );
 
 }
 

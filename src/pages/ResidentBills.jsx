@@ -10,6 +10,13 @@ import {
   Avatar,
   Chip,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
 } from "@mui/material";
 
 import ReceiptLongRoundedIcon from "@mui/icons-material/ReceiptLongRounded";
@@ -37,6 +44,10 @@ const [summary, setSummary] = useState({
 });
 const [loading, setLoading] = useState(true);
 const [bills, setBills] = useState([]);
+const [paymentOpen, setPaymentOpen] = useState(false);
+const [paymentMethod, setPaymentMethod] = useState("UPI");
+const [paymentSuccess, setPaymentSuccess] = useState(false);
+
 
 const summaryCards = currentBill
   ? [
@@ -156,6 +167,33 @@ const downloadInvoice = async () => {
 
   }
 
+};
+const openPaymentDialog = () => {
+  setPaymentOpen(true);
+};
+
+const closePaymentDialog = () => {
+  setPaymentOpen(false);
+};
+const handlePayNow = async () => {
+  if (!currentBill) return;
+
+  try {
+    await api.put(`/api/billing-cycles/${currentBill.id}/pay`);
+
+    setPaymentOpen(false);
+
+    setPaymentSuccess(true);
+
+    fetchBills();
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Payment Failed");
+
+  }
 };
 
   return (
@@ -541,19 +579,20 @@ const downloadInvoice = async () => {
                 </Grid>
 
                 <Button
-                  variant="contained"
-                  size="large"
-                  sx={{
-                    mt: 6,
-                    px: 5,
-                    py: 1.6,
-                    borderRadius: "14px",
-                    textTransform: "none",
-                    fontWeight: 800,
-                  }}
-                >
-                  Pay Now
-                </Button>
+  variant="contained"
+  size="large"
+  onClick={handlePayNow}
+  sx={{
+    mt: 6,
+    px: 5,
+    py: 1.6,
+    borderRadius: "14px",
+    textTransform: "none",
+    fontWeight: 800,
+  }}
+>
+  Pay Now
+</Button>
 
               </Paper>
 
@@ -1084,6 +1123,106 @@ const downloadInvoice = async () => {
             </Grid>
 
           </Grid>
+          <Dialog
+  open={paymentOpen}
+  onClose={closePaymentDialog}
+  maxWidth="xs"
+  fullWidth
+>
+  <DialogTitle>
+    Select Payment Method
+  </DialogTitle>
+
+  <DialogContent>
+
+    <RadioGroup
+      value={paymentMethod}
+      onChange={(e) =>
+        setPaymentMethod(e.target.value)
+      }
+    >
+
+      <FormControlLabel
+        value="UPI"
+        control={<Radio />}
+        label="UPI"
+      />
+
+      <FormControlLabel
+        value="Card"
+        control={<Radio />}
+        label="Credit / Debit Card"
+      />
+
+      <FormControlLabel
+        value="Net Banking"
+        control={<Radio />}
+        label="Net Banking"
+      />
+
+    </RadioGroup>
+
+  </DialogContent>
+
+  <DialogActions>
+
+    <Button onClick={closePaymentDialog}>
+      Cancel
+    </Button>
+
+    <Button
+      variant="contained"
+      onClick={handlePayNow}
+    >
+      Pay ₹{currentBill?.totalAmount}
+    </Button>
+
+  </DialogActions>
+
+</Dialog>
+
+<Dialog
+  open={paymentSuccess}
+  onClose={() => setPaymentSuccess(false)}
+>
+
+  <DialogContent
+    sx={{
+      textAlign: "center",
+      py: 5,
+    }}
+  >
+
+    <Typography
+      sx={{
+        fontSize: 60,
+      }}
+    >
+      ✅
+    </Typography>
+
+    <Typography
+      sx={{
+        mt: 2,
+        fontWeight: 800,
+      }}
+    >
+      Payment Successful
+    </Typography>
+
+    <Button
+      sx={{ mt: 3 }}
+      variant="contained"
+      onClick={() =>
+        setPaymentSuccess(false)
+      }
+    >
+      OK
+    </Button>
+
+  </DialogContent>
+
+</Dialog>
 
         </Container>
 

@@ -23,7 +23,7 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   {
-    name: "Rahul Sharma",
+    name: "Anu",
     role: "Apartment Manager",
     initials: "RS",
     rating: 5,
