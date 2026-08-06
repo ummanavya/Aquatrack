@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// ================= PUBLIC PAGES =================
+// ================= PUBLIC =================
 import Welcome from "./pages/Welcome";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 
-// ================= ADMIN PAGES =================
+// ================= ADMIN =================
 import AdminDashboard from "./pages/AdminDashboard";
 import Apartments from "./pages/Apartments";
 import Households from "./pages/Households";
@@ -18,7 +18,7 @@ import Alerts from "./pages/Alerts";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 
-// ================= RESIDENT PAGES =================
+// ================= RESIDENT =================
 import ResidentDashboard from "./pages/ResidentDashboard";
 import ResidentProfile from "./pages/ResidentProfile";
 import ResidentWaterUsage from "./pages/ResidentWaterUsage";
@@ -29,23 +29,22 @@ import Community from "./pages/Community";
 import Support from "./pages/Support";
 import ResidentSettings from "./pages/ResidentSettings";
 
-export default function App() {
+export default function App({ mode, setMode }) {
+
   useEffect(() => {
     document.body.style.overflow = "auto";
     document.documentElement.style.overflow = "auto";
   }, []);
 
   return (
+
     <Routes>
 
-      {/* ================= PUBLIC ================= */}
+      {/* PUBLIC */}
 
       <Route path="/" element={<Welcome />} />
 
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Route path="/login" element={<Login />} />
 
       <Route
         path="/create-account"
@@ -57,7 +56,7 @@ export default function App() {
         element={<ForgotPassword />}
       />
 
-      {/* ================= ADMIN ================= */}
+      {/* ADMIN */}
 
       <Route
         path="/admin-dashboard"
@@ -101,10 +100,15 @@ export default function App() {
 
       <Route
         path="/settings"
-        element={<Settings />}
+        element={
+          <Settings
+            mode={mode}
+            setMode={setMode}
+          />
+        }
       />
 
-      {/* ================= RESIDENT ================= */}
+      {/* RESIDENT */}
 
       <Route
         path="/resident-dashboard"
@@ -148,7 +152,12 @@ export default function App() {
 
       <Route
         path="/resident-settings"
-        element={<ResidentSettings />}
+        element={
+          <ResidentSettings
+            mode={mode}
+            setMode={setMode}
+          />
+        }
       />
 
     </Routes>

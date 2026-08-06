@@ -240,3 +240,103 @@
     }
 
 }
+/* ================= DARK THEME ================= */
+
+body.dark-theme {
+
+    background: #0F172A;
+    color: #F8FAFC;
+
+}
+
+body.dark-theme .settingsCard {
+
+    background: #1E293B;
+    color: #F8FAFC;
+
+}
+
+body.dark-theme .settingsCard h2 {
+
+    color: #60A5FA;
+
+}
+
+body.dark-theme .formGroup label {
+
+    color: #CBD5E1;
+
+}
+
+body.dark-theme .formGroup input,
+body.dark-theme .formGroup select {
+
+    background: #334155;
+    color: #F8FAFC;
+    border: 1px solid #475569;
+
+}
+
+body.dark-theme .formGroup input:focus,
+body.dark-theme .formGroup select:focus {
+
+    border-color: #60A5FA;
+
+}
+
+body.dark-theme .toggleGroup label,
+body.dark-theme .checkboxLabel {
+
+    color: #F8FAFC;
+
+}
+
+body.dark-theme .toggleGroup label:hover,
+body.dark-theme .checkboxLabel:hover {
+
+    background: #334155;
+
+}
+
+body.dark-theme .systemItem {
+
+    background: #334155;
+    border-left: 5px solid #60A5FA;
+
+}
+
+body.dark-theme .systemItem span {
+
+    color: #CBD5E1;
+
+}
+
+body.dark-theme .systemItem strong {
+
+    color: #FFFFFF;
+
+}
+
+body.dark-theme .primaryBtn {
+
+    background: #2563EB;
+
+}
+
+body.dark-theme .successBtn {
+
+    background: #16A34A;
+
+}
+
+body.dark-theme .warningBtn {
+
+    background: #EA580C;
+
+}
+
+body.dark-theme .settingsFooter {
+
+    background: linear-gradient(135deg,#1D4ED8,#2563EB);
+
+}

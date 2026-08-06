@@ -107,7 +107,7 @@ export default function CommunitySpotlight() {
                 sx={{
                   fontSize: 30,
                   fontWeight: 900,
-                  color: "#0F172A",
+                  color: "text.primary",
                 }}
               >
                 Community Leaderboard
@@ -117,7 +117,7 @@ export default function CommunitySpotlight() {
 
             <Typography
               sx={{
-                color: "#64748B",
+                color: "text.secondary",
               }}
             >
               Top residents leading water conservation this month.
@@ -175,7 +175,7 @@ export default function CommunitySpotlight() {
                   transition: ".35s",
 
                   "&:hover": {
-                    bgcolor: "#FFFFFF",
+                    bgcolor: "background.paper",
                     boxShadow:
                       "0 15px 35px rgba(25,118,210,.12)",
                   },
@@ -209,7 +209,7 @@ export default function CommunitySpotlight() {
                       sx={{
                         fontWeight: 800,
                         fontSize: 18,
-                        color: "#0F172A",
+                        color: "text.primary",
                       }}
                     >
                       {leader.name}
@@ -217,7 +217,7 @@ export default function CommunitySpotlight() {
 
                     <Typography
                       sx={{
-                        color: "#64748B",
+                        color: "text.secondary",
                       }}
                     >
                       Apartment {leader.house}
@@ -252,7 +252,7 @@ export default function CommunitySpotlight() {
                     sx={{
                       mt: 1,
                       bgcolor: `${leader.color}20`,
-                      color: "#0F172A",
+                      color: "text.primary",
                       fontWeight: 700,
                     }}
                   />

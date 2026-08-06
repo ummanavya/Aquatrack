@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "../styles/settings.css";
 
-function Settings() {
+function Settings({ mode, setMode }) {
 
     const [settings, setSettings] = useState({
 
@@ -65,11 +65,28 @@ useEffect(() => {
 
     };
 
-    const saveSettings = () => {
+    const saveSettings = async () => {
+
+    try {
+
+        // Call your backend here if you're already doing that
+        // await api.put("/api/settings", ...);
+
+        localStorage.setItem("theme", settings.theme);
+
+        setMode(settings.theme);
 
         alert("Settings Saved Successfully!");
 
-    };
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to save settings.");
+
+    }
+
+};
 
     const resetSettings = () => {
 

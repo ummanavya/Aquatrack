@@ -4,51 +4,28 @@
 
 
 .navbar{
-
-
-    
-
-
-    background:white!important;
-
-left:270px !important;
-
-width:calc(100% - 270px) !important;
-    box-shadow:
-    0 5px 20px rgba(0,0,0,.08)!important;
-
-
-    z-index:1000!important;
-
-
+    position: fixed;
+    top: 0;
+    left: 270px;
+    width: calc(100% - 270px);
+    height: 75px;
+    background: white !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+    z-index: 1200;
 }
 
 
 
 /* TOOLBAR */
 
-
 .navbar-toolbar{
-
-
     height:75px;
-
-
     min-height:75px!important;
-
-
-    padding:0 30px!important;
-
-
     display:flex;
-
-
     align-items:center;
-
-
     justify-content:space-between;
-
-
+    gap:20px;
+    padding:0 25px!important;
 }
 
 
@@ -56,19 +33,7 @@ width:calc(100% - 270px) !important;
 /* SEARCH */
 
 
-.navbar-search{
 
-
-    flex:1;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-}
 
 
 
@@ -110,19 +75,7 @@ width:calc(100% - 270px) !important;
 /* RIGHT SIDE */
 
 
-.navbar-right{
 
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    gap:15px;
-
-
-}
 
 
 

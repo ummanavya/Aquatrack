@@ -64,10 +64,15 @@ export default function Navbar() {
   });
 
   return (
-    <AppBar className="top-navbar" elevation={0}>
+    <AppBar className="navbar" elevation={0}>
       <Toolbar className="navbar-toolbar">
-
-        <Box className="navbar-left">
+<Box
+  className="navbar-left"
+  sx={{
+    width: "260px",
+    minWidth: "260px",
+  }}
+>
           <Typography className="navbar-title">
             {t("dashboardTitle")}
           </Typography>
@@ -77,29 +82,41 @@ export default function Navbar() {
           </Typography>
         </Box>
 
-        <Box className="navbar-center">
-          <TextField
-            placeholder={t("search")}
-            size="small"
-            className="navbar-search"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-          />
+      <Box
+  className="navbar-center"
+  sx={{
+    flex: 1,
+    display: "flex",
+    justifyContent: "center",
+  }}
+>
+         <TextField
+  placeholder={t("search")}
+  size="small"
+  sx={{
+    width: 420,
+    background: "#f4f7fc",
+    borderRadius: "30px",
+  }}
+  InputProps={{
+    startAdornment: (
+      <InputAdornment position="start">
+        <Search />
+      </InputAdornment>
+    ),
+  }}
+/>
         </Box>
 
         <Box
-          className="navbar-right"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    gap: 2,
+    minWidth: "280px",
+    justifyContent: "flex-end",
+  }}
+>
           {/* Language Selector */}
 
           <FormControl size="small">
